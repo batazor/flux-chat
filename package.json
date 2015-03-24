@@ -1,0 +1,56 @@
+{
+  "name": "flux-chat",
+  "version": "0.0.1",
+  "description": "Chat.",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "gulp build",
+    "start": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:batazor/flux-chat.git"
+  },
+  "keywords": [
+    "chat",
+    "node.js",
+    "flux",
+    "reactjs"
+  ],
+  "author": "batazor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/batazor/flux-chat/issues"
+  },
+  "homepage": "https://github.com/batazor/flux-chat",
+  "dependencies": {
+    "express": "^4.12.3",
+    "flux": "^2.0.1",
+    "jade": "^1.9.2",
+    "mongoose": "^3.8.25",
+    "node-jsx": "^0.12.4",
+    "react": "^0.13.1",
+    "socket.io": "^1.3.5",
+    "underscore": "^1.8.2"
+  },
+  "devDependencies": {
+    "browserify": "~6.2.0",
+    "envify": "~3.0.0",
+    "gulp": "^3.8.11",
+    "gulp-html-replace": "^1.4.4",
+    "gulp-livereload": "^3.8.0",
+    "gulp-streamify": "0.0.5",
+    "gulp-uglify": "^1.1.0",
+    "react": "^0.12.0",
+    "reactify": "^0.15",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "~2.1.0"
+  },
+  "browserify": {
+    "transform": [
+      "reactify",
+      "envify"
+    ]
+  }
+}

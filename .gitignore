@@ -1,0 +1,11 @@
+# Logs
+logs
+*.log
+
+# Developers file
+
+# Compiled binary addons
+build.min.js
+
+# Dependency directory
+node_modules
