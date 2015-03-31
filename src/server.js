@@ -10,7 +10,7 @@ var app = express();
 var port = process.env.PORT || 8080;
 
 // set up our express application
-app.use(express.static(__dirname));
+app.use(express.static(__dirname + '/build/'));
 
 // Set templating engine
 app.set('views', path.join(__dirname, './templates'));

@@ -7,13 +7,17 @@ var gulp = require('gulp'),                  // Gulp JS
     browserify = require('browserify'),
     watchify = require('watchify'),
     reactify = require('reactify'),          // React Build
+    reactjade = require('react-jade'),
     concat = require('gulp-concat'),         // Concat
     browserSync = require('browser-sync'),   // Browser Sync
     nodemon = require('gulp-nodemon'),       // Node.js Server
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),  // Minification CSS
+    uglify = require('gulp-uglify'),         // Minification JS
+    gzip = require('gulp-gzip'),             // Compress
     notify = require('gulp-notify'),         // Logging
     plumber = require('gulp-plumber'),       // Not error
+    util = require('gulp-util'),
     del = require('del');                    // Delete files/folders using globs
 
 // =============================================================================
@@ -32,9 +36,10 @@ path = {
 };
 
 watch = {
+  jade:   path.src + '/components/**/*.jade',
   app:    path.src + '/app.jsx',
   css:    path.css + '/*.css',
-  styl: path.css + '/*.styl',
+  styl:   path.css + '/*.styl',
   sass:   path.css + '/*.sass',
   js:     path.js  + '/*.js',
   img:    path.img + '/**/*',
@@ -45,6 +50,24 @@ public = {
   font: "./src/build/font/",
   all: "./src/build/"
 };
+
+build = {
+  js: public.all + "*.js",
+};
+
+// =============================================================================
+// Utils =======================================================================
+// =============================================================================
+// Standard handler
+function standardHandler(err){
+  util.log(util.colors.red('Error'), err.message);
+}
+
+// Handler for browserify
+function browserifyHandler(err){
+  standardHandler(err);
+  this.end();
+}
 
 // =============================================================================
 // Tasks =======================================================================
@@ -57,6 +80,16 @@ gulp.task('clean', function(cb) {
 // Sync the File
 gulp.task('transfer', function() {
   gulp.src([path.font + '/**']).pipe(gulp.dest(public.font));
+});
+
+// Compress thr File
+gulp.task('compress', function() {
+    gulp.src(build.js)
+    .pipe(plumber())
+    .pipe(uglify())
+    .pipe(gzip())
+    .pipe(gulp.dest(public.all))
+    .pipe(notify({ message: 'Minification and compress build.js' }));
 });
 
 // Build Stylus
@@ -95,26 +128,27 @@ gulp.task('js', function() {
 
 // Build bundle.js
 gulp.task('browserify', function() {
-    var bundler = browserify({
-        entries: [watch.app],
-        transform: [reactify],
-        debug: true,
-        cache: {}, packageCache: {}, fullPaths: true
-    });
-    var watcher  = watchify(bundler);
+  var bundler = browserify({
+      entries: [watch.app],
+      transform: [reactify, reactjade],
+      debug: true,
+      cache: {}, packageCache: {}, fullPaths: true
+  });
+  var watcher  = watchify(bundler);
 
-    return watcher
-      .on('update', function () {
-          var updateStart = Date.now();
-          watcher.bundle()
-            .pipe(plumber())
-            .pipe(source('build-react.js'))
-            .pipe(gulp.dest(path.js));
-      })
-      .bundle()
-      .pipe(source('build-react.js'))
-      .pipe(gulp.dest(path.js))
-      .pipe(notify({message: 'Update React JS' }));
+  return watcher
+    .on('update', function () {
+      var updateStart = Date.now();
+      watcher.bundle()
+        .on('error', browserifyHandler)
+        .pipe(source('build-react.js'))
+        .pipe(gulp.dest(path.js));
+    })
+    .bundle()
+    .on('error', browserifyHandler)
+    .pipe(source('build-react.js'))
+    .pipe(gulp.dest(path.js))
+    .pipe(notify({message: 'Update React JS' }));
 });
 
 // Nodemon
@@ -153,6 +187,7 @@ gulp.task('watch', ['browserify'], function() {
   gulp.watch(watch.js, ['js']);
   gulp.watch(watch.styl, ['stylus']);
   gulp.watch(watch.css, ['css']);
+  gulp.watch(watch.jade, ['browserify']);
 });
 
 // =============================================================================
@@ -163,4 +198,4 @@ gulp.task('default', ['transfer', 'watch', 'browser-sync']);
 // =============================================================================
 // Build =======================================================================
 // =============================================================================
-gulp.task('build', ['clean', 'default']);
+gulp.task('build', ['clean', 'stylus', 'css', 'browserify', 'js', 'compress']);
