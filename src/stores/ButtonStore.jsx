@@ -1,6 +1,6 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
+var AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
 var EventEmitter = require('events').EventEmitter;
-var ButtonConstants = require('../constants/ButtonConstants');
+var ButtonConstants = require('../constants/ButtonConstants.jsx');
 var _ = require('underscore');
 
 // Add value button

@@ -1,6 +1,6 @@
 var React = require('react');
-var TestButtonActions = require('../actions/TestButtonActions');
-var ButtonStore = require('../stores/ButtonStore');
+var TestButtonActions = require('../actions/TestButtonActions.jsx');
+var ButtonStore = require('../stores/ButtonStore.jsx');
 
 // Method to retrieve state from Stores
 function getButtonState() {
@@ -28,7 +28,7 @@ var HelloWorld = React.createClass({
   render: function() {
     return (
       <div className="test">
-        <h1>Hello, world!</h1>
+        <h1>Hello, world !</h1>
         <button type="button" onClick={this.addCount}>ADD COUNT</button>
         <p>Value: { this.state.value }</p>
       </div>

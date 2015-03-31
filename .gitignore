@@ -2,10 +2,9 @@
 logs
 *.log
 
-# Developers file
-
-# Compiled binary addons
-build.min.js
+# Build
+src/build
+src/assets/**/build*
 
 # Dependency directory
 node_modules

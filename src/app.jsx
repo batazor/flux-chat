@@ -1,5 +1,5 @@
 var React = require('react');
-var HelloWorld = require('./components/HelloWorld.react');
+var HelloWorld = require('./components/HelloWorld.react.jsx');
 
 React.render(
   <HelloWorld />,

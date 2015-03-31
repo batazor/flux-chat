@@ -1,5 +1,5 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var ButtonConstants = require('../constants/ButtonConstants');
+var AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
+var ButtonConstants = require('../constants/ButtonConstants.jsx');
 
 // Define action methods
 var TestButtonActions = {
