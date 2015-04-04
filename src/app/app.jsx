@@ -7,6 +7,8 @@ var TemplateFooter = require('./components/template/TemplateFooter.react.jsx');
 // Page Component ==============================================================
 var WelcomePage = require('./components/welcome/WelcomePage.react.jsx');
 var AboutPage = require('./components/about/AboutPage.react.jsx');
+var LoginPage = require('./components/auth/LoginPage.react.jsx');
+var SignupPage = require('./components/auth/SignupPage.react.jsx');
 
 // Router setting ==============================================================
 var DefaultRoute = Router.DefaultRoute;
@@ -23,6 +25,8 @@ var App = React.createClass({
 var routes = (
   <Route name="app" path="/" handler={App}>
     <Route path="/about" handler={AboutPage} />
+    <Route path="/login" handler={LoginPage} />
+    <Route path="/signup" handler={SignupPage} />
     <DefaultRoute handler={WelcomePage} />
   </Route>
 );

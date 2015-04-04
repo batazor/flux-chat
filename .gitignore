@@ -4,7 +4,8 @@ logs
 
 # Build
 src/build
-src/assets/**/build*
+src/app/assets/**/build*
+src/app/assets/**/bundle*
 
 # Dependency directory
 node_modules
