@@ -10,7 +10,7 @@ module.exports = {
   browserSync: {
     proxy: "http://localhost:8080/",
     port: 3000,
-    files: ['src/build/*.*']
+    files: [__dirname + '/../src/build/*.*']
   },
   nodemon: {
     script: './src/server.js',
@@ -21,10 +21,6 @@ module.exports = {
       __dirname + '/../src/build',
       __dirname + '/../src/app'
     ]
-  },
-  transfer: {
-    src: path.font + '/**',
-    dest: './src/build/font/'
   },
   stylus: {
     watch: path.css + '/*.styl',
@@ -44,7 +40,7 @@ module.exports = {
     bundleConfigs: [{
       entries: __dirname + '/../src/app/app.jsx',
       dest:    __dirname + '/../src/app/assets/js',
-      outputName: 'bundle-react.js'
+      outputName: 'build-react.js'
     }]
   }
 };

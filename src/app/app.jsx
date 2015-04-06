@@ -1,9 +1,19 @@
 var React = require('react');
 var Router = require('react-router');
+var injectTapEventPlugin = require("react-tap-event-plugin");
+
+// Needed for React Developer Tools
+window.React = React;
+
+// Needed for onTouchTap
+// Can go away when react 1.0 release
+// Check this repo:
+// https://github.com/zilverline/react-tap-event-plugin
+injectTapEventPlugin();
 
 // Teplate Component ===========================================================
-var TemplateHeader = require('./components/template/TemplateHeader.react.jsx');
-var TemplateFooter = require('./components/template/TemplateFooter.react.jsx');
+var Header = require('./components/template/Header.react.jsx');
+var Footer = require('./components/template/Footer.react.jsx');
 // Page Component ==============================================================
 var WelcomePage = require('./components/welcome/WelcomePage.react.jsx');
 var AboutPage = require('./components/about/AboutPage.react.jsx');
@@ -35,13 +45,13 @@ Router.run(routes, function (Handler) {
   React.render(
     <div>
       <div className='wrapper'>
-        <TemplateHeader />
+        <Header />
         <main>
           <Handler/>
         </main>
         <div className="push"></div>
       </div>
-      <TemplateFooter />
+      <Footer />
     </div>,
     document.body);
 });

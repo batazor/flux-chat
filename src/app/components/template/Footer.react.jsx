@@ -1,7 +1,6 @@
 var React = require('react');
-var Link = require('./Link.react.jsx');
 
-var TemplateFooter = React.createClass({
+var Footer = React.createClass({
   propTypes: {
     copyright: React.PropTypes.string
   },
@@ -16,9 +15,9 @@ var TemplateFooter = React.createClass({
         <div className="footer-copyright">
           <div className="container row">
             { this.props.copyright }
-            <Link />
-            <Link />
-            <Link />
+            <a className="grey-text text-lighten-4 offset-s1 right" href="http://batazor.ru/">batazor.ru</a>
+            <a className="grey-text text-lighten-4 offset-s1 right" href="https://github.com/batazor">github.com</a>
+            <a className="grey-text text-lighten-4 offset-s1 right" href="http://vk.com/batazor">vk.com</a>
           </div>
         </div>
       </footer>
@@ -26,4 +25,4 @@ var TemplateFooter = React.createClass({
   }
 });
 
-module.exports = TemplateFooter;
+module.exports = Footer;

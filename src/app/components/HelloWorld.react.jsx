@@ -1,6 +1,8 @@
 var React = require('react');
 var TestButtonActions = require('../actions/TestButtonActions.jsx');
 var ButtonStore = require('../stores/ButtonStore.jsx');
+var mui = require('material-ui');
+var FlatButton = mui.FlatButton;
 
 // Method to retrieve state from Stores
 function getButtonState() {
@@ -29,7 +31,7 @@ var HelloWorld = React.createClass({
     return (
       <div className="test">
         <h1>Hello, world !</h1>
-        <button type="button" onClick={this.addCount}>ADD COUNT</button>
+        <FlatButton onClick={this.addCount} label="ADD COUNT" />
         <p>Value: { this.state.value }</p>
       </div>
     );
