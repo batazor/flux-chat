@@ -1,5 +1,4 @@
 var React = require('react');
-var Icon = require('../UI/Icon.react.jsx');
 
 var Header = React.createClass({
   render: function() {
