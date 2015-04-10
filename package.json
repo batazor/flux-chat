@@ -15,7 +15,8 @@
     "chat",
     "node.js",
     "flux",
-    "reactjs"
+    "reactjs",
+    "i18n"
   ],
   "author": "batazor",
   "license": "ISC",
@@ -24,8 +25,9 @@
   },
   "homepage": "https://github.com/batazor/flux-chat",
   "dependencies": {
+    "babel-core": "^5.0.12",
+    "babel-loader": "^5.0.0",
     "browser-sync": "^2.5.3",
-    "browserify": "^9.0.7",
     "express": "^4.12.3",
     "flux": "^2.0.1",
     "gulp": "^3.8.11",
@@ -38,27 +40,18 @@
     "gulp-sourcemaps": "^1.5.1",
     "gulp-stylus": "^2.0.1",
     "gulp-util": "^3.0.4",
+    "gulp-webpack": "^1.3.2",
+    "intl": "^0.1.4",
     "jade": "^1.9.2",
     "materialize-css": "^0.96.1",
     "pretty-hrtime": "^1.0.0",
     "react": "^0.13.1",
     "react-document-title": "^1.0.2",
+    "react-intl": "^1.2.0",
     "react-router": "^0.13.2",
     "react-tap-event-plugin": "^0.1.6",
-    "reactify": "^1.1.0",
     "require-dir": "^0.3.0",
     "underscore": "^1.8.3",
-    "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.1.0"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "reactify",
-        {
-          "es6": true
-        }
-      ]
-    ]
+    "webpack": "^1.8.4"
   }
 }

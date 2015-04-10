@@ -15,11 +15,12 @@ module.exports = {
   nodemon: {
     script: './src/server.js',
     ignore: [
-      __dirname + '/../node_modules/',
-      __dirname + '/tasks',
+      __dirname + '/../node_modules',
       __dirname + '/../*.*',
       __dirname + '/../src/build',
-      __dirname + '/../src/app'
+      __dirname + '/../src/app',
+      __dirname + '/../test',
+      __dirname + '/../gulp',
     ]
   },
   stylus: {
@@ -35,12 +36,29 @@ module.exports = {
     watch: path.js + '/*.js',
     dest: path.src + '/build'
   },
-  browserify: {
-    debug: true,
-    bundleConfigs: [{
-      entries: __dirname + '/../src/app/app.jsx',
-      dest:    __dirname + '/../src/app/assets/js',
-      outputName: 'build-react.js'
-    }]
+  webpack: {
+    src: __dirname + '/../src/app/app.jsx',
+    dest: __dirname + '/../src/build',
+    config: {
+      entry: {app: __dirname + '/../src/app/app.jsx'},
+      watch: true,
+      output: {
+        path: __dirname + '/../src/build',
+        publicPath: './',
+        filename: 'bundle.js'
+      },
+      debug : true,
+      module: {
+        loaders: [{
+          test: /\.jsx?$/,
+          exclude: /node_modules/,
+          loader: 'babel-loader'
+        }]
+      },
+      resolve: {
+        extensions: ['', '.js', '.jsx']
+      },
+      devtool: 'eval-source-map'
+    }
   }
 };

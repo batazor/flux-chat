@@ -19,6 +19,7 @@ var WelcomePage = require('./components/welcome/WelcomePage.react.jsx');
 var AboutPage = require('./components/about/AboutPage.react.jsx');
 var LoginPage = require('./components/auth/LoginPage.react.jsx');
 var SignupPage = require('./components/auth/SignupPage.react.jsx');
+var HelloWorld = require('./components/HelloWorld.react.jsx');
 
 // Router setting ==============================================================
 var DefaultRoute = Router.DefaultRoute;
@@ -26,17 +27,12 @@ var Link = Router.Link;
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
-var App = React.createClass({
-  render: function () {
-    return (<RouteHandler />);
-  }
-});
-
 var routes = (
-  <Route name="app" path="/" handler={App}>
+  <Route name="app" path="/">
     <Route path="/about" handler={AboutPage} />
     <Route path="/login" handler={LoginPage} />
     <Route path="/signup" handler={SignupPage} />
+    <Route path="/hello" handler={HelloWorld} />
     <DefaultRoute handler={WelcomePage} />
   </Route>
 );
@@ -47,7 +43,7 @@ Router.run(routes, function (Handler) {
       <div className='wrapper'>
         <Header />
         <main>
-          <Handler/>
+          <Handler />
         </main>
         <div className="push"></div>
       </div>

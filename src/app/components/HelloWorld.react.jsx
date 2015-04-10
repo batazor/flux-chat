@@ -1,8 +1,6 @@
 var React = require('react');
 var TestButtonActions = require('../actions/TestButtonActions.jsx');
 var ButtonStore = require('../stores/ButtonStore.jsx');
-var mui = require('material-ui');
-var FlatButton = mui.FlatButton;
 
 // Method to retrieve state from Stores
 function getButtonState() {
@@ -30,8 +28,8 @@ var HelloWorld = React.createClass({
   render: function() {
     return (
       <div className="test">
-        <h1>Hello, world !</h1>
-        <FlatButton onClick={this.addCount} label="ADD COUNT" />
+        <h1>test</h1>
+        <button type="button" onClick={this.addCount}>ADD COUNT</button>
         <p>Value: { this.state.value }</p>
       </div>
     );
@@ -39,7 +37,9 @@ var HelloWorld = React.createClass({
 
   // Method to setState based upon Store changes
   _onChange: function() {
-    this.setState(getButtonState());
+    if (this.isMounted()) {
+      this.setState(getButtonState());
+    }
   }
 });
 

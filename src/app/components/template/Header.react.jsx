@@ -11,12 +11,13 @@ var Header = React.createClass({
         <nav className="red">
           <div className="nav-wrapper">
             <div className="col s12">
-              <a className="brand-logo right" href="/">NodeJS-Chat</a>
+              <a className="brand-logo right" href="/#/">NodeJS-Chat</a>
               <ul className="hide-on-med-and-down">
                 <li><a href="/#/chat">Chat</a></li>
                 <li><a href="/#/about">About</a></li>
+                <li><a href="/#/hello">Hello</a></li>
                 <li>
-                  <a className="dropdown-button" data-activates="user" href="#">
+                  <a className="dropdown-button" data-activates="user" href="/#/">
                     <i className="mdi-navigation-arrow-drop-down right"></i> User
                   </a>
                 </li>

@@ -1,3 +1,3 @@
 var gulp = require('gulp');
 
-gulp.task('build', ['browserify', 'transfer']);
+gulp.task('build', ['webpack', 'stylus', 'css', 'js', 'transfer']);

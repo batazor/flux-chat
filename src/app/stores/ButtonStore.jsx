@@ -4,6 +4,8 @@ var ButtonConstants = require('../constants/ButtonConstants.jsx');
 var _ = require('underscore');
 
 // Add value button
+var value = 0;
+
 function add(count) {
   value = count + 1;
 }
