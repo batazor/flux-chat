@@ -15,8 +15,7 @@
     "chat",
     "node.js",
     "flux",
-    "reactjs",
-    "i18n"
+    "reactjs"
   ],
   "author": "batazor",
   "license": "ISC",
@@ -41,13 +40,11 @@
     "gulp-stylus": "^2.0.1",
     "gulp-util": "^3.0.4",
     "gulp-webpack": "^1.3.2",
-    "intl": "^0.1.4",
     "jade": "^1.9.2",
     "materialize-css": "^0.96.1",
     "pretty-hrtime": "^1.0.0",
     "react": "^0.13.1",
     "react-document-title": "^1.0.2",
-    "react-intl": "^1.2.0",
     "react-router": "^0.13.2",
     "react-tap-event-plugin": "^0.1.6",
     "require-dir": "^0.3.0",
