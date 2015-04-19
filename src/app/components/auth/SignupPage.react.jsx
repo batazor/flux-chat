@@ -1,38 +1,46 @@
 var React = require('react');
-// var Auth = require('../../clients/Authentication');
+var AuthActions = require('../../actions/AuthActions.jsx');
 
 var SignupPage = React.createClass({
   getInitialState: function() {
     return {
-      username: null,
-      validUsername: false,
-      password: null,
-      password2: null,
-      email: null,
-      validEmail: false
+      email: "",
+      password: ""
     };
   },
 
-  // validPassword: function() {
-  //   return (
-  //     this.state.password !== undefined &&
-  //     this.state.password !== null &&
-  //     Auth.validPassword(this.state.password)
-  //   );
-  // },
+  onChangeEmail: function(e) {
+    this.setState({ email: e.target.value });
+  },
+
+  onChangePassword: function(e) {
+    this.setState({ password: e.target.value });
+  },
+
+  handleSubmit: function(e) {
+    e.preventDefault();
+
+    var form = {
+      email: this.state.email,
+      password: this.state.password
+    };
+
+    AuthActions.signupAuth(form);
+  },
 
   render: function() {
+
     return (
       <div className="row container">
-        <form className="card-panel" action="/user/signup" method="post">
+        <form className="card-panel" onSubmit={this.handleSubmit}>
           <div className="row">
             <div className="input-field col s6">
-              <input id="email" className="validate" type="text" name="email" />
+              <input id="email" type="text" onChange={this.onChangeEmail} defaultValue={this.state.email} />
               <label htmlFor="email">Email</label>
             </div>
 
             <div className="input-field col s6">
-              <input id="password" className="validate" type="password" name="password" />
+              <input id="password" type="password" onChange={this.onChangePassword} defaultValue={this.state.password} />
               <label htmlFor="password">Password</label>
             </div>
           </div>

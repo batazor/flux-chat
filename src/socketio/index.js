@@ -1,8 +1,10 @@
 module.exports = function(io) {
   io.on('connection', function(socket) {
 
-    // test socketIO. HelloWorldPage ======================================
+    // HelloWorldActions =======================================================
     require('./HelloWorldPage.js')(socket);
+    // AuthAction ==============================================================
+    require('./Auth.js')(socket);
 
   });
 
