@@ -2,16 +2,11 @@ var React = require('react');
 var TestButtonActions = require('../actions/TestButtonActions.jsx');
 var ButtonStore = require('../stores/ButtonStore.jsx');
 
-// Method to retrieve state from Stores
-function getButtonState() {
-  return {
-    value: ButtonStore.getValue()
-  };
-}
-
 var HelloWorld = React.createClass({
   // Get initial state from stores
   getInitialState: function() {
+    TestButtonActions.initValue();
+
     return {value: 0};
   },
 
@@ -38,7 +33,7 @@ var HelloWorld = React.createClass({
   // Method to setState based upon Store changes
   _onChange: function() {
     if (this.isMounted()) {
-      this.setState(getButtonState());
+      this.setState({ value: ButtonStore.getValue() });
     }
   }
 });

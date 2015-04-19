@@ -6,10 +6,6 @@ var _ = require('underscore');
 // Add value button
 var value = 0;
 
-function add(count) {
-  value = count + 1;
-}
-
 var ButtonStore = _.extend({}, EventEmitter.prototype, {
   // Return Value
   getValue: function() {
@@ -34,8 +30,11 @@ AppDispatcher.register(function(payload) {
 
   switch(action.actionType) {
     // Respond to CART_REMOVE action
+    case ButtonConstants.BUTTON_INIT:
+      value = action.count;
+      break;
     case ButtonConstants.BUTTON_ADD:
-      add(action.count);
+      value = action.count;
       break;
 
     default:
