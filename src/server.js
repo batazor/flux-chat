@@ -1,18 +1,18 @@
 // Require our dependencies
-var bodyParser     = require('body-parser');
-var cookieParser   = require('cookie-parser');
-var compression    = require('compression');
-var express        = require('express');
-var expressSession = require('express-session');
-var http           = require('http');
-var multer         = require('multer');
-var mongoose       = require('mongoose');
-var logger         = require('morgan');
-var path 	         = require('path');
-var passport       = require('passport');
-var React          = require('react');
-var server         = require('http').createServer(app);
-var config         = require('./config')('development');
+var bodyParser   = require('body-parser');
+var cookieParser = require('cookie-parser');
+var compression  = require('compression');
+var express      = require('express');
+var session      = require('express-session');
+var http         = require('http');
+var multer       = require('multer');
+var mongoose     = require('mongoose');
+var logger       = require('morgan');
+var path 	       = require('path');
+var passport     = require('passport');
+var React        = require('react');
+var server       = require('http').createServer(app);
+var config       = require('./config')('development');
 
 // Create an express instance and set a port variable
 var app = express();
@@ -31,8 +31,10 @@ dbConnection.once('open', function () {
 require('./config/passport')(app);
 
 // Set up session and passport
-app.use(expressSession({
-  secret: config.secretKey,
+app.use(session({
+  secret: config.session.secret,
+  key: config.session.key,
+  cookie: config.session.cookie,
   resave: false,
   saveUninitialized: false
 }));

@@ -6,7 +6,15 @@ var configs = {
       user: 'test',
       password: 'test'
     },
-    secretKey: 'devsecretkey!'
+    session: {
+      secret: 'devsecretkey!',
+      key: 'devsecretkey!',
+      cookie: {
+        path: "/",
+        httpOnly: true,
+        maxAge: null
+      }
+    }
   },
 
   production: {
