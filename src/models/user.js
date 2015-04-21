@@ -5,8 +5,7 @@ var userSchema = mongoose.Schema({
 
   local: {
     email:     String,
-    password:  String,
-    createdOn: { type: Date, default: Date.now }
+    password:  String
   }
 
 });

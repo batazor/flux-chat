@@ -3,15 +3,15 @@ var bodyParser   = require('body-parser');
 var cookieParser = require('cookie-parser');
 var compression  = require('compression');
 var express      = require('express');
-var session      = require('express-session');
+var flash        = require('connect-flash');
 var http         = require('http');
-var multer       = require('multer');
-var mongoose     = require('mongoose');
 var logger       = require('morgan');
-var path 	       = require('path');
+var mongoose     = require('mongoose');
+var multer       = require('multer');
 var passport     = require('passport');
+var path 	       = require('path');
 var React        = require('react');
-var server       = require('http').createServer(app);
+var session      = require('express-session');
 var config       = require('./config')('development');
 
 // Create an express instance and set a port variable
@@ -28,7 +28,7 @@ dbConnection.once('open', function () {
 });
 
 // Passport configuration ======================================================
-require('./config/passport')(app);
+require('./config/passport')(passport);
 
 // Set up session and passport
 app.use(session({
@@ -38,7 +38,10 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(cookieParser());
+app.use(flash());
 
 // Form work
 app.use(bodyParser.json());

@@ -1,15 +1,8 @@
-var flash = require('connect-flash');
-var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
 
 // expose this function to our app using module.exports
-module.exports = function(app) {
-
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(flash());
-
+module.exports = function(passport) {
   // ===========================================================================
   // passport session setup ====================================================
   // ===========================================================================
@@ -23,7 +16,7 @@ module.exports = function(app) {
 
   // used to desirialize the user
   passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, done) {
+    User.findById(id, function(err, user) {
       done(err, user);
     });
   });
@@ -111,6 +104,7 @@ module.exports = function(app) {
       }
 
       // all is well, return successful user
+      console.log(user);
       return done(null, user);
     });
 

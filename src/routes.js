@@ -4,6 +4,7 @@ module.exports = function(app, passport) {
   // HOME PAGE =================================================================
   // ===========================================================================
   app.get('/', function(req, res) {
+    console.log(req.isAuthenticated());
     res.render('index', {
       socketio: 'http://' + req.headers.host + '/socket.io/socket.io.js'
     });
@@ -21,11 +22,20 @@ module.exports = function(app, passport) {
   // });
 
   // process the login form
-  app.post('/user/login', passport.authenticate('local-login', {
-    successRedirect : '/#/chat',
-    failureRedirect : '/#/login',
-    failureFlash : true
-  }));
+  app.post('/api/user/login', function(req, res, next) {
+    passport.authenticate('local-login', function(err, user, info) {
+      if (err) {
+        return next(res.status(200).json({redirect: false}));
+      }
+      if (!user) {
+        return next(res.status(200).json({redirect: false}));
+      }
+      req.logIn(user, function(err) {
+        if (err) { console.log(err); return next(res.status(200).json({redirect: false})); }
+        return res.status(200).json({redirect: true});
+      });
+    })(req, res, next);
+  });
 
   // ===========================================================================
   // SIGNUP ====================================================================
@@ -39,11 +49,21 @@ module.exports = function(app, passport) {
   // });
 
   // process the signup form
-  app.post('/user/signup', passport.authenticate('local-signup', {
-    successRedirect: '/#/profile',
-    failureRedirect: '/#/signup',
-    failureFlash: true
-  }));
+  app.post('/api/user/signup', function(req, res, next) {
+    passport.authenticate('local-signup', function(err, user, info) {
+      if (err) {
+        console.log(err);
+        return next(res.status(200).json({redirect: false}));
+      }
+      if (!user) {
+        return next(res.status(200).json({redirect: false}));
+      }
+      req.logIn(user, function(err) {
+        if (err) { console.log(err); return next(res.status(200).json({redirect: false})); }
+        return res.status(200).json({redirect: true});
+      });
+    })(req, res, next);
+  });
 
   // ===========================================================================
   // LOGOUT ====================================================================
