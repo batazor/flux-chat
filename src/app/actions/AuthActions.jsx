@@ -11,7 +11,7 @@ var AuthActions = {
       .post('/api/user/signup')
       .accept('json')
       .send(form)
-      .end(function(err, res){
+      .end(function(err, res) {
         res = JSON.parse(res.text);
 
         if (res.redirect) return window.location.replace("/#/profile");
@@ -23,12 +23,36 @@ var AuthActions = {
       .post('/api/user/login')
       .accept('json')
       .send(form)
-      .end(function(err, res){
+      .end(function(err, res) {
         res = JSON.parse(res.text);
 
-        if (res.redirect) return window.location.replace("/#/profile");
+        if (res.redirect) {
+          AppDispatcher.handleAction({
+            actionType: AuthConstants.SESSION_INIT,
+            session: res.session
+          });
+
+          return window.location.replace("/#/profile");
+        }
       });
   },
+
+  initSession: function() {
+    request
+      .get('/api/user')
+      .end(function(err, res) {
+        res = JSON.parse(res.text);
+
+        if (res) {
+          AppDispatcher.handleAction({
+            actionType: AuthConstants.SESSION_INIT,
+            session: res.session
+          });
+        } else {
+          return window.location.replace("/#/login");
+        }
+      });
+  }
 
 };
 

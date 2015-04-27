@@ -104,7 +104,6 @@ module.exports = function(passport) {
       }
 
       // all is well, return successful user
-      console.log(user);
       return done(null, user);
     });
 
