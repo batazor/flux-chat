@@ -11,10 +11,15 @@ var TestButtonActions = {
 
   initValue: function() {
     socket.emit('startCount');
+  },
+
+  socketSession: function() {
+    socket.emit('socketSession');
   }
 
 };
 
+// Count Button
 socket.on('initCount', function(data) {
   AppDispatcher.handleAction({
     actionType: ButtonConstants.BUTTON_INIT,
@@ -27,6 +32,11 @@ socket.on('updCount', function(data) {
     actionType: ButtonConstants.BUTTON_ADD,
     count: data
   });
+});
+
+// Session
+socket.on('socketSession', function(user) {
+  alert('User ID: ' + user._id);
 });
 
 module.exports = TestButtonActions;

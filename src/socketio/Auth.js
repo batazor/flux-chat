@@ -1,8 +1,8 @@
-module.exports = function(socket) {
+module.exports = function(socket, user) {
 
   // SignupAuth
-  socket.on('signupAuth', function(form) {
-    console.log(form);
+  socket.on('socketSession', function() {
+    socket.emit('socketSession', user);
   });
 
 };

@@ -12,7 +12,7 @@ var configs = {
       cookie: {
         path: "/",
         httpOnly: true,
-        maxAge: null
+        maxAge : 3600000
       }
     }
   },

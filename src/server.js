@@ -31,16 +31,19 @@ dbConnection.once('open', function () {
 require('./config/passport')(passport);
 
 // Set up session and passport
+var store = new session.MemoryStore();
+app.use(cookieParser());
+
 app.use(session({
+  name: config.session.secret,
   secret: config.session.secret,
-  key: config.session.key,
   cookie: config.session.cookie,
-  resave: false,
-  saveUninitialized: false
+  resave: true,
+  saveUninitialized: true,
+  store: store
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cookieParser());
 app.use(flash());
 
 // Form work
@@ -69,4 +72,4 @@ var server = http.createServer(app).listen(config.port, function() {
 
 // Initialize socket.io
 var io = require('socket.io').listen(server);
-require('./socketio')(io, passport);
+require('./socketio')(io, store);
