@@ -1,6 +1,7 @@
 var React = require('react');
 var Router = require('react-router');
 var injectTapEventPlugin = require("react-tap-event-plugin");
+require('./utils/socketio.jsx'); // Socket listen
 
 // Needed for React Developer Tools
 window.React = React;
