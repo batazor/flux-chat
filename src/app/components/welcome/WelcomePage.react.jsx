@@ -15,7 +15,7 @@ var WelcomePage = React.createClass({
             <div className="col s12 valign">
               <div className="row">
                 <a className="btn col s5 waves-effect waves-light lime darken-3" href="/#/login">Local Login</a>
-                <a className="btn col s5 offset-s2 waves-effect waves-light lime darken-3" href="/#/login">Local Signup</a>
+                <a className="btn col s5 offset-s2 waves-effect waves-light lime darken-3" href="/#/signup">Local Signup</a>
               </div>
             </div>
           </div>

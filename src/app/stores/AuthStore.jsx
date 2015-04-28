@@ -1,15 +1,17 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
 var EventEmitter = require('events').EventEmitter;
-var ButtonConstants = require('../constants/ButtonConstants.jsx');
+var AuthConstants = require('../constants/AuthConstants.jsx');
 var _ = require('underscore');
 
-// Add value button
-var value = 0;
+var session = {
+  local: {}
+};
 
-var ButtonStore = _.extend({}, EventEmitter.prototype, {
+var AuthStore = _.extend({}, EventEmitter.prototype, {
+
   // Return Value
-  getValue: function() {
-    return value;
+  getSession: function() {
+    return session;
   },
 
   // Emit Change event
@@ -26,24 +28,19 @@ var ButtonStore = _.extend({}, EventEmitter.prototype, {
 // Register callback with AppDispatcher
 AppDispatcher.register(function(payload) {
   var action = payload.action;
-  var text;
 
   switch(action.actionType) {
-    // Respond to CART_REMOVE action
-    case ButtonConstants.BUTTON_INIT:
-      value = action.count;
-      break;
-    case ButtonConstants.BUTTON_ADD:
-      value = action.count;
+    case AuthConstants.SESSION_INIT:
+      session = action.session;
       break;
 
     default:
       return true;
   }
 
-  ButtonStore.emitChange();
+  AuthStore.emitChange();
 
   return true;
 });
 
-module.exports = ButtonStore;
+module.exports = AuthStore;

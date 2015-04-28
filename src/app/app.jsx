@@ -19,6 +19,7 @@ var WelcomePage = require('./components/welcome/WelcomePage.react.jsx');
 var AboutPage = require('./components/about/AboutPage.react.jsx');
 var LoginPage = require('./components/auth/LoginPage.react.jsx');
 var SignupPage = require('./components/auth/SignupPage.react.jsx');
+var ProfilePage = require('./components/auth/ProfilePage.react.jsx');
 var HelloWorld = require('./components/HelloWorld.react.jsx');
 
 // Router setting ==============================================================
@@ -28,10 +29,11 @@ var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
 var routes = (
-  <Route name="app" path="/">
+  <Route path="/">
     <Route path="/about" handler={AboutPage} />
     <Route path="/login" handler={LoginPage} />
     <Route path="/signup" handler={SignupPage} />
+    <Route path="/profile" handler={ProfilePage} />
     <Route path="/hello" handler={HelloWorld} />
     <DefaultRoute handler={WelcomePage} />
   </Route>
