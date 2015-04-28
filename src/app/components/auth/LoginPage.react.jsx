@@ -1,11 +1,15 @@
 var React = require('react');
 var AuthActions = require('../../actions/AuthActions.jsx');
+var AuthStore = require('../../stores/AuthStore.jsx');
 
 var LoginPage = React.createClass({
   getInitialState: function() {
+    AuthActions.initSession();
+
     return {
       email: "",
-      password: ""
+      password: "",
+      session: AuthStore.getSession()
     };
   },
 
@@ -26,6 +30,10 @@ var LoginPage = React.createClass({
     };
 
     AuthActions.loginAuth(form);
+  },
+
+  componentDidMount: function() {
+    AuthStore.addChangeListener(this._onChange);
   },
 
   render: function() {
@@ -53,6 +61,16 @@ var LoginPage = React.createClass({
         </form>
       </div>
     );
+  },
+
+  _onChange: function() {
+    if (this.isMounted()) {
+      if (this.state.session._id) {
+        return window.location.replace("/#/profile");
+      }
+
+      this.setState({ session: AuthStore.getSession() });
+    }
   }
 });
 

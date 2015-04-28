@@ -45,18 +45,18 @@ module.exports = function(app, passport) {
     })(req, res, next);
   });
 
+  // user logout
+  app.get('/api/user/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+  });
+
   // user info data
   app.get('/api/user', function(req, res) {
     if (req.isAuthenticated())
       return res.status(200).json({session: req.user});
 
-    return false;
-  });
-
-  // logout
-  app.get('/user/logout', function(req, res) {
-    req.logout();
-    res.redirect('/');
+    return res.status(200).json({session: false});
   });
 
   // route middleware to make sure a user is logged in

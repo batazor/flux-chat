@@ -14,7 +14,7 @@ var AuthActions = {
       .end(function(err, res) {
         res = JSON.parse(res.text);
 
-        if (res.redirect) return window.location.replace("/#/profile");
+        if (res.redirect) return window.location.reload();
       });
   },
 
@@ -32,8 +32,18 @@ var AuthActions = {
             session: res.session
           });
 
-          return window.location.replace("/#/profile");
+          return window.location.reload();
         }
+      });
+  },
+
+  logoutAuth: function() {
+    request
+      .get('/api/user/logout')
+      .end(function(err, res) {
+        AppDispatcher.handleAction({
+          actionType: AuthConstants.AUTH_LOGOUT
+        });
       });
   },
 

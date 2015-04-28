@@ -12,6 +12,9 @@ var ProfilePage = React.createClass({
   },
 
   componentDidMount: function() {
+    if (!this.state.session._id)
+      return window.location.replace("/#/login");
+
     AuthStore.addChangeListener(this._onChange);
   },
 

@@ -20,7 +20,13 @@ var ButtonStore = _.extend({}, EventEmitter.prototype, {
   // Add change listener
   addChangeListener: function(callback) {
     this.on('change', callback);
+  },
+
+  // Remove change listener
+  removeChangeListener: function(callback) {
+    this.removeListener('change', callback);
   }
+
 });
 
 // Register callback with AppDispatcher

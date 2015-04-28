@@ -29,6 +29,7 @@ var HelloWorld = React.createClass({
   // Add change listeners to stores
   componentDidMount: function() {
     ButtonStore.addChangeListener(this._onChange);
+    AuthStore.addChangeListener(this._onChange);
   },
 
   render: function() {
