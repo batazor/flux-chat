@@ -15,13 +15,6 @@ injectTapEventPlugin();
 // Teplate Component ===========================================================
 var Header = require('./components/template/Header.react.jsx');
 var Footer = require('./components/template/Footer.react.jsx');
-// Page Component ==============================================================
-var WelcomePage = require('./components/welcome/WelcomePage.react.jsx');
-var AboutPage = require('./components/about/AboutPage.react.jsx');
-var LoginPage = require('./components/auth/LoginPage.react.jsx');
-var SignupPage = require('./components/auth/SignupPage.react.jsx');
-var ProfilePage = require('./components/auth/ProfilePage.react.jsx');
-var HelloWorld = require('./components/HelloWorld.react.jsx');
 
 // Router setting ==============================================================
 var DefaultRoute = Router.DefaultRoute;
@@ -31,12 +24,12 @@ var RouteHandler = Router.RouteHandler;
 
 var routes = (
   <Route path="/">
-    <Route path="/about" handler={AboutPage} />
-    <Route path="/login" handler={LoginPage} />
-    <Route path="/signup" handler={SignupPage} />
-    <Route path="/profile" handler={ProfilePage} />
-    <Route path="/hello" handler={HelloWorld} />
-    <DefaultRoute handler={WelcomePage} />
+    <Route name="/about" handler={require('react-router-proxy!./components/about/AboutPage.react.jsx')} />
+    <Route path="/login" handler={require('react-router-proxy!./components/auth/LoginPage.react.jsx')} />
+    <Route path="/signup" handler={require('react-router-proxy!./components/auth/SignupPage.react.jsx')} />
+    <Route path="/profile" handler={require('react-router-proxy!./components/auth/ProfilePage.react.jsx')} />
+    <Route path="/hello" handler={require('react-router-proxy!./components/HelloWorld.react.jsx')} />
+    <DefaultRoute handler={require('react-router-proxy!./components/welcome/WelcomePage.react.jsx')} />
   </Route>
 );
 
