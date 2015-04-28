@@ -11,12 +11,16 @@ var Header = React.createClass({
     };
   },
 
+  logout: function() {
+    AuthActions.logoutAuth();
+  },
+
   componentDidMount: function() {
     AuthStore.addChangeListener(this._onChange);
   },
 
-  logout: function() {
-    AuthActions.logoutAuth();
+  componentWillUnmount: function() {
+    AuthStore.removeChangeListener(this._onChange);
   },
 
   render: function() {

@@ -36,6 +36,10 @@ var LoginPage = React.createClass({
     AuthStore.addChangeListener(this._onChange);
   },
 
+  componentWillUnmount: function() {
+    AuthStore.removeChangeListener(this._onChange);
+  },
+
   render: function() {
     return (
       <div className="row container">

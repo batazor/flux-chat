@@ -32,6 +32,11 @@ var HelloWorld = React.createClass({
     AuthStore.addChangeListener(this._onChange);
   },
 
+  componentWillUnmount: function() {
+    ButtonStore.removeChangeListener(this._onChange);
+    AuthStore.removeChangeListener(this._onChange);
+  },
+
   render: function() {
     var sessionSocket;
     if (this.state.session._id) {
