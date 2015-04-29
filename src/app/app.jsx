@@ -24,6 +24,7 @@ var RouteHandler = Router.RouteHandler;
 
 var routes = (
   <Route path="/">
+    <Route name="/chat" handler={require('react-router-proxy!./components/chat/ChatPage.react.jsx')} />
     <Route name="/about" handler={require('react-router-proxy!./components/about/AboutPage.react.jsx')} />
     <Route path="/login" handler={require('react-router-proxy!./components/auth/LoginPage.react.jsx')} />
     <Route path="/signup" handler={require('react-router-proxy!./components/auth/SignupPage.react.jsx')} />
