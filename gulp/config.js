@@ -10,7 +10,7 @@ module.exports = {
   browserSync: {
     proxy: "http://localhost:8080/",
     port: 3000,
-    files: [__dirname + '/../src/build/*.*']
+    files: [__dirname + '/../src/build/**']
   },
   nodemon: {
     script: './src/server.js',
