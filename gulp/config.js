@@ -23,6 +23,11 @@ module.exports = {
       __dirname + '/../gulp',
     ]
   },
+  less: {
+    src: path.css + '/main.less',
+    watch: path.css + '/*.less',
+    dest: path.css
+  },
   stylus: {
     watch: path.css + '/*.styl',
     dest: path.css

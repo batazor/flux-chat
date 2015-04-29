@@ -2,6 +2,19 @@ var React = require('react');
 var AuthActions = require('../../actions/AuthActions.jsx');
 var AuthStore = require('../../stores/AuthStore.jsx');
 
+var mui = require('material-ui');
+var Toolbar = mui.Toolbar;
+var FlatButton = mui.FlatButton;
+var Menu = mui.Menu;
+var DropDownMenu = mui.DropDownMenu;
+var ToolbarGroup = mui.ToolbarGroup;
+
+var userMenuItems = [
+   { payload: '1', text: 'User' },
+   { payload: 'profile', text: 'Profile' },
+   { payload: 'logout', text: 'Logout' }
+];
+
 var Header = React.createClass({
   getInitialState: function() {
     AuthActions.initSession();
@@ -15,6 +28,10 @@ var Header = React.createClass({
     AuthActions.logoutAuth();
   },
 
+  profilePage: function() {
+    return window.location.replace("/#/login");
+  },
+
   componentDidMount: function() {
     AuthStore.addChangeListener(this._onChange);
   },
@@ -24,35 +41,41 @@ var Header = React.createClass({
   },
 
   render: function() {
-    var style = {
-      display: this.state.session._id ? "list-item" : "none"
-    };
+    if (this.state.session._id) {
+      var userMenuVisibility =
+        <ToolbarGroup float="left">
+          <DropDownMenu selectedIndex={0} onChange={this.userMenuItems} menuItems={userMenuItems} />
+        </ToolbarGroup>
+    }
 
     return (
       <header>
-        <ul id="user" className="dropdown-content">
-          <li><a href='/#/profile'>Profile</a></li>
-          <li><a onClick={this.logout}>Logout</a></li>
-        </ul>
-        <nav className="red">
-          <div className="nav-wrapper">
-            <div className="col s12">
-              <a className="brand-logo right" href="/#/">NodeJS-Chat</a>
-              <ul className="hide-on-med-and-down">
-                <li><a href="/#/chat">Chat</a></li>
-                <li><a href="/#/about">About</a></li>
-                <li><a href="/#/hello">Hello</a></li>
-                <li style={style}>
-                  <a className="dropdown-button" data-activates="user" href="/#/">
-                    <i className="mdi-navigation-arrow-drop-down right"></i> User
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+        <Toolbar>
+          <ToolbarGroup float="left">
+            <FlatButton linkButton={true} href="/#/chat" label="Chat" />
+            <FlatButton linkButton={true} href="/#/about" label="About" />
+            <FlatButton linkButton={true} href="/#/hello" label="Hello" />
+          </ToolbarGroup>
+
+          {userMenuVisibility}
+
+          <ToolbarGroup float="right">
+            <FlatButton linkButton={true} href="/#/" label="Flux • Chat" />
+          </ToolbarGroup>
+        </Toolbar>
       </header>
     );
+  },
+
+  userMenuItems: function(e, selectedIndex, menuItem) {
+    switch(menuItem.payload) {
+      case 'profile':
+        this.profilePage();
+        break;
+      case 'logout':
+        this.logout();
+        break;
+    }
   },
 
   _onChange: function() {

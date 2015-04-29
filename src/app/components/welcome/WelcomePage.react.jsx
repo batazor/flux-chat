@@ -1,23 +1,18 @@
 var React = require('react');
 var DocumentTitle = require('react-document-title');
 
+var mui = require('material-ui');
+var FlatButton = mui.FlatButton;
+
 var WelcomePage = React.createClass({
   render: function() {
     return (
-      <DocumentTitle title='Welcome | Flux-Chat'>
+      <DocumentTitle title='Welcome | Flux • Chat'>
         <div>
-          <div className="container">
-            <div className="row">
-              <h1 className="center-align lime-text text-darken-4">Chat on Node.js</h1>
-            </div>
-          </div>
-          <div className="container row valign-wrapper">
-            <div className="col s12 valign">
-              <div className="row">
-                <a className="btn col s5 waves-effect waves-light lime darken-3" href="/#/login">Local Login</a>
-                <a className="btn col s5 offset-s2 waves-effect waves-light lime darken-3" href="/#/signup">Local Signup</a>
-              </div>
-            </div>
+          <h1 className="row center-xs">Chat on Node.js</h1>
+          <div className="row center-xs">
+            <FlatButton linkButton={true} href="/#/login" label="Local Login" />
+            <FlatButton linkButton={true} href="/#/signup" label="Local Signup" />
           </div>
         </div>
       </DocumentTitle>

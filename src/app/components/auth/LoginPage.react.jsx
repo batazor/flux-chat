@@ -2,6 +2,10 @@ var React = require('react');
 var AuthActions = require('../../actions/AuthActions.jsx');
 var AuthStore = require('../../stores/AuthStore.jsx');
 
+var mui = require('material-ui');
+var RaisedButton = mui.RaisedButton;
+var TextField = mui.TextField;
+
 var LoginPage = React.createClass({
   getInitialState: function() {
     AuthActions.initSession();
@@ -42,28 +46,42 @@ var LoginPage = React.createClass({
 
   render: function() {
     return (
-      <div className="row container">
-        <form className="card-panel" onSubmit={this.handleSubmit}>
-          <div className="row">
-            <div className="input-field col s6">
-              <input id="email" type="text" onChange={this.onChangeEmail} defaultValue={this.state.email} />
-              <label htmlFor="email">Email</label>
-            </div>
+      <form onSubmit={this.handleSubmit}>
 
-            <div className="input-field col s6">
-              <input id="password" type="password" onChange={this.onChangePassword} defaultValue={this.state.password} />
-              <label htmlFor="password">Password</label>
+        <div className="row center-xs">
+          <div className="col-xs-3">
+            <div className="box">
+              <TextField
+                onChange={this.onChangeEmail}
+                hintText="Hint Email"
+                floatingLabelText="Email" />
             </div>
           </div>
 
-          <div className="row">
-            <button className="btn col s12 waves-effect waves-light lime darken-3" type="submit">Login</button>
+          <div className="col-xs-3">
+            <div className="box">
+              <TextField
+                onChange={this.onChangePassword}
+                hintText="Hint Password"
+                floatingLabelText="Password" />
+            </div>
           </div>
+        </div>
 
-          <p>Need an account? <a href="/#/signup">Signup</a></p>
-          <p>Or go? <a href="/#/">home</a>.</p>
-        </form>
-      </div>
+        <div className="row center-xs">
+          <div className="col-xs-4">
+            <RaisedButton label="Login" />
+          </div>
+        </div>
+
+        <div className="row center-xs">
+          <div className="box">
+            <p>Need an account? <a href="/#/signup">Signup</a></p>
+            <p>Or go? <a href="/#/">home</a>.</p>
+          </div>
+        </div>
+
+      </form>
     );
   },
 

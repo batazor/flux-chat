@@ -6,10 +6,7 @@ var minifycss = require('gulp-minify-css');
 var config = require('../config').css;
 
 gulp.task('css', function() {
-  return gulp.src([
-      './src/app/assets/css/materialize.css',
-      config.watch
-    ])
+  return gulp.src([config.watch])
     .pipe(plumber())
     .pipe(concat('bundle.css'))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))

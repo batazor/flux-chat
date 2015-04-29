@@ -2,6 +2,9 @@ var React = require('react');
 var AuthActions = require('../../actions/AuthActions.jsx');
 var AuthStore = require('../../stores/AuthStore.jsx');
 
+var mui = require('material-ui');
+var FlatButton = mui.FlatButton;
+
 var ProfilePage = React.createClass({
   getInitialState: function() {
     AuthActions.initSession();
@@ -24,23 +27,25 @@ var ProfilePage = React.createClass({
 
   render: function() {
     return (
-      <div className="row valign-wrapper">
+      <div className="row center-xs">
         <div className="col s4">
-          <div className="card valign blue-grey darken-1">
-            <div className="card-content white-text">
-              <span className="card-title">Local Account</span>
+          <div className="box">
+            <h3 className="row center-xs">Local Account</h3>
+
+            <div className="row">
+              <div className="box">
+                <p>
+                  <strong>id: </strong> {this.state.session._id}
+                </p>
+                <p>
+                  <strong>email: </strong> {this.state.session.local.email}
+                </p>
+              </div>
             </div>
-            <div className="card-content white-text">
-              <p>
-                <strong>id: </strong> {this.state.session._id}
-              </p>
-              <p>
-                <strong>email: </strong> {this.state.session.local.email}
-              </p>
-            </div>
-            <div className="card-content white-text">
-              <a>Update</a>
-              <a>Delete</a>
+
+            <div className="row">
+              <FlatButton label="Update" />
+              <FlatButton label="Delete" />
             </div>
           </div>
         </div>

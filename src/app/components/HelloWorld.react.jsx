@@ -4,6 +4,9 @@ var ButtonStore = require('../stores/ButtonStore.jsx');
 var AuthActions = require('../actions/AuthActions.jsx');
 var AuthStore = require('../stores/AuthStore.jsx');
 
+var mui = require('material-ui');
+var RaisedButton = mui.RaisedButton;
+
 var HelloWorld = React.createClass({
   // Get initial state from stores
   getInitialState: function() {
@@ -38,19 +41,20 @@ var HelloWorld = React.createClass({
   },
 
   render: function() {
-    var sessionSocket;
-    if (this.state.session._id) {
-      sessionSocket = <button type="button" onClick={this.consoleData}>Session Socket</button>
-    } else {
-      sessionSocket = <button type="button" disabled onClick={this.consoleData}>Session Socket</button>
-    }
+    var sessionStatus = this.state.session._id ? false : true;
 
     return (
-      <div className="test">
-        <h1>test</h1>
-        <button type="button" onClick={this.addCount}>ADD COUNT</button>
-        <p>Value: { this.state.value }</p>
-        <p>{sessionSocket}</p>
+      <div>
+        <h1 className="row center-xs">test</h1>
+
+        <div className="row center-xs">
+          <RaisedButton onClick={this.addCount} label="ADD COUNT" />
+        </div>
+        <p className="row center-xs">Value: { this.state.value }</p>
+
+        <div className="row center-xs">
+          <RaisedButton onClick={this.consoleData} label="Session Socket" disabled={sessionStatus} />
+        </div>
       </div>
     );
   },
