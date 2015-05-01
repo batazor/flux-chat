@@ -56,19 +56,21 @@ AppDispatcher.register(function(payload) {
 
     case ChatConstants.CREATED_ROOM:
       _rooms = _.map(_rooms, function(room) {
-        if (room.name === action.room.name) {
-          return action.room;
-        }
-        return room;
+        return room.name === action.room.name ? action.room : room;
       });
       break;
 
     // case ChatConstants.FETCHED_ROOMS:
     //   break;
     //
-    // case ChatConstants.CLICKING_ROOM:
-    //   break;
-    //
+    case ChatConstants.CLICKING_ROOM:
+      console.log();
+      _rooms = _.map(_rooms, function(room) {
+        room.isCurrent = room._id === action.id ? true : false;
+        return room;
+      });
+      break;
+
     // case ChatConstants.UPDATED_ROOM:
     //   break;
 

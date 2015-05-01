@@ -13,8 +13,6 @@ var Menu = mui.Menu;
 var RoomSection = React.createClass({
 
   getInitialState: function() {
-
-
     return {
       modal: false,
       nameRoom: "",
@@ -64,6 +62,7 @@ var RoomSection = React.createClass({
         <div className="row">
           <Menu
             autoWidth={false}
+            onItemClick={this.clickRoom}
             menuItems={roomListItems} />
         </div>
 
@@ -83,6 +82,7 @@ var RoomSection = React.createClass({
     );
   },
 
+  // New Room ==================================================================
   addRoomDialogOpen: function() {
     this.refs.addRoomDialog.show();
   },
@@ -97,6 +97,11 @@ var RoomSection = React.createClass({
 
   onChangeNameRoom: function(e) {
     this.setState({ nameRoom: e.target.value });
+  },
+
+  // Click Room ================================================================
+  clickRoom: function(e, selectedIndex, menuItem) {
+    RoomAction.clickRoom(menuItem.payload);
   },
 
   _onChange: function() {

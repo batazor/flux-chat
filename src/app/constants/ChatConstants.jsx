@@ -5,6 +5,7 @@ module.exports = keyMirror({
 
     INIT_ROOM: null,
     CREATING_ROOM: null,
-    CREATED_ROOM: null
+    CREATED_ROOM: null,
+    CLICKING_ROOM: null
 
 });
