@@ -3,13 +3,15 @@ var config = require('../config')('development');
 
 var user = {};
 
-module.exports = function(io, store) {
+module.exports = function(io, store, mongoose) {
   io.on('connection', function(socket) {
 
     // HelloWorldActions =======================================================
     require('./HelloWorldPage.js')(socket);
     // AuthAction ==============================================================
     require('./Auth.js')(socket, user);
+    // Chat
+    require('./Chat.js')(socket, user, mongoose);
 
   });
 

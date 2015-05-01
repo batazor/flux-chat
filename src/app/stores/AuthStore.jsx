@@ -23,17 +23,14 @@ var AuthStore = _.extend({}, EventEmitter.prototype, {
     return sessionInit;
   },
 
-  // Emit Change event
   emitChange: function() {
     this.emit('change');
   },
 
-  // Add change listener
   addChangeListener: function(callback) {
     this.on('change', callback);
   },
 
-  // Remove change listener
   removeChangeListener: function(callback) {
     this.removeListener('change', callback);
   }

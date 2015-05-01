@@ -2,7 +2,6 @@ var AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
 var AuthConstants = require('../constants/AuthConstants.jsx');
 var socket = io.connect('http://localhost:8080');
 var request = require('superagent');
-var Router = require('react-router');
 
 var AuthActions = {
 

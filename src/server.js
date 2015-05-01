@@ -72,4 +72,4 @@ var server = http.createServer(app).listen(config.port, function() {
 
 // Initialize socket.io
 var io = require('socket.io').listen(server);
-require('./socketio')(io, store);
+require('./socketio')(io, store, mongoose);
