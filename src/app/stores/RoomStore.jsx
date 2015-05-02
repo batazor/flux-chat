@@ -2,6 +2,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
 var EventEmitter = require('events').EventEmitter;
 var ChatConstants = require('../constants/ChatConstants.jsx');
 var _ = require('underscore');
+var MessageStore = require('./MessageStore.jsx');
 
 var _rooms = [];
 
@@ -21,6 +22,12 @@ var RoomStore = _.extend({}, EventEmitter.prototype, {
 
   getAll: function() {
     return _rooms;
+  },
+
+  getCurrentRoom: function() {
+    return _.find(_rooms, function(room) {
+      return room.isCurrent;
+    });
   },
 
   emitChange: function() {
