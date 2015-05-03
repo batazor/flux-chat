@@ -6,6 +6,12 @@ var MessageStore = require('./MessageStore.jsx');
 
 var _rooms = [];
 
+var sortRooms = function() {
+  _rooms = _.sortBy(_rooms, function(room) {
+    return room.updatedAt;
+  }).reverse();
+};
+
 var RoomStore = _.extend({}, EventEmitter.prototype, {
 
   getCreatedRoomData: function(room) {
@@ -54,6 +60,7 @@ AppDispatcher.register(function(payload) {
       _.map(action.rooms, function(room) {
         _rooms.push(room);
       });
+      sortRooms();
       break;
 
     case ChatConstants.CREATING_ROOM:
@@ -67,19 +74,23 @@ AppDispatcher.register(function(payload) {
       });
       break;
 
-    // case ChatConstants.FETCHED_ROOMS:
-    //   break;
-    //
     case ChatConstants.CLICKING_ROOM:
-      console.log();
       _rooms = _.map(_rooms, function(room) {
         room.isCurrent = room._id === action.id ? true : false;
         return room;
       });
       break;
 
-    // case ChatConstants.UPDATED_ROOM:
-    //   break;
+    case ChatConstants.UPDATED_ROOM:
+      _rooms = _.map(_rooms, function(room) {
+        if (room._id === action.message.roomId) {
+          room.lastMessage = { author: action.message.userId, text: action.message.message };
+          room.updatedAt = action.message.updatedAt;
+        }
+        return room;
+      });
+      sortRooms();
+      break;
 
     default:
       return true;

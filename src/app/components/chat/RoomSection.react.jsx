@@ -1,7 +1,7 @@
 var React = require('react');
 var _ = require('underscore');
 var RoomStore = require('../../stores/RoomStore.jsx');
-var RoomAction = require('../../actions/RoomAction.jsx');
+var ChatAction = require('../../actions/ChatAction.jsx');
 
 var mui = require('material-ui');
 var Dialog = mui.Dialog;
@@ -21,7 +21,7 @@ var RoomSection = React.createClass({
   },
 
   componentDidMount: function() {
-    RoomAction.initRoom();
+    ChatAction.initRoom();
     RoomStore.addChangeListener(this._onChange);
   },
 
@@ -40,11 +40,12 @@ var RoomSection = React.createClass({
       _.map(this.state.rooms, function(room) {
         var disabled = room.isCreated ? false : true;
         var active = room.isCurrent ? mui.MenuItem.Types.SUBHEADER : '';
+        var lastMessage = room.lastMessage ? room.lastMessage.author + ' send: ' + room.lastMessage.text : undefined;
 
         roomListItems.push({
           payload: room._id,
           text: room.name,
-          data: room.lastMessage,
+          data: lastMessage,
           disabled: disabled,
           type: active
         });
@@ -90,7 +91,7 @@ var RoomSection = React.createClass({
   addRoomDialogSubmit: function() {
     this.refs.addRoomDialog.dismiss();
 
-    RoomAction.creatingRoom(this.state.nameRoom);
+    ChatAction.creatingRoom(this.state.nameRoom);
 
     this.setState({ nameRoom: null });
   },
@@ -101,17 +102,17 @@ var RoomSection = React.createClass({
 
   // Click Room ================================================================
   clickRoom: function(e, selectedIndex, menuItem) {
-    RoomAction.clickRoom(menuItem.payload);
+    ChatAction.clickRoom(menuItem.payload);
   },
 
   _onChange: function() {
-    if (this.isMounted()) {
+    // if (this.isMounted()) {
       this.setState({
         modal: false,
         nameRoom: "",
         rooms: RoomStore.getAll()
       });
-    }
+    // }
   }
 
 });

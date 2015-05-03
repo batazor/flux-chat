@@ -21,6 +21,17 @@ module.exports = {
       actionType: ChatConstants.CLICKING_ROOM,
       id: roomID
     });
+
+    socket.emit('clickRoom', roomID);
+  },
+
+  creatingMessage: function(message) {
+    AppDispatcher.handleAction({
+      actionType: ChatConstants.CREATING_MESSAGE,
+      message: message
+    });
+
+    socket.emit('createMessage', message);
   }
 
 };

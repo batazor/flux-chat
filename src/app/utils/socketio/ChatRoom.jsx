@@ -16,4 +16,25 @@ module.exports = function(socket, AppDispatcher) {
     });
   });
 
+  socket.on('clickRoom', function(data) {
+    AppDispatcher.handleAction({
+      actionType: ChatConstants.INIT_MESSAGE,
+      message: data
+    });
+  });
+
+  socket.on('updatedRoom', function(data) {
+    AppDispatcher.handleAction({
+      actionType: ChatConstants.UPDATED_ROOM,
+      message: data
+    });
+  });
+
+  socket.on('createdMessage', function(data) {
+    AppDispatcher.handleAction({
+      actionType: ChatConstants.CREATED_MESSAGE,
+      message: data
+    });
+  });
+
 };

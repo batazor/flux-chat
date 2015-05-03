@@ -43,6 +43,8 @@ var AuthActions = {
         AppDispatcher.handleAction({
           actionType: AuthConstants.AUTH_LOGOUT
         });
+
+        return window.location.reload();
       });
   },
 

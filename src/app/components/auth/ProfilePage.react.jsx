@@ -15,9 +15,6 @@ var ProfilePage = React.createClass({
   },
 
   componentDidMount: function() {
-    if (!this.state.session._id)
-      return window.location.replace("/#/login");
-
     AuthStore.addChangeListener(this._onChange);
   },
 
@@ -56,6 +53,9 @@ var ProfilePage = React.createClass({
   _onChange: function() {
     if (this.isMounted()) {
       this.setState({ session: AuthStore.getSession() });
+      
+      if (!this.state.session._id)
+        return window.location.replace("/#/login");
     }
   }
 });
