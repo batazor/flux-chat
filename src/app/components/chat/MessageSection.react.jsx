@@ -42,7 +42,18 @@ var MessageSection = React.createClass({
   },
 
   componentWillUpdate: function() {
-    var node = React.findDOMNode(this.refs.scrollbar);
+    var node;
+
+    if (!_.isEmpty(this.state.messages)) {
+      var last = _.last(this.state.messages);
+
+      if (last.userId._id === this.state.user._id) {
+        node = React.findDOMNode(this.refs.scrollbar);
+        node.scrollTop = node.scrollHeight;
+      }
+    }
+
+    node = React.findDOMNode(this.refs.scrollbar);
     this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
   },
 

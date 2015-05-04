@@ -40,7 +40,7 @@ var RoomSection = React.createClass({
         var disabled = room.isCreated ? false : true;
         var active = room.isCurrent ? mui.MenuItem.Types.SUBHEADER : '';
         var lastMessage = room.lastMessage ? 'wrote: ' + room.lastMessage.author.nickname : undefined;
-        
+
         roomListItems.push({
           payload: room._id,
           text: room.name,
@@ -79,6 +79,7 @@ var RoomSection = React.createClass({
           modal={this.state.modal}>
 
           <TextField
+            ref="nameRoomDialog"
             onChange={this.onChangeNameRoom}
             hintText="Name Room"
             floatingLabelText="Name Room" />
@@ -98,7 +99,7 @@ var RoomSection = React.createClass({
 
     ChatAction.creatingRoom(this.state.nameRoom);
 
-    this.setState({ nameRoom: null });
+    this.refs.nameRoomDialog.clearValue();
   },
 
   onChangeNameRoom: function(e) {

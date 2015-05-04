@@ -70,7 +70,7 @@ AppDispatcher.register(function(payload) {
 
     case ChatConstants.CREATED_ROOM:
       _rooms = _.map(_rooms, function(room) {
-        return room.name === action.room.name ? action.room : room;
+        return room._id === action.room._id ? action.room : room;
       });
       break;
 

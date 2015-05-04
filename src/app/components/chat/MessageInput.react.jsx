@@ -18,13 +18,19 @@ var MessageInput = React.createClass({
     };
   },
 
+  componentWillUpdate: function() {
+
+  },
+
   render: function() {
     var disabledInput = _.isUndefined(this.props.room) ? true : false;
     var disabledButton = this.state.message === '' ? true : false;
 
     return (
-      <form className="center-xs" onSubmit={this.handleSubmit}>
+      <form className="center-xs middle-xs" onSubmit={this.handleSubmit}>
         <TextField
+          ref="inputMessage"
+          multiLine={true}
           disabled={disabledInput}
           onChange={this.onChangeMessages}
           hintText="Enter Messages"
@@ -49,7 +55,7 @@ var MessageInput = React.createClass({
     };
     ChatAction.creatingMessage(message);
 
-    this.setState({ message: '' });
+    this.refs.inputMessage.clearValue();
   },
 
   onChangeMessages: function(e) {

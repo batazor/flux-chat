@@ -42,8 +42,6 @@ var Header = React.createClass({
 
   render: function() {
     if (this.state.session._id) {
-      var style = { 'z-index': 200 };
-
       var userMenuVisibility =
         <ToolbarGroup float="left">
           <DropDownMenu selectedIndex={0} onChange={this.userMenuItems} menuItems={userMenuItems} />
