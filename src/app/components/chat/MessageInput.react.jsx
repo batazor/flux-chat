@@ -1,5 +1,6 @@
 var React = require('react');
 var ChatAction = require('../../actions/ChatAction.jsx');
+var Markdown = require('react-remarkable');
 var _ = require('underscore');
 
 var mui = require('material-ui');
@@ -14,20 +15,23 @@ var MessageInput = React.createClass({
 
   getInitialState: function() {
     return {
-      message: ''
+      message: '',
+      previewFlag: false,
+      markdown: false
     };
   },
 
-  componentWillUpdate: function() {
-
-  },
-
   render: function() {
+
     var disabledInput = _.isUndefined(this.props.room) ? true : false;
     var disabledButton = this.state.message === '' ? true : false;
 
+    var eye = this.state.previewFlag ? 'fa fa-eye-slash fa-4x' : 'fa fa-eye fa-4x';
+
     return (
-      <form className="center-xs middle-xs" onSubmit={this.handleSubmit}>
+      <div className="center-xs middle-xs">
+        <div>{this.state.markdown}</div>
+
         <TextField
           ref="inputMessage"
           multiLine={true}
@@ -38,14 +42,21 @@ var MessageInput = React.createClass({
           setValue={this.state.text} />
 
         <IconButton
+          onClick={this.onPreviewClick}
+          disabled={disabledButton}
+          iconClassName={eye}
+          tooltip="Send Message" />
+
+        <IconButton
+          onClick={this.handleClick}
           disabled={disabledButton}
           iconClassName="fa fa-send fa-4x"
           tooltip="Send Message" />
-      </form>
+      </div>
     );
   },
 
-  handleSubmit: function(e) {
+  handleClick: function(e) {
     e.preventDefault();
 
     var message = {
@@ -56,10 +67,30 @@ var MessageInput = React.createClass({
     ChatAction.creatingMessage(message);
 
     this.refs.inputMessage.clearValue();
+
+    this.setState({
+      markdown: false,
+      previewFlag: false
+    });
   },
 
   onChangeMessages: function(e) {
-    this.setState({ message: e.target.value });
+    var markdown = this.state.previewFlag ? <Markdown source={e.target.value} /> : false;
+
+    this.setState({
+      message: e.target.value,
+      markdown: markdown
+    });
+  },
+
+  onPreviewClick: function() {
+    var previewFlag = this.state.previewFlag ? false : true;
+    var markdown = previewFlag ? <Markdown source={this.state.message} /> : false;
+
+    this.setState({
+      previewFlag: previewFlag,
+      markdown: markdown
+    });
   }
 });
 
