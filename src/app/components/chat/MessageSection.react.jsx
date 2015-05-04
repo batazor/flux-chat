@@ -41,24 +41,29 @@ var MessageSection = React.createClass({
   },
 
   render: function() {
-    
+
     var roomName = _.isUndefined(this.state.room) ? false : this.state.room.name;
     var messagesListItems = _.isEmpty(this.state.messages) ? 'No Messages' : _.map(this.state.messages, getMessageItem, this);
 
     return (
-      <div>
-        <div className="row center-xs">
-          <h4>{roomName}</h4>
-        </div>
-        <div className="row center-xs">
-          <div className="col-xs">
-            {messagesListItems}
+      <div className="row chat">
+        <div className="col-xs chat-app">
+          <div className="row center-xs chat-header">
+            <h4 className="room-name">{roomName}</h4>
           </div>
-        </div>
-        <div className="row center-xs">
-          <MessageInput
-            room={this.state.room}
-            user={this.state.user} />
+          <div className="row container">
+            <div className="col-xs scrollbar">
+              <div className="scrollbar-box" ref="scrollbar">
+                {messagesListItems}
+              </div>
+              
+              <div className="row center-xs">
+                <MessageInput
+                  room={this.state.room}
+                  user={this.state.user} />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

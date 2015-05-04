@@ -21,13 +21,13 @@ var ChatPage = React.createClass({
 
   render: function() {
     return (
-      <div className="row">
+      <div className="row chat">
 
-        <div className="col-xs-3">
+        <div className="col-xs-3 chat">
           <RoomSection />
         </div>
 
-        <div className="col-xs-6">
+        <div className="col-xs-6 chat">
           <MessageSection />
         </div>
 

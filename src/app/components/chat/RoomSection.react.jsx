@@ -5,7 +5,6 @@ var ChatAction = require('../../actions/ChatAction.jsx');
 
 var mui = require('material-ui');
 var Dialog = mui.Dialog;
-var FlatButton = mui.FlatButton;
 var RaisedButton = mui.RaisedButton;
 var TextField = mui.TextField;
 var Menu = mui.Menu;
@@ -40,8 +39,8 @@ var RoomSection = React.createClass({
       _.map(this.state.rooms, function(room) {
         var disabled = room.isCreated ? false : true;
         var active = room.isCurrent ? mui.MenuItem.Types.SUBHEADER : '';
-        var lastMessage = room.lastMessage ? room.lastMessage.author + ' send: ' + room.lastMessage.text : undefined;
-
+        var lastMessage = room.lastMessage ? 'wrote: ' + room.lastMessage.author.nickname : undefined;
+        
         roomListItems.push({
           payload: room._id,
           text: room.name,
@@ -53,18 +52,24 @@ var RoomSection = React.createClass({
     }
 
     return (
-      <div>
-        <div className="row middle-xs">
-          <h1>Rooms</h1>
+      <div className="col-xs chat-app">
+        <div className="row center-xs chat-header">
+          <h1 className="room-name">Rooms</h1>
           <RaisedButton
             label="ADD ROOM"
             onTouchTap={this.addRoomDialogOpen} />
         </div>
-        <div className="row">
-          <Menu
-            autoWidth={false}
-            onItemClick={this.clickRoom}
-            menuItems={roomListItems} />
+        <div className="row container">
+          <div className="col-xs scrollbar">
+            <div className="scrollbar-box rtl">
+              <div className="row">
+                <Menu
+                  autoWidth={false}
+                  onItemClick={this.clickRoom}
+                  menuItems={roomListItems} />
+              </div>
+            </div>
+          </div>
         </div>
 
         <Dialog
@@ -106,13 +111,13 @@ var RoomSection = React.createClass({
   },
 
   _onChange: function() {
-    // if (this.isMounted()) {
+    if (this.isMounted()) {
       this.setState({
         modal: false,
         nameRoom: "",
         rooms: RoomStore.getAll()
       });
-    // }
+    }
   }
 
 });

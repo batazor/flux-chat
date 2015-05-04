@@ -1,5 +1,4 @@
 var React = require('react');
-var _ = require('underscore');
 
 var mui = require('material-ui');
 var IconButton = mui.IconButton;
@@ -16,25 +15,26 @@ var MessageItem = React.createClass({
 
     var date = new Date(this.props.message.createAt).toLocaleString();
     var disabled = this.props.message.isCreated ? false : true;
-    var style = this.props.user.local.email === this.props.message.userId.local.email ? 'col-xs-offset-2 col-xs-10' : 'col-xs-10';
+    var style = this.props.user._id === this.props.message.userId._id ? 'col-xs-offset-2 col-xs-10' : 'col-xs-10';
 
     return (
       <div className="row">
         <Paper zDepth={1} className={style}>
           <div className="box">
-            <div className="row">
-              <div className="col-xs-2">
+            <header className="row">
+              <div className="col-xs">
                 <div className="box">
                   <IconButton
                     disabled={disabled}
                     mini={true}
                     iconClassName="fa fa-user-secret fa-4x" />
+                  {this.props.message.userId.nickname} | {date}
                 </div>
               </div>
-
-              <div  className="col-xs-10">
+            </header>
+            <div className="row">
+              <div className="col-xs">
                 <div className="box start-xs">
-                  <header>{this.props.message.userId.local.email} | {date}</header>
                   <p>{this.props.message.message}</p>
                 </div>
               </div>

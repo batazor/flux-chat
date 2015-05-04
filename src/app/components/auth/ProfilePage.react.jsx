@@ -53,7 +53,7 @@ var ProfilePage = React.createClass({
   _onChange: function() {
     if (this.isMounted()) {
       this.setState({ session: AuthStore.getSession() });
-      
+
       if (!this.state.session._id)
         return window.location.replace("/#/login");
     }

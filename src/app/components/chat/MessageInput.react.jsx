@@ -23,7 +23,7 @@ var MessageInput = React.createClass({
     var disabledButton = this.state.message === '' ? true : false;
 
     return (
-      <form className="row" onSubmit={this.handleSubmit}>
+      <form className="center-xs" onSubmit={this.handleSubmit}>
         <TextField
           disabled={disabledInput}
           onChange={this.onChangeMessages}
