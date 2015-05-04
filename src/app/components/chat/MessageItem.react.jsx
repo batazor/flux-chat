@@ -1,4 +1,5 @@
 var React = require('react');
+var Markdown = require('react-remarkable');
 
 var mui = require('material-ui');
 var IconButton = mui.IconButton;
@@ -35,7 +36,7 @@ var MessageItem = React.createClass({
             <div className="row">
               <div className="col-xs">
                 <div className="box start-xs">
-                  <p>{this.props.message.message}</p>
+                  <Markdown source={this.props.message.message} />
                 </div>
               </div>
             </div>
