@@ -29,7 +29,7 @@ var MessageInput = React.createClass({
     var eye = this.state.previewFlag ? 'fa fa-eye-slash fa-4x' : 'fa fa-eye fa-4x';
 
     return (
-      <div className="center-xs middle-xs">
+      <div className="center-xs bottom-xs">
         <div>{this.state.markdown}</div>
 
         <TextField

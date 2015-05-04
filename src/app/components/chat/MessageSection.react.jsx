@@ -80,7 +80,7 @@ var MessageSection = React.createClass({
                 {messagesListItems}
               </div>
 
-              <div className="row center-xs">
+              <div className="row center-xs scrollbar-box message-input">
                 <MessageInput
                   room={this.state.room}
                   user={this.state.user} />
