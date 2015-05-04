@@ -34,6 +34,18 @@ var MessageSection = React.createClass({
     AuthStore.addChangeListener(this._onChange);
   },
 
+  componentDidUpdate: function() {
+    if (this.shouldScrollBottom) {
+      var node = React.findDOMNode(this.refs.scrollbar);
+      node.scrollTop = node.scrollHeight;
+    }
+  },
+
+  componentWillUpdate: function() {
+    var node = React.findDOMNode(this.refs.scrollbar);
+    this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
+  },
+
   componentWillUnmount: function() {
     MessageStore.removeChangeListener(this._onChange);
     RoomStore.removeChangeListener(this._onChange);
@@ -56,7 +68,7 @@ var MessageSection = React.createClass({
               <div className="scrollbar-box" ref="scrollbar">
                 {messagesListItems}
               </div>
-              
+
               <div className="row center-xs">
                 <MessageInput
                   room={this.state.room}
