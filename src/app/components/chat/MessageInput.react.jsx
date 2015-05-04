@@ -1,6 +1,7 @@
 var React = require('react');
-var ChatAction = require('../../actions/ChatAction.jsx');
+var ReactEmoji = require('react-emoji');
 var Markdown = require('react-remarkable');
+var ChatAction = require('../../actions/ChatAction.jsx');
 var _ = require('underscore');
 
 var mui = require('material-ui');
@@ -8,6 +9,9 @@ var IconButton = mui.IconButton;
 var TextField = mui.TextField;
 
 var MessageInput = React.createClass({
+
+  mixins: [ReactEmoji],
+
   propTypres: {
     room: React.PropTypes.object,
     user: React.PropTypes.object.isRequired
@@ -30,7 +34,7 @@ var MessageInput = React.createClass({
 
     return (
       <div className="center-xs bottom-xs">
-        <div>{this.state.markdown}</div>
+        <div className="markdown">{this.state.markdown}</div>
 
         <TextField
           ref="inputMessage"
@@ -75,7 +79,7 @@ var MessageInput = React.createClass({
   },
 
   onChangeMessages: function(e) {
-    var markdown = this.state.previewFlag ? <Markdown source={e.target.value} /> : false;
+    var markdown = this.state.previewFlag ? <Markdown>{this.emojify(e.target.value)}</Markdown> : false;
 
     this.setState({
       message: e.target.value,
@@ -85,7 +89,7 @@ var MessageInput = React.createClass({
 
   onPreviewClick: function() {
     var previewFlag = this.state.previewFlag ? false : true;
-    var markdown = previewFlag ? <Markdown source={this.state.message} /> : false;
+    var markdown = previewFlag ? <Markdown>{this.emojify(this.state.message)}</Markdown> : false;
 
     this.setState({
       previewFlag: previewFlag,
