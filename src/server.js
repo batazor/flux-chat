@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser');
 var compression  = require('compression');
 var express      = require('express');
 var flash        = require('connect-flash');
+var favicon      = require('serve-favicon');
 var http         = require('http');
 var logger       = require('morgan');
 var mongoose     = require('mongoose');
@@ -16,6 +17,9 @@ var config       = require('./config')('development');
 
 // Create an express instance and set a port variable
 var app = express();
+
+// Favicon
+app.use(favicon(__dirname + '/favicon.ico'));
 
 // Connect to our mongo database ===============================================
 mongoose.connect(config.mongo.url);
