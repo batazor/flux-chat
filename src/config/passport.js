@@ -1,3 +1,4 @@
+var md5 = require('blueimp-md5').md5;
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
 
@@ -55,6 +56,7 @@ module.exports = function(passport) {
           var newUser = new User();
 
           // set the user's local credentials
+          newUser.avatar = '//www.gravatar.com/avatar/' + md5(email) + '?s=40&d=wavatar';
           newUser.nickname = email.split('@')[0];
           newUser.local.email = email;
           newUser.local.password = newUser.generateHash(password);

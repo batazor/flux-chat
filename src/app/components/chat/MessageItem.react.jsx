@@ -32,7 +32,11 @@ var MessageItem = React.createClass({
                   <IconButton
                     disabled={disabled}
                     mini={true}
-                    iconClassName="fa fa-user-secret fa-4x" />
+                    iconClassName="fa fa-user-secret fa-4x" >
+                    <img
+                      src={this.props.message.userId.avatar}
+                      className="avatar" />
+                  </IconButton>
                   {this.props.message.userId.nickname} | {date}
                 </div>
               </div>

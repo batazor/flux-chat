@@ -7,7 +7,7 @@ module.exports = function(socket, user, mongoose) {
   socket.on('initRoom', function() {
     Room
       .find({})
-      .populate('lastMessage.author', '_id, nickname')
+      .populate('lastMessage.author', '_id, nickname, avatar')
       .exec(function(err, data) {
         if (err) return handleError(err);
 
@@ -33,7 +33,7 @@ module.exports = function(socket, user, mongoose) {
   socket.on('clickRoom', function(roomID) {
     Message
       .find({roomId: roomID})
-      .populate('userId', '_id, nickname')
+      .populate('userId', '_id, nickname, avatar')
       .exec(function (err, data) {
         if (err) return handleError(err);
 
@@ -61,7 +61,7 @@ module.exports = function(socket, user, mongoose) {
     var promiseFindOneMessage = function(message) {
       return Message
         .findOne({_id: message._id})
-        .populate('userId', '_id, nickname')
+        .populate('userId', '_id, nickname, avatar')
         .exec(function (err, data) {
           if (err) return handleError(err);
 
