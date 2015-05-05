@@ -3,6 +3,7 @@ logs
 *.log
 
 # Build
+build
 src/build
 src/app/assets/**/build*
 

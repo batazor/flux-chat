@@ -18,6 +18,6 @@ gulp.task('nodemon', function(cb) {
         browserSync.reload({
           stream: false
         });
-      }, 500);
+      }, 100);
     });
 });

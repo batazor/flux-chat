@@ -1,6 +1,6 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
 var ButtonConstants = require('../constants/ButtonConstants.jsx');
-var socket = io.connect('http://localhost:8080');
+var socket = io.connect("#{ socketioPort }");
 
 // Define action methods
 var TestButtonActions = {

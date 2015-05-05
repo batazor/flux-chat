@@ -4,8 +4,11 @@ module.exports = function(app, passport) {
   // HOME PAGE =================================================================
   // ===========================================================================
   app.get('/', function(req, res) {
+    var port = process.env.PORT || 8080;
+
     res.render('index', {
-      socketio: 'http://' + req.headers.host + '/socket.io/socket.io.js'
+      socketio: '//' + req.headers.host + '/socket.io/socket.io.js',
+      socketioPort: '//' + req.headers.host + ':' + port 
     });
   });
 

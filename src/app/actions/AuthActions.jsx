@@ -1,6 +1,6 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
 var AuthConstants = require('../constants/AuthConstants.jsx');
-var socket = io.connect('http://localhost:8080');
+var socket = io.connect("#{ socketioPort }");
 var request = require('superagent');
 
 var AuthActions = {

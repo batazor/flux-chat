@@ -6,7 +6,29 @@ var path = {
   font: "./src/app/assets/font"
 };
 
+var watchWebpack = process.env.NODE_ENV === 'production' ? false : true;
+
 module.exports = {
+  push: {
+    repository: 'https://git.heroku.com/flux-chat.git',
+    build: './build',
+    transferFile: [
+      __dirname + '/../src/build',
+      __dirname + '/../src/build/**',
+      __dirname + '/../src/config',
+      __dirname + '/../src/config/**',
+      __dirname + '/../src/models',
+      __dirname + '/../src/models/**',
+      __dirname + '/../src/socketio',
+      __dirname + '/../src/socketio/**',
+      __dirname + '/../src/templates',
+      __dirname + '/../src/templates/**',
+      __dirname + '/../src/*.js',
+      __dirname + '/../src/favicon.ico',
+      __dirname + '/../package.json',
+      __dirname + '/../Procfile',
+    ]
+  },
   browserSync: {
     proxy: "http://localhost:8080/",
     port: 3000,
@@ -46,7 +68,7 @@ module.exports = {
     dest: __dirname + '/../src/build',
     config: {
       entry: {app: __dirname + '/../src/app/app.jsx'},
-      watch: true,
+      watch: watchWebpack,
       output: {
         path: __dirname + '/../src/build',
         publicPath: './',

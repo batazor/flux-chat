@@ -1,6 +1,6 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
 var ChatConstants = require('../constants/ChatConstants.jsx');
-var socket        = io.connect('http://localhost:8080');
+var socket = io.connect("#{ socketioPort }");
 
 module.exports = {
 
