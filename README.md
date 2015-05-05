@@ -1,6 +1,7 @@
 # Flux-Chat
 
-## Install
+## Run
 
     npm i
-    gulp
+    npm start
+    

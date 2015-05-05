@@ -6,6 +6,8 @@ var path = {
   font: "./src/app/assets/font"
 };
 
+var watchWebpack = process.env.NODE_ENV === 'production' ? false : true;
+
 module.exports = {
   browserSync: {
     proxy: "http://localhost:8080/",
@@ -46,7 +48,7 @@ module.exports = {
     dest: __dirname + '/../src/build',
     config: {
       entry: {app: __dirname + '/../src/app/app.jsx'},
-      watch: true,
+      watch: watchWebpack,
       output: {
         path: __dirname + '/../src/build',
         publicPath: './',

@@ -13,7 +13,7 @@ var passport     = require('passport');
 var path 	       = require('path');
 var React        = require('react');
 var session      = require('express-session');
-var config       = require('./config')('development');
+var config       = require('./config')(process.env.NODE_ENV);
 
 // Create an express instance and set a port variable
 var app = express();
