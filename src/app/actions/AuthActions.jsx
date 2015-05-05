@@ -7,7 +7,7 @@ var AuthActions = {
 
   signupAuth: function(form) {
     request
-      .post('/api/user/signup')
+      .post('/api/auth/signup')
       .accept('json')
       .send(form)
       .end(function(err, res) {
@@ -19,7 +19,7 @@ var AuthActions = {
 
   loginAuth: function(form) {
     request
-      .post('/api/user/login')
+      .post('/api/auth/login')
       .accept('json')
       .send(form)
       .end(function(err, res) {
@@ -38,7 +38,7 @@ var AuthActions = {
 
   logoutAuth: function() {
     request
-      .get('/api/user/logout')
+      .get('/api/auth/logout')
       .end(function(err, res) {
         AppDispatcher.handleAction({
           actionType: AuthConstants.AUTH_LOGOUT

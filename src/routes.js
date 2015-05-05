@@ -8,7 +8,7 @@ module.exports = function(app, passport) {
 
     res.render('index', {
       socketio: '//' + req.headers.host + '/socket.io/socket.io.js',
-      socketioPort: '//' + req.headers.host + ':' + port 
+      socketioPort: '//' + req.headers.host + ':' + port
     });
   });
 
@@ -16,7 +16,7 @@ module.exports = function(app, passport) {
   // Auth ======================================================================
   // ===========================================================================
   // process the login form
-  app.post('/api/user/login', function(req, res, next) {
+  app.post('/api/auth/login', function(req, res, next) {
     passport.authenticate('local-login', function(err, user, info) {
       if (err) {
         return next(res.status(200).json({redirect: false}));
@@ -32,7 +32,7 @@ module.exports = function(app, passport) {
   });
 
   // process the signup form
-  app.post('/api/user/signup', function(req, res, next) {
+  app.post('/api/auth/signup', function(req, res, next) {
     passport.authenticate('local-signup', function(err, user, info) {
       if (err) {
         console.log(err);
@@ -49,7 +49,7 @@ module.exports = function(app, passport) {
   });
 
   // user logout
-  app.get('/api/user/logout', function(req, res) {
+  app.get('/api/auth/logout', function(req, res) {
     req.logout();
     res.redirect('/');
   });
