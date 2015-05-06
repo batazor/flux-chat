@@ -61,7 +61,7 @@ module.exports = function(socket, user, mongoose) {
     var promiseFindOneMessage = function(message) {
       return Message
         .findOne({_id: message._id})
-        .populate('userId', '_id, nickname')
+        .populate('userId', '_id, nickname, avatar')
         .exec(function (err, data) {
           if (err) return handleError(err);
 

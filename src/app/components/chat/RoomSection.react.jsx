@@ -52,7 +52,7 @@ var RoomSection = React.createClass({
     }
 
     return (
-      <div className="col-xs chat-app">
+      <div className="col-xs chat-app room-section">
         <div className="row center-xs chat-header">
           <h1 className="room-name">Rooms</h1>
           <RaisedButton
@@ -76,7 +76,8 @@ var RoomSection = React.createClass({
           ref="addRoomDialog"
           title="Add Room"
           actions={addRoomDialogActions}
-          modal={this.state.modal}>
+          modal={this.state.modal}
+          className="col-xs-5" >
 
           <TextField
             ref="nameRoomDialog"

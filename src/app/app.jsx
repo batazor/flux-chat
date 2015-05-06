@@ -46,5 +46,5 @@ Router.run(routes, function (Handler) {
       </div>
       <Footer />
     </div>,
-    document.body);
+    document.getElementById('app'));
 });

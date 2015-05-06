@@ -61,8 +61,6 @@ var MessageInput = React.createClass({
   },
 
   handleClick: function(e) {
-    e.preventDefault();
-
     var message = {
       userId: {_id: this.props.user._id},
       roomId: this.props.room._id,
