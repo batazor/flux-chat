@@ -5,11 +5,20 @@ var UserSchema = mongoose.Schema({
 
   avatar:      String,
   nickname:    String,
+  email:       String,
+  locale:      { type: String, default: 'en' },
 
   local: {
     email:     String,
     password:  String
-  }
+  },
+
+  facebook : {
+    id:        String,
+    token:     String,
+    email:     String,
+    name:      String
+  },
 
 });
 

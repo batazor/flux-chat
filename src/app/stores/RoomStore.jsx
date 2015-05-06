@@ -70,7 +70,7 @@ AppDispatcher.register(function(payload) {
 
     case ChatConstants.CREATED_ROOM:
       _rooms = _.map(_rooms, function(room) {
-        return room._id === action.room._id ? action.room : room;
+        return (room.name === action.room.name && !room.isCreated) ? action.room : room;
       });
       break;
 
@@ -82,6 +82,7 @@ AppDispatcher.register(function(payload) {
       break;
 
     case ChatConstants.UPDATED_ROOM:
+      console.log(action.message);
       _rooms = _.map(_rooms, function(room) {
         if (room._id === action.message.roomId) {
           room.lastMessage = { author: action.message.userId, text: action.message.message };

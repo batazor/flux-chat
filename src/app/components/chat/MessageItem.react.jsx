@@ -3,7 +3,7 @@ var ReactEmoji = require('react-emoji');
 var Markdown = require('react-remarkable');
 
 var mui = require('material-ui');
-var IconButton = mui.IconButton;
+var FlatButton = mui.FlatButton;
 var Paper = mui.Paper;
 
 var MessageItem = React.createClass({
@@ -29,14 +29,9 @@ var MessageItem = React.createClass({
             <header className="row">
               <div className="col-xs">
                 <div className="box">
-                  <IconButton
-                    disabled={disabled}
-                    mini={true}
-                    iconClassName="fa fa-user-secret fa-4x" >
-                    <img
-                      src={this.props.message.userId.avatar}
-                      className="avatar" />
-                  </IconButton>
+                  <img
+                    src={this.props.message.userId.avatar}
+                    className="avatar" />
                   {this.props.message.userId.nickname} | {date}
                 </div>
               </div>

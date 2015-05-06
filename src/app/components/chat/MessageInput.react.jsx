@@ -64,7 +64,7 @@ var MessageInput = React.createClass({
     e.preventDefault();
 
     var message = {
-      userId: {_id: this.props.user._id, local: {email: this.props.user.local.email}},
+      userId: {_id: this.props.user._id, local: {email: this.props.user.email}},
       roomId: this.props.room._id,
       message: this.state.message
     };

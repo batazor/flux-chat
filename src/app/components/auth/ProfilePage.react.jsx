@@ -7,14 +7,13 @@ var FlatButton = mui.FlatButton;
 
 var ProfilePage = React.createClass({
   getInitialState: function() {
-    AuthActions.initSession();
-
     return {
-      session: AuthStore.getSession()
+      user: AuthStore.getSession()
     };
   },
 
   componentDidMount: function() {
+    AuthActions.initSession();
     AuthStore.addChangeListener(this._onChange);
   },
 
@@ -32,10 +31,10 @@ var ProfilePage = React.createClass({
             <div className="row">
               <div className="box">
                 <p>
-                  <strong>id: </strong> {this.state.session._id}
+                  <strong>id: </strong> {this.state.user._id}
                 </p>
                 <p>
-                  <strong>email: </strong> {this.state.session.local.email}
+                  <strong>email: </strong> {this.state.user.email}
                 </p>
               </div>
             </div>
@@ -51,8 +50,8 @@ var ProfilePage = React.createClass({
   },
 
   _onChange: function() {
-    if (this.isMounted()) {
       this.setState({ session: AuthStore.getSession() });
+    if (this.isMounted()) {
 
       if (!this.state.session._id)
         return window.location.replace("/#/login");

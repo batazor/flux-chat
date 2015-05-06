@@ -4,6 +4,7 @@ var AuthStore = require('../../stores/AuthStore.jsx');
 
 var mui = require('material-ui');
 var RaisedButton = mui.RaisedButton;
+var FlatButton = mui.FlatButton;
 var TextField = mui.TextField;
 
 var LoginPage = React.createClass({
@@ -46,42 +47,53 @@ var LoginPage = React.createClass({
 
   render: function() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <div>
+        <div className="row center-xs" >
 
-        <div className="row center-xs">
-          <div className="col-xs-3">
-            <div className="box">
-              <TextField
-                onChange={this.onChangeEmail}
-                hintText="Hint Email"
-                floatingLabelText="Email" />
+          <FlatButton
+            linkButton={true}
+            href="/auth/facebook"
+            label="Facebook" />
+
+        </div>
+
+        <form onSubmit={this.handleSubmit}>
+
+          <div className="row center-xs">
+            <div className="col-xs-3">
+              <div className="box">
+                <TextField
+                  onChange={this.onChangeEmail}
+                  hintText="Hint Email"
+                  floatingLabelText="Email" />
+              </div>
+            </div>
+
+            <div className="col-xs-3">
+              <div className="box">
+                <TextField
+                  onChange={this.onChangePassword}
+                  hintText="Hint Password"
+                  floatingLabelText="Password" />
+              </div>
             </div>
           </div>
 
-          <div className="col-xs-3">
-            <div className="box">
-              <TextField
-                onChange={this.onChangePassword}
-                hintText="Hint Password"
-                floatingLabelText="Password" />
+          <div className="row center-xs">
+            <div className="col-xs-4">
+              <RaisedButton label="Login" />
             </div>
           </div>
-        </div>
 
-        <div className="row center-xs">
-          <div className="col-xs-4">
-            <RaisedButton label="Login" />
+          <div className="row center-xs">
+            <div className="box">
+              <p>Need an account? <a href="/#/signup">Signup</a></p>
+              <p>Or go? <a href="/#/">home</a>.</p>
+            </div>
           </div>
-        </div>
 
-        <div className="row center-xs">
-          <div className="box">
-            <p>Need an account? <a href="/#/signup">Signup</a></p>
-            <p>Or go? <a href="/#/">home</a>.</p>
-          </div>
-        </div>
-
-      </form>
+        </form>
+      </div>
     );
   },
 

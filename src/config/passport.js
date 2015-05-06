@@ -1,6 +1,12 @@
 var md5 = require('blueimp-md5').md5;
 var LocalStrategy = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
+
+// load up the user model
 var User = require('../models/user');
+
+// load the auth variables
+var configAuth = require('./auth')(process.env.NODE_ENV);
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
@@ -58,6 +64,8 @@ module.exports = function(passport) {
           // set the user's local credentials
           newUser.avatar = '//www.gravatar.com/avatar/' + md5(email) + '?s=40&d=wavatar';
           newUser.nickname = email.split('@')[0];
+          newUser.email = email;
+          
           newUser.local.email = email;
           newUser.local.password = newUser.generateHash(password);
 
@@ -80,12 +88,12 @@ module.exports = function(passport) {
   // by default, if there was no name, it would just be called 'local'
 
   passport.use('local-login', new LocalStrategy({
-    // by default, local strategy uses username and password, we will override with email
-    usernameField : 'email',
-    passwordField : 'password',
-    passReqToCallback : true // allows us to pass back the entire request to the callback
-  },
-  function(req, email, password, done) { // callback with email and password from our form
+      // by default, local strategy uses username and password, we will override with email
+      usernameField : 'email',
+      passwordField : 'password',
+      passReqToCallback : true // allows us to pass back the entire request to the callback
+    },
+    function(req, email, password, done) { // callback with email and password from our form
 
     // find a user whose email is the same as the forms email
     // we are checking to see if the user trying to login already exists
@@ -111,6 +119,55 @@ module.exports = function(passport) {
     });
 
   }));
+
+  // ===========================================================================
+  // FACEBOOK ==================================================================
+  // ===========================================================================
+  passport.use(new FacebookStrategy({
+      // pull in our app id and secret from our auth.js file
+      clientID:     configAuth.facebookAuth.clientID,
+      clientSecret: configAuth.facebookAuth.clientSecret,
+      callbackURL:  configAuth.facebookAuth.callbackURL
+    },
+    function(token, refreshToken, profile, done) {
+
+      process.nextTick(function() {
+
+        // find the user in the database based on their facebook id
+        User.findOne({ 'facebook.id' : profile.id }, function(err, user) {
+
+          if (err)
+            return done(err);
+
+          // if the user is found, then log them in
+          if (user) {
+            return done(null, user); // user found, return that user
+          } else {
+            // if there is no user found with that facebook id, create them
+            var newUser = new User();
+
+            // set all of the facebook information in our user model
+            newUser.avatar         = '//www.gravatar.com/avatar/' + md5(profile.emails[0].value) + '?s=40&d=wavatar';
+            newUser.nickname       = profile.displayName;
+            newUser.email          = profile.emails[0].value;
+
+            newUser.facebook.id    = profile.id;
+            newUser.facebook.token = token;
+            newUser.facebook.name  = profile.displayName;
+            newUser.facebook.email = profile.emails[0].value;
+
+            // save our user to the database
+            newUser.save(function(err) {
+              if (err)
+                throw err;
+
+              // if successful, return the new user
+              return done(null, newUser);
+            });
+          }
+        });
+      });
+    }));
 
   return passport;
 };
