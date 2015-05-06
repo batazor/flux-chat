@@ -14,6 +14,7 @@ var WelcomePage = React.createClass({
             <FlatButton linkButton={true} href="/#/login" label="Local Login" />
             <FlatButton linkButton={true} href="/#/signup" label="Local Signup" />
             <FlatButton linkButton={true} href="/auth/facebook" label="Facebook" />
+            <FlatButton linkButton={true} href="/auth/twitter" label="Twitter" />
           </div>
         </div>
       </DocumentTitle>

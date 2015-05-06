@@ -82,7 +82,6 @@ AppDispatcher.register(function(payload) {
       break;
 
     case ChatConstants.UPDATED_ROOM:
-      console.log(action.message);
       _rooms = _.map(_rooms, function(room) {
         if (room._id === action.message.roomId) {
           room.lastMessage = { author: action.message.userId, text: action.message.message };

@@ -54,6 +54,10 @@ var LoginPage = React.createClass({
             linkButton={true}
             href="/auth/facebook"
             label="Facebook" />
+          <FlatButton
+            linkButton={true}
+            href="/auth/twitter"
+            label="Twitter" />
 
         </div>
 

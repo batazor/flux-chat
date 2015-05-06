@@ -4,10 +4,7 @@ var AuthConstants = require('../constants/AuthConstants.jsx');
 var _ = require('underscore');
 
 var sessionInit = {
-  _id: false,
-  local: {
-    email: undefined
-  }
+  _id: false
 };
 
 var session = sessionInit;

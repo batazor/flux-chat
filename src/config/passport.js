@@ -1,6 +1,7 @@
 var md5 = require('blueimp-md5').md5;
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
+var TwitterStrategy  = require('passport-twitter').Strategy;
 
 // load up the user model
 var User = require('../models/user');
@@ -65,7 +66,7 @@ module.exports = function(passport) {
           newUser.avatar = '//www.gravatar.com/avatar/' + md5(email) + '?s=40&d=wavatar';
           newUser.nickname = email.split('@')[0];
           newUser.email = email;
-          
+
           newUser.local.email = email;
           newUser.local.password = newUser.generateHash(password);
 
@@ -168,6 +169,50 @@ module.exports = function(passport) {
         });
       });
     }));
+
+  // ===========================================================================
+  // TWITTER ===================================================================
+  // ===========================================================================
+  passport.use(new TwitterStrategy({
+    consumerKey:    configAuth.twitterAuth.consumerKey,
+    consumerSecret: configAuth.twitterAuth.consumerSecret,
+    callbackURL:    configAuth.twitterAuth.callbackURL
+  },
+  function(token, tokenSecret, profile, done) {
+
+    process.nextTick(function() {
+
+      User.findOne({ 'twitter.id' : profile.id }, function(err, user) {
+
+        if (err)
+            return done(err);
+
+        if (user) {
+            return done(null, user);
+        } else {
+          var newUser = new User();
+
+          // set all of the twitter information in our user model
+          newUser.avatar              = profile.photos[0].value;
+          newUser.nickname            = profile.displayName;
+
+          newUser.twitter.id          = profile.id;
+          newUser.twitter.token       = token;
+          newUser.twitter.username    = profile.username;
+          newUser.twitter.displayName = profile.displayName;
+
+          // save our user into the database
+          newUser.save(function(err) {
+            if (err)
+              throw err;
+
+            return done(null, newUser);
+          });
+        }
+      });
+    });
+
+  }));
 
   return passport;
 };
