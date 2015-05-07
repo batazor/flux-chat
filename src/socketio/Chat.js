@@ -81,6 +81,8 @@ module.exports = function(io, socket, user, mongoose) {
 
   socket.on('createMessage', function(newMessage) {
 
+    console.log(user._id, ' <<<<<<<<<<<<<<<<<<<<<<<<');
+
     var promiseSaveMessage = function() {
       var message = new Message({
         message: newMessage.message,

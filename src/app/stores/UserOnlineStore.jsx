@@ -34,7 +34,6 @@ AppDispatcher.register(function(payload) {
   switch(action.actionType) {
     case ChatConstants.UPDATE_USER:
       userOnline = action.userOnline;
-      console.log(action.userOnline);
       break;
 
     default:

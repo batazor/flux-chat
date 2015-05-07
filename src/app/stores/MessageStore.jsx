@@ -54,8 +54,18 @@ AppDispatcher.register(function(payload) {
       break;
 
     case ChatConstants.CREATED_MESSAGE:
+      _messages.push(action.message);
+      _messages = _.uniq(_messages);
       _messages = _.map(_messages, function(message) {
-        return ((message.userId._id === action.message.userId._id) && !message.isCreated) ? action.message : message;
+        if (message.isCreated === false) {
+          delete _messages.message;
+          // console.log(message, ' <<<');
+          return {};
+        } else {
+          return message;
+        }
+        //   var index = _messages.indexOf(message);
+        //   if (index > -1) array.splice(index, 1);
       });
       break;
 
