@@ -4,6 +4,7 @@ var AuthActions = require('../../actions/AuthActions.jsx');
 var AuthStore = require('../../stores/AuthStore.jsx');
 var RoomSection = require('./RoomSection.react.jsx');
 var MessageSection = require('./MessageSection.react.jsx');
+var UserSection = require('./UserSection.react.jsx');
 
 var ChatPage = React.createClass({
   getInitialState: function() {
@@ -33,7 +34,9 @@ var ChatPage = React.createClass({
             <MessageSection />
           </div>
 
-          <div className="col-xs-3">UserSection</div>
+          <div className="col-xs-3 chat">
+            <UserSection />
+          </div>
         </div>
       </DocumentTitle>
     );

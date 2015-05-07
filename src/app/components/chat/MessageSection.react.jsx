@@ -65,7 +65,7 @@ var MessageSection = React.createClass({
 
   render: function() {
 
-    var roomName = _.isUndefined(this.state.room) ? false : this.state.room.name;
+    var roomName = _.isUndefined(this.state.room) ? 'Welcome!' : this.state.room.name;
     var messagesListItems = _.isEmpty(this.state.messages) ? 'No Messages' : _.map(this.state.messages, getMessageItem, this);
 
     return (

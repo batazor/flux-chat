@@ -15,7 +15,8 @@ var RoomSection = React.createClass({
     return {
       modal: false,
       nameRoom: "",
-      rooms: RoomStore.getAll()
+      rooms: RoomStore.getAll(),
+      roomsAction: false
     };
   },
 
@@ -54,7 +55,7 @@ var RoomSection = React.createClass({
     return (
       <div className="col-xs chat-app room-section">
         <div className="row center-xs chat-header">
-          <h1 className="room-name">Rooms</h1>
+          <h2 className="room-name">Rooms</h2>
           <RaisedButton
             label="ADD ROOM"
             onTouchTap={this.addRoomDialogOpen} />
@@ -109,7 +110,14 @@ var RoomSection = React.createClass({
 
   // Click Room ================================================================
   clickRoom: function(e, selectedIndex, menuItem) {
-    ChatAction.clickRoom(menuItem.payload);
+    ChatAction.clickRoom(menuItem.payload, this.state.roomsAction);
+    this._updateLastRoom(menuItem.payload, false);
+  },
+
+  _updateLastRoom: function(roomId) {
+    this.setState({
+      roomsAction: roomId
+    });
   },
 
   _onChange: function() {

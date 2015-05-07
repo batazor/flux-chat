@@ -5,6 +5,8 @@
   height: 100%;
 }
 
+.row + .chat { padding: 0; }
+
 .chat-app {
   height: calc(~"100% - "@heightHeaderAndFooter);
   height: calc(~"100% - "@heightHeaderAndFooter);
@@ -12,6 +14,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  padding: 0;
 
   .mui-menu-item-data { padding: 0; }
 }
@@ -22,6 +25,7 @@
   position: absolute;
   width: 100%;
   padding: 10px;
+  margin: 0;
   background-color: rgba(255,255,255,.97);
   border-bottom: 1px solid rgba(0,0,0,.05);
 

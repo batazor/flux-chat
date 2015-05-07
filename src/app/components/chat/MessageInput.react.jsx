@@ -71,6 +71,7 @@ var MessageInput = React.createClass({
     this.refs.inputMessage.clearValue();
 
     this.setState({
+      message: '',
       markdown: false,
       previewFlag: false
     });
