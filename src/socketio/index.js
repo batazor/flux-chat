@@ -1,4 +1,5 @@
 var cookieParser = require("cookie-parser");
+var User = require('../models/user');
 var config = require('../config')('development');
 
 var user = {};
@@ -11,7 +12,7 @@ module.exports = function(io, store, mongoose) {
     // AuthAction ==============================================================
     require('./Auth.js')(socket, user);
     // Chat
-    require('./Chat.js')(socket, user, mongoose);
+    require('./Chat.js')(io, socket, user, mongoose);
 
   });
 
@@ -27,10 +28,19 @@ module.exports = function(io, store, mongoose) {
     cookieParser(config.session.secret)(req, null, function() {});
     var name = config.session.key;
     socket.sessionID = req.signedCookies[name] || req.cookies[name];
+
     store.get(socket.sessionID, function(err, session) {
       if (err || !session) {
       } else {
-        user._id = session.passport.user;
+        // If authorized, save socket
+        User.update(
+          {_id: session.passport.user},
+          {$set: {socketID: socket.id}},
+          function(err, numberAffected, raw){
+            if (err) return handleError(err);
+
+            user._id = session.passport.user;
+          });
       }
     });
     next();

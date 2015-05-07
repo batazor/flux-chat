@@ -37,4 +37,11 @@ module.exports = function(socket, AppDispatcher) {
     });
   });
 
+  socket.on('updateUser', function(data) {
+    AppDispatcher.handleAction({
+      actionType: ChatConstants.UPDATE_USER,
+      userOnline: data
+    });
+  });
+
 };

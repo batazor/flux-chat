@@ -1,8 +1,10 @@
 var Room = require('../models/room');
 var Message = require('../models/message');
+var User = require('../models/user');
 var Q = require('q');
+var _ = require('underscore');
 
-module.exports = function(socket, user, mongoose) {
+module.exports = function(io, socket, user, mongoose) {
 
   socket.on('initRoom', function() {
     Room
@@ -30,15 +32,51 @@ module.exports = function(socket, user, mongoose) {
 
   });
 
-  socket.on('clickRoom', function(roomID) {
+  socket.on('clickRoom', function(room) {
+    var socketRoom;
+
+    // Add Room
+    socket.join(room.open);
+    // Delete Room -> update UserOnline
+    if (room.close !== false) {
+      socket.leave(room.close);
+
+      socketRoom = io.sockets.adapter.rooms[room.close];
+      if (socketRoom) {
+        socketRoom = _.keys(socketRoom);
+
+        User
+          .find({socketID: { $in: socketRoom}})
+          .exec(function (err, data) {
+            if (err) return handleError(err);
+
+            return io.sockets.in(room.close).emit('updateUser', data);
+          });
+      }
+    }
+
     Message
-      .find({roomId: roomID})
+      .find({roomId: room.open})
       .populate('userId', '_id, nickname, avatar')
       .exec(function (err, data) {
         if (err) return handleError(err);
 
-        return socket.emit('clickRoom', data);
+        return io.sockets.in(room.open).emit('clickRoom', data);
       });
+
+    socketRoom = io.sockets.adapter.rooms[room.open];
+    if (socketRoom) {
+      socketRoom = _.keys(socketRoom);
+
+      User
+        .find({socketID: { $in: socketRoom}})
+        .exec(function (err, data) {
+          if (err) return handleError(err);
+
+          return io.sockets.in(room.open).emit('updateUser', data);
+        });
+    }
+
   });
 
   socket.on('createMessage', function(newMessage) {
@@ -65,7 +103,7 @@ module.exports = function(socket, user, mongoose) {
         .exec(function (err, data) {
           if (err) return handleError(err);
 
-          socket.emit('createdMessage', data);
+          io.sockets.in(newMessage.roomId).emit('createdMessage', data);
           return data;
         });
     };

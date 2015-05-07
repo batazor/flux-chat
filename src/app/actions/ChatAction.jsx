@@ -16,13 +16,13 @@ module.exports = {
     socket.emit('createRoom', nameRoom);
   },
 
-  clickRoom: function(roomID) {
+  clickRoom: function(room) {
     AppDispatcher.handleAction({
       actionType: ChatConstants.CLICKING_ROOM,
-      id: roomID
+      id: room.open
     });
 
-    socket.emit('clickRoom', roomID);
+    socket.emit('clickRoom', room);
   },
 
   creatingMessage: function(message) {

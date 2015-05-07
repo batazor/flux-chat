@@ -110,8 +110,8 @@ var RoomSection = React.createClass({
 
   // Click Room ================================================================
   clickRoom: function(e, selectedIndex, menuItem) {
-    ChatAction.clickRoom(menuItem.payload, this.state.roomsAction);
-    this._updateLastRoom(menuItem.payload, false);
+    ChatAction.clickRoom({ open: menuItem.payload, close: this.state.roomsAction });
+    this._updateLastRoom(menuItem.payload);
   },
 
   _updateLastRoom: function(roomId) {

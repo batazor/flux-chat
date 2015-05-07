@@ -6,7 +6,10 @@ var UserSchema = mongoose.Schema({
   avatar:        String,
   nickname:      String,
   email:         String,
+  
   locale:        { type: String, default: 'en' },
+
+  socketID:      String,
 
   local: {
     email:       String,

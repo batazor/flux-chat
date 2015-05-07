@@ -2,7 +2,6 @@ var AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
 var EventEmitter = require('events').EventEmitter;
 var ChatConstants = require('../constants/ChatConstants.jsx');
 var _ = require('underscore');
-var MessageStore = require('./MessageStore.jsx');
 
 var _rooms = [];
 
