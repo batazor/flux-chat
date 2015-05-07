@@ -1,5 +1,5 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
-var socket = io.connect("#{ socketioPort }");
+var socket = io.connect();
 
 // HelloWorldComponent
 require('./socketio/HelloWorldComponent.jsx')(socket, AppDispatcher);

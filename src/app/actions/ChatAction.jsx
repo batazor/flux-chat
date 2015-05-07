@@ -1,6 +1,6 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
 var ChatConstants = require('../constants/ChatConstants.jsx');
-var socket = io.connect("#{ socketioPort }");
+var socket = io.connect();
 
 module.exports = {
 

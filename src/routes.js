@@ -6,10 +6,7 @@ module.exports = function(app, passport) {
   app.get('/', function(req, res) {
     var port = process.env.PORT || 8080;
 
-    res.render('index', {
-      socketio: '//' + req.headers.host + '/socket.io/socket.io.js',
-      socketioPort: '//' + req.headers.host + ':' + port
-    });
+    res.render('index');
   });
 
   // ===========================================================================
