@@ -1,4 +1,5 @@
 var React = require('react');
+var DocumentTitle = require('react-document-title');
 var AuthActions = require('../../actions/AuthActions.jsx');
 var AuthStore = require('../../stores/AuthStore.jsx');
 
@@ -24,6 +25,9 @@ var ProfilePage = React.createClass({
   render: function() {
     return (
       <div className="row center-xs">
+        <div className="col-xs-12">
+          <h1>Profile</h1>
+        </div>
         <div className="col s4">
           <div className="box">
             <h3 className="row center-xs">Local Account</h3>

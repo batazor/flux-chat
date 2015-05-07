@@ -1,4 +1,5 @@
 var React = require('react');
+var DocumentTitle = require('react-document-title');
 var TestButtonActions = require('../actions/TestButtonActions.jsx');
 var ButtonStore = require('../stores/ButtonStore.jsx');
 var AuthActions = require('../actions/AuthActions.jsx');
@@ -44,18 +45,20 @@ var HelloWorld = React.createClass({
     var sessionStatus = this.state.session._id ? false : true;
 
     return (
-      <div>
-        <h1 className="row center-xs">test</h1>
+      <DocumentTitle title='Hello World | Flux • Chat'>
+        <div>
+          <h1 className="row center-xs">test</h1>
 
-        <div className="row center-xs">
-          <RaisedButton onClick={this.addCount} label="ADD COUNT" />
-        </div>
-        <p className="row center-xs">Value: { this.state.value }</p>
+          <div className="row center-xs">
+            <RaisedButton onClick={this.addCount} label="ADD COUNT" />
+          </div>
+          <p className="row center-xs">Value: { this.state.value }</p>
 
-        <div className="row center-xs">
-          <RaisedButton onClick={this.consoleData} label="Session Socket" disabled={sessionStatus} />
+          <div className="row center-xs">
+            <RaisedButton onClick={this.consoleData} label="Session Socket" disabled={sessionStatus} />
+          </div>
         </div>
-      </div>
+      </DocumentTitle>
     );
   },
 

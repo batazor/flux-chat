@@ -1,4 +1,5 @@
 var React = require('react');
+var DocumentTitle = require('react-document-title');
 var AuthActions = require('../../actions/AuthActions.jsx');
 var AuthStore = require('../../stores/AuthStore.jsx');
 var RoomSection = require('./RoomSection.react.jsx');
@@ -21,18 +22,20 @@ var ChatPage = React.createClass({
 
   render: function() {
     return (
-      <div className="row chat">
+      <DocumentTitle title='Chat | Flux • Chat'>
+        <div className="row chat">
 
-        <div className="col-xs-3 chat">
-          <RoomSection />
+          <div className="col-xs-3 chat">
+            <RoomSection />
+          </div>
+
+          <div className="col-xs-6 chat">
+            <MessageSection />
+          </div>
+
+          <div className="col-xs-3">UserSection</div>
         </div>
-
-        <div className="col-xs-6 chat">
-          <MessageSection />
-        </div>
-
-        <div className="col-xs-3">UserSection</div>
-      </div>
+      </DocumentTitle>
     );
   },
 

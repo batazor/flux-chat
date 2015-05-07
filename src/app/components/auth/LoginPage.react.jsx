@@ -1,4 +1,5 @@
 var React = require('react');
+var DocumentTitle = require('react-document-title');
 var AuthActions = require('../../actions/AuthActions.jsx');
 var AuthStore = require('../../stores/AuthStore.jsx');
 
@@ -47,57 +48,60 @@ var LoginPage = React.createClass({
 
   render: function() {
     return (
-      <div>
-        <div className="row center-xs" >
+      <DocumentTitle title='Login | Flux • Chat'>
+        <div>
+          <h1 className="row center-xs">Login</h1>
+          <div className="row center-xs" >
 
-          <FlatButton
-            linkButton={true}
-            href="/auth/facebook"
-            label="Facebook" />
-          <FlatButton
-            linkButton={true}
-            href="/auth/twitter"
-            label="Twitter" />
+            <FlatButton
+              linkButton={true}
+              href="/auth/facebook"
+              label="Facebook" />
+            <FlatButton
+              linkButton={true}
+              href="/auth/twitter"
+              label="Twitter" />
 
+          </div>
+
+          <form onSubmit={this.handleSubmit}>
+
+            <div className="row center-xs">
+              <div className="col-xs-3">
+                <div className="box">
+                  <TextField
+                    onChange={this.onChangeEmail}
+                    hintText="Hint Email"
+                    floatingLabelText="Email" />
+                </div>
+              </div>
+
+              <div className="col-xs-3">
+                <div className="box">
+                  <TextField
+                    onChange={this.onChangePassword}
+                    hintText="Hint Password"
+                    floatingLabelText="Password" />
+                </div>
+              </div>
+            </div>
+
+            <div className="row center-xs">
+              <div className="col-xs-4">
+                <RaisedButton label="Login" />
+              </div>
+            </div>
+
+            <div className="row center-xs">
+              <div className="box">
+                <p>Need an account? <a href="/#/signup">Signup</a></p>
+                <p>Or go? <a href="/#/">home</a>.</p>
+              </div>
+            </div>
+
+          </form>
         </div>
-
-        <form onSubmit={this.handleSubmit}>
-
-          <div className="row center-xs">
-            <div className="col-xs-3">
-              <div className="box">
-                <TextField
-                  onChange={this.onChangeEmail}
-                  hintText="Hint Email"
-                  floatingLabelText="Email" />
-              </div>
-            </div>
-
-            <div className="col-xs-3">
-              <div className="box">
-                <TextField
-                  onChange={this.onChangePassword}
-                  hintText="Hint Password"
-                  floatingLabelText="Password" />
-              </div>
-            </div>
-          </div>
-
-          <div className="row center-xs">
-            <div className="col-xs-4">
-              <RaisedButton label="Login" />
-            </div>
-          </div>
-
-          <div className="row center-xs">
-            <div className="box">
-              <p>Need an account? <a href="/#/signup">Signup</a></p>
-              <p>Or go? <a href="/#/">home</a>.</p>
-            </div>
-          </div>
-
-        </form>
-      </div>
+      </DocumentTitle>
     );
   },
 
