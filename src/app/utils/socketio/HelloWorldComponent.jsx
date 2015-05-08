@@ -18,7 +18,7 @@ module.exports = function(socket, AppDispatcher) {
 
   // Session
   socket.on('socketSession', function(user) {
-    alert('User ID: ' + user._id);
+    alert('User ID: ' + user);
   });
 
 };

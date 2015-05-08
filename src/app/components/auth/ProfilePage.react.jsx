@@ -38,7 +38,7 @@ var ProfilePage = React.createClass({
                   <strong>id: </strong> {this.state.user._id}
                 </p>
                 <p>
-                  <strong>email: </strong> {this.state.user.email}
+                  <strong>nickname: </strong> {this.state.user.nickname}
                 </p>
               </div>
             </div>
