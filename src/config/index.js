@@ -22,12 +22,7 @@ var configs = {
     },
     session: {
       secret: 'devsecretkey!',
-      key: 'devsecretkey!',
-      cookie: {
-        path: "/",
-        httpOnly: true,
-        maxAge : 3600000
-      }
+      key: 'devsecretkey!'
     }
   }
 };
