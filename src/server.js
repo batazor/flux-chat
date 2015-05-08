@@ -13,13 +13,11 @@ var passport     = require('passport');
 var path 	       = require('path');
 var React        = require('react');
 var session      = require('express-session');
+var MongoStore   = require('connect-mongo')(session);
 var config       = require('./config')(process.env.NODE_ENV);
 
-// Create an express instance and set a port variable
+// Create an express instance and set a port variable ==========================
 var app = express();
-
-// Favicon
-app.use(favicon(__dirname + '/favicon.ico'));
 
 // Connect to our mongo database ===============================================
 mongoose.connect(config.mongo.url);
@@ -35,28 +33,30 @@ dbConnection.once('open', function () {
 require('./config/passport')(passport);
 
 // Set up session and passport
-var store = new session.MemoryStore();
 app.use(cookieParser());
 
 app.use(session({
-  name: config.session.secret,
+  key:    config.session.key,
   secret: config.session.secret,
   cookie: config.session.cookie,
   resave: true,
   saveUninitialized: true,
-  store: store
+  store: new MongoStore(config.mongo)
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+// Other setting ===============================================================
+
+// Favicon
+app.use(favicon(__dirname + '/favicon.ico'));
 
 // Form work
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
-
-// set logger
-app.use(logger('dev'));
 
 // set up our express application
 app.use(compression());
@@ -66,14 +66,17 @@ app.use(express.static(__dirname + '/build/'));
 app.set('views', path.join(__dirname, './templates'));
 app.set('view engine', 'jade');
 
-// Routes
+// set logger
+app.use(logger('dev'));
+
+// Routes ======================================================================
 require('./routes')(app, passport);
 
-// Start our server
+// Start our server ============================================================
 var server = http.createServer(app).listen(config.port, function() {
   console.log('Express server listening on port ' + config.port);
 });
 
-// Initialize socket.io
+// Initialize socket.io ========================================================
 var io = require('socket.io').listen(server);
-require('./socketio')(io, store, mongoose);
+require('./socketio')(io);

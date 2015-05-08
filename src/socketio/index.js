@@ -1,50 +1,44 @@
 var cookieParser = require("cookie-parser");
+var session      = require('express-session');
+var MongoStore   = require('connect-mongo')(session);
+var passportSocketIo = require("passport.socketio");
 var User = require('../models/user');
-var config = require('../config')('development');
+var config = require('../config')(process.env.NODE_ENV);
 
 var user = {};
 
-module.exports = function(io, store, mongoose) {
+module.exports = function(io) {
   io.on('connection', function(socket) {
 
     // HelloWorldActions =======================================================
     require('./HelloWorldPage.js')(socket);
     // AuthAction ==============================================================
-    require('./Auth.js')(socket, user);
+    require('./Auth.js')(socket);
     // Chat
-    require('./Chat.js')(io, socket, user, mongoose);
+    require('./Chat.js')(io, socket);
 
   });
 
-  io.use(function ioSession(socket, next) {
-    // create the fake req that cookieParser will expect
-    var req = {
-      "headers": {
-        "cookie": socket.request.headers.cookie,
-      },
-    };
+  io.use(passportSocketIo.authorize({
+    cookieParser: cookieParser,
+    key:          config.session.key,
+    secret:       config.session.secret,
+    store:        new MongoStore(config.mongo),
+    success:      onAuthorizeSuccess,
+    fail:         onAuthorizeFail,
+  }));
 
-    // run the parser and store the sessionID
-    cookieParser(config.session.secret)(req, null, function() {});
-    var name = config.session.key;
-    socket.sessionID = req.signedCookies[name] || req.cookies[name];
+  function onAuthorizeSuccess(data, accept){
+    console.log('successful connection to socket.io');
 
-    store.get(socket.sessionID, function(err, session) {
-      if (err || !session) {
-      } else {
-        // If authorized, save socket
-        User.update(
-          {_id: session.passport.user},
-          {$set: {socketID: socket.id}},
-          function(err, numberAffected, raw){
-            if (err) return handleError(err);
+    accept();
+  }
 
-            user._id = session.passport.user;
-          });
-      }
-    });
-    next();
-  });
+  function onAuthorizeFail(data, message, error, accept){
+
+    if(error)
+      accept(new Error(message));
+  }
 
   io.on('disconnect', function() {
     io.reconnect();

@@ -4,7 +4,7 @@ var User = require('../models/user');
 var Q = require('q');
 var _ = require('underscore');
 
-module.exports = function(io, socket, user, mongoose) {
+module.exports = function(io, socket) {
 
   socket.on('initRoom', function() {
     Room
@@ -81,13 +81,11 @@ module.exports = function(io, socket, user, mongoose) {
 
   socket.on('createMessage', function(newMessage) {
 
-    console.log(user._id, ' <<<<<<<<<<<<<<<<<<<<<<<<');
-
     var promiseSaveMessage = function() {
       var message = new Message({
         message: newMessage.message,
         roomId: newMessage.roomId,
-        userId: user._id,
+        userId: socket.client.request.user._id,
         isCreated: true
       });
 
@@ -113,7 +111,7 @@ module.exports = function(io, socket, user, mongoose) {
     var promiseUpdateRoom = function(message) {
       return Room.update(
         {_id: message.roomId},
-        {$set: {updatedAt: Date.now(), lastMessage: { author: message.userId, text: message.message }}},
+        {$set: {updatedAt: Date.now(), lastMessage: { author: socket.client.request.user._id, text: message.message }}},
         function(err, numberAffected, raw){
           if (err) return handleError(err);
 

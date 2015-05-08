@@ -42,7 +42,7 @@ var RoomSection = React.createClass({
         var active = room.isCurrent ? mui.MenuItem.Types.SUBHEADER : '';
         // var lastMessage = room.lastMessage ? 'wrote: ' + room.lastMessage.author.nickname : undefined;
 
-        var lastMessage = false;
+        var lastMessage = '';
 
         roomListItems.push({
           payload: room._id,

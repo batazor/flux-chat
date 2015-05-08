@@ -1,8 +1,8 @@
-module.exports = function(socket, user) {
+module.exports = function(socket) {
 
   // SignupAuth
   socket.on('socketSession', function() {
-    socket.emit('socketSession', user);
+    socket.emit('socketSession', socket.client.request.user._id);
   });
 
 };
