@@ -10,6 +10,17 @@ var user = {};
 module.exports = function(io) {
   io.on('connection', function(socket) {
 
+    // Save socket.id for authenticated user
+    if (socket.client.request.user._id !== undefined) {
+      User.update(
+        {_id: socket.client.request.user._id},
+        {$set: {socketID: socket.id}},
+        function(err, numberAffected, raw){
+          if (err) return handleError(err);
+        }
+      );
+    }      
+
     // HelloWorldActions =======================================================
     require('./HelloWorldPage.js')(socket);
     // AuthAction ==============================================================
