@@ -24,6 +24,12 @@ var auth = {
       clientID:     '---you-id---',
       clientSecret: '---you-secret---',
       callbackURL:  'http://localhost:3000/auth/github/callback'
+    },
+
+    vkontakteAuth: {
+      clientID:     '---you-id---',
+      clientSecret: '---you-secret---',
+      callbackURL:  'http://localhost:3000/auth/vkontakte/callback'
     }
 
   },
@@ -52,6 +58,12 @@ var auth = {
       clientID:     process.env.githubKey,
       clientSecret: process.env.githubSecret,
       callbackURL:  process.env.githubCallbackURL
+    },
+
+    vkontakteAuth: {
+      clientID:     process.env.vkontakteKey,
+      clientSecret: process.env.vkontakteSecret,
+      callbackURL:  process.env.vkontakteCallbackURL
     }
 
   }

@@ -91,6 +91,11 @@ var LoginPage = React.createClass({
               linkButton={true}
               href="/auth/github"
               label="Github" />
+            <FlatButton
+              className="btn btn-vk"
+              linkButton={true}
+              href="/auth/vkontakte"
+              label="VK" />
 
           </div>
 

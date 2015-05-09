@@ -4,6 +4,7 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy  = require('passport-twitter').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
+var VKStrategy = require('passport-vkontakte').Strategy;
 
 // load up the user model
 var User = require('../models/user');
@@ -289,6 +290,50 @@ module.exports = function(passport) {
           newUser.github.token = token;
           newUser.github.name  = profile.displayName;
           newUser.github.email = profile.emails[0].value;
+
+          // save our user into the database
+          newUser.save(function(err) {
+            if (err)
+              throw err;
+
+            return done(null, newUser);
+          });
+        }
+      });
+    });
+  }));
+
+  // ===========================================================================
+  // VK ========================================================================
+  // ===========================================================================
+  passport.use(new VKStrategy({
+    clientID:     configAuth.vkontakteAuth.clientID,
+    clientSecret: configAuth.vkontakteAuth.clientSecret,
+    callbackURL:  configAuth.vkontakteAuth.callbackURL,
+  },
+  function(token, refreshToken, profile, done) {
+
+    process.nextTick(function() {
+
+      User.findOne({ 'vk.id' : profile.id }, function(err, user) {
+
+        if (err)
+          return done(err);
+
+        if (user) {
+          return done(null, user);
+        } else {
+          var newUser = new User();
+
+          // set all of the twitter information in our user model
+          newUser.avatar          = profile.photos[0].value;
+          newUser.nickname        = profile.displayName;
+
+          newUser.vkontakte.id    = profile.id;
+          newUser.vkontakte.token = token;
+          newUser.vkontakte.name  = profile.displayName;
+
+          console.log(profile);
 
           // save our user into the database
           newUser.save(function(err) {

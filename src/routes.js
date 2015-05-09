@@ -86,11 +86,23 @@ module.exports = function(app, passport) {
   // ===========================================================================
   // GITHUB ROUTES =============================================================
   // ===========================================================================
-  // route for twitter authentication and login
+  // route for github authentication and login
   app.get('/auth/github', passport.authenticate('github'));
 
-  // handle the callback after twitter has authenticated the user
+  // handle the callback after github has authenticated the user
   app.get('/auth/github/callback', passport.authenticate('github', {
+    successRedirect : '/#/login',
+    failureRedirect : '/#/'
+  }));
+
+  // ===========================================================================
+  // VK ROUTES =================================================================
+  // ===========================================================================
+  // route for vk authentication and login
+  app.get('/auth/vkontakte', passport.authenticate('vkontakte'));
+
+  // handle the callback after vk has authenticated the user
+  app.get('/auth/vkontakte/callback', passport.authenticate('vkontakte', {
     successRedirect : '/#/login',
     failureRedirect : '/#/'
   }));
