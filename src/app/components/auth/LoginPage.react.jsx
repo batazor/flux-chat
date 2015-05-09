@@ -13,29 +13,47 @@ var LoginPage = React.createClass({
     AuthActions.initSession();
 
     return {
-      email: "",
-      password: "",
+      emailError: null,
+      passwordError: null,
+
       session: AuthStore.getSession()
     };
-  },
-
-  onChangeEmail: function(e) {
-    this.setState({ email: e.target.value });
-  },
-
-  onChangePassword: function(e) {
-    this.setState({ password: e.target.value });
   },
 
   handleSubmit: function(e) {
     e.preventDefault();
 
     var form = {
-      email: this.state.email,
-      password: this.state.password
+      email: this.refs.email.getValue(),
+      password: this.refs.password.getValue()
     };
 
-    AuthActions.loginAuth(form);
+    if (this.validate(form)) {
+      AuthActions.signupAuth(form);
+    }
+  },
+
+  validate: function (form) {
+    // Check email
+    if (!form.email) {
+      this.setState({emailError: "Email cannot be empty!"});
+      form.email = false;
+    } else {
+      this.setState({emailError: null});
+    }
+
+    // Check password
+    if (!form.password) {
+      this.setState({passwordError: "Password cannot be empty!"});
+      form.password = false;
+    } else if (form.password.length < 8) {
+      this.setState({passwordError: "The password must contain at least 8 characters"});
+      form.password = false;
+    } else {
+      this.setState({passwordError: null});
+    }
+
+    return form.email && form.password;
   },
 
   componentDidMount: function() {
@@ -70,25 +88,33 @@ var LoginPage = React.createClass({
               <div className="col-xs-3">
                 <div className="box">
                   <TextField
-                    onChange={this.onChangeEmail}
+                    ref="email"
                     hintText="Hint Email"
-                    floatingLabelText="Email" />
+                    floatingLabelText="Email"
+                    required={true}
+                    errorText={this.state.emailError}
+                    type="email" />
                 </div>
               </div>
 
               <div className="col-xs-3">
                 <div className="box">
                   <TextField
-                    onChange={this.onChangePassword}
+                    ref="password"
                     hintText="Hint Password"
-                    floatingLabelText="Password" />
+                    floatingLabelText="Password"
+                    required={true}
+                    errorText={this.state.passwordError}
+                    type="password" />
                 </div>
               </div>
             </div>
 
             <div className="row center-xs">
               <div className="col-xs-4">
-                <RaisedButton label="Login" />
+                <div className="box">
+                  <RaisedButton label="Login" />
+                </div>
               </div>
             </div>
 
