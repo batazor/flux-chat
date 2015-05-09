@@ -36,31 +36,35 @@ var MessageInput = React.createClass({
       <div className="center-xs bottom-xs">
         <div className="markdown">{this.state.markdown}</div>
 
-        <TextField
-          ref="inputMessage"
-          multiLine={true}
-          disabled={disabledInput}
-          onChange={this.onChangeMessages}
-          hintText="Enter Messages"
-          floatingLabelText="Message"
-          setValue={this.state.text} />
+        <form onSubmit={this.handleSubmit}>
+          <TextField
+            ref="inputMessage"
+            multiLine={false}
+            disabled={disabledInput}
+            onChange={this.onChangeMessages}
+            hintText="Enter Messages"
+            floatingLabelText="Message"
+            setValue={this.state.text} />
 
-        <IconButton
-          onClick={this.onPreviewClick}
-          disabled={disabledButton}
-          iconClassName={eye}
-          tooltip="Send Message" />
+          <IconButton
+            onClick={this.onPreviewClick}
+            disabled={disabledButton}
+            iconClassName={eye}
+            tooltip="Send Message" />
 
-        <IconButton
-          onClick={this.handleClick}
-          disabled={disabledButton}
-          iconClassName="fa fa-send fa-4x"
-          tooltip="Send Message" />
+          <IconButton
+            disabled={disabledButton}
+            iconClassName="fa fa-send fa-4x"
+            tooltip="Send Message" />
+        </form>
+
       </div>
     );
   },
 
-  handleClick: function(e) {
+  handleSubmit: function(e) {
+    e.preventDefault();
+
     var message = {
       userId: {_id: this.props.user._id},
       roomId: this.props.room._id,
