@@ -11,31 +11,38 @@ var WelcomePage = React.createClass({
         <div>
           <h1 className="row center-xs">Chat on Node.js</h1>
           <div className="row center-xs">
+
             <FlatButton
-              className="btn-local"
+              className="btn btn-local"
               linkButton={true}
               href="/#/login"
               label="Local Login" />
             <FlatButton
-              className="btn-signup"
+              className="btn btn-signup"
               linkButton={true}
               href="/#/signup"
               label="Local Signup" />
             <FlatButton
-              className="btn-facebook"
+              className="btn btn-facebook"
               linkButton={true}
               href="/auth/facebook"
               label="Facebook" />
             <FlatButton
-              className="btn-twitter"
+              className="btn btn-twitter"
               linkButton={true}
               href="/auth/twitter"
               label="Twitter" />
             <FlatButton
-              className="btn-google"
+              className="btn btn-google"
               linkButton={true}
               href="/auth/google"
               label="Google" />
+            <FlatButton
+              className="btn btn-github"
+              linkButton={true}
+              href="/auth/github"
+              label="Github" />
+
           </div>
         </div>
       </DocumentTitle>

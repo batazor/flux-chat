@@ -33,6 +33,16 @@ var ProfilePage = React.createClass({
             <h3 className="row center-xs">Local Account</h3>
 
             <div className="row">
+              <div className="col-xs">
+                <div className="box">
+                  <img
+                    src={this.state.user.avatar}
+                    className="avatar" />
+                </div>
+              </div>
+            </div>
+
+            <div className="row">
               <div className="box">
                 <p>
                   <strong>id: </strong> {this.state.user._id}

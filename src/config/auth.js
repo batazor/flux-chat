@@ -3,21 +3,27 @@ var auth = {
   development: {
 
     facebookAuth: {
-      clientID:     '832523613506734',
-      clientSecret: '6a5f6b956ba05216852d51f3631759f3',
+      clientID:     '---you-id---',
+      clientSecret: '---you-secret---',
       callbackURL:  'http://localhost:3000/auth/facebook/callback'
     },
 
     twitterAuth: {
-      consumerKey:    'QtKb8nFbZuRrHItrvUIZKQASB',
-      consumerSecret: 'dzVHmIed29ljUbLxd7UnTWODbGu2Mncux3m2BL9PoojZL8m0Tp',
+      consumerKey:    '---you-id---',
+      consumerSecret: '---you-secret---',
       callbackURL:    'http://127.0.0.1:3000/auth/twitter/callback'
     },
 
     googleAuth: {
-      clientID:     '442361269143-nk0qoalsdnbpvvplt1f8s2bi56jrqcau.apps.googleusercontent.com',
-      clientSecret: 'awjP26Vt0hz3jGuB23cS9V6E',
+      clientID:     '---you-id---',
+      clientSecret: '---you-secret---',
       callbackURL:  'http://localhost:3000/auth/google/callback'
+    },
+
+    githubAuth: {
+      clientID:     '---you-id---',
+      clientSecret: '---you-secret---',
+      callbackURL:  'http://localhost:3000/auth/github/callback'
     }
 
   },
@@ -40,6 +46,12 @@ var auth = {
       clientID:     process.env.googleKey,
       clientSecret: process.env.googleSecret,
       callbackURL:  process.env.googleCallbackURL
+    },
+
+    githubAuth: {
+      clientID:     process.env.githubKey,
+      clientSecret: process.env.githubSecret,
+      callbackURL:  process.env.githubCallbackURL
     }
 
   }

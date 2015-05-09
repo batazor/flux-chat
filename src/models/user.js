@@ -37,6 +37,13 @@ var UserSchema = mongoose.Schema({
     name:        String
   },
 
+  github: {
+    id:          String,
+    token:       String,
+    email:       String,
+    name:        String
+  },
+
 });
 
 // methods =====================================================================

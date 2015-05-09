@@ -83,6 +83,18 @@ module.exports = function(app, passport) {
     failureRedirect: '/#/'
   }));
 
+  // ===========================================================================
+  // GITHUB ROUTES =============================================================
+  // ===========================================================================
+  // route for twitter authentication and login
+  app.get('/auth/github', passport.authenticate('github'));
+
+  // handle the callback after twitter has authenticated the user
+  app.get('/auth/github/callback', passport.authenticate('github', {
+    successRedirect : '/#/login',
+    failureRedirect : '/#/'
+  }));
+
   // user logout
   app.get('/api/auth/logout', function(req, res) {
     req.logout();
