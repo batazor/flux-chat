@@ -19,7 +19,7 @@ module.exports = function(io) {
           if (err) return handleError(err);
         }
       );
-    }      
+    }
 
     // HelloWorldActions =======================================================
     require('./HelloWorldPage.js')(socket);
@@ -47,8 +47,7 @@ module.exports = function(io) {
 
   function onAuthorizeFail(data, message, error, accept){
 
-    if(error)
-      accept(new Error(message));
+    accept(null, false);
   }
 
   io.on('disconnect', function() {
