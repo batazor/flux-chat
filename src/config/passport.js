@@ -2,6 +2,7 @@ var md5 = require('blueimp-md5').md5;
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy  = require('passport-twitter').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 // load up the user model
 var User = require('../models/user');
@@ -185,10 +186,10 @@ module.exports = function(passport) {
       User.findOne({ 'twitter.id' : profile.id }, function(err, user) {
 
         if (err)
-            return done(err);
+          return done(err);
 
         if (user) {
-            return done(null, user);
+          return done(null, user);
         } else {
           var newUser = new User();
 
@@ -212,6 +213,49 @@ module.exports = function(passport) {
       });
     });
 
+  }));
+
+  // ===========================================================================
+  // GOOGLE ====================================================================
+  // ===========================================================================
+  passport.use(new GoogleStrategy({
+    clientID:     configAuth.googleAuth.clientID,
+    clientSecret: configAuth.googleAuth.clientSecret,
+    callbackURL:  configAuth.googleAuth.callbackURL,
+  },
+  function(token, refreshToken, profile, done) {
+
+    process.nextTick(function() {
+
+      User.findOne({ 'google.id' : profile.id }, function(err, user) {
+
+        if (err)
+          return done(err);
+
+        if (user) {
+          return done(null, user);
+        } else {
+          var newUser = new User();
+
+          // set all of the twitter information in our user model
+          newUser.avatar        = profile.photos[0].value;
+          newUser.nickname      = profile.displayName;
+
+          newUser.google.id    = profile.id;
+          newUser.google.token = token;
+          newUser.google.name  = profile.displayName;
+          newUser.google.email = profile.emails[0].value;
+
+          // save our user into the database
+          newUser.save(function(err) {
+            if (err)
+              throw err;
+
+            return done(null, newUser);
+          });
+        }
+      });
+    });
   }));
 
   return passport;
