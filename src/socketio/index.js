@@ -5,8 +5,6 @@ var passportSocketIo = require("passport.socketio");
 var User = require('../models/user');
 var config = require('../config')(process.env.NODE_ENV);
 
-var user = {};
-
 module.exports = function(io) {
   io.on('connection', function(socket) {
 
