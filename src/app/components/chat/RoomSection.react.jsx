@@ -40,9 +40,7 @@ var RoomSection = React.createClass({
       _.map(this.state.rooms, function(room) {
         var disabled = room.isCreated ? false : true;
         var active = room.isCurrent ? mui.MenuItem.Types.SUBHEADER : '';
-        // var lastMessage = room.lastMessage ? 'wrote: ' + room.lastMessage.author.nickname : undefined;
-
-        var lastMessage = '';
+        var lastMessage = room.lastMessage ? 'wrote: ' + room.lastMessage.author.nickname : undefined;
 
         roomListItems.push({
           payload: room._id,

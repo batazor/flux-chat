@@ -38,7 +38,7 @@ AppDispatcher.register(function(payload) {
   switch(action.actionType) {
 
     case ChatConstants.INIT_MESSAGE:
-      _messages = _.extend(_messages, action.message);
+      _messages = action.message;
       break;
 
     case ChatConstants.CREATING_MESSAGE:
@@ -56,7 +56,7 @@ AppDispatcher.register(function(payload) {
     case ChatConstants.CREATED_MESSAGE:
       _messages.push(action.message);
       _messages = _.filter(_messages, function(message) {
-        return message.isCreated === true
+        return message.isCreated === true;
       });
       break;
 

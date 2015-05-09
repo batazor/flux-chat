@@ -9,7 +9,7 @@ module.exports = function(io, socket) {
   socket.on('initRoom', function() {
     Room
       .find({})
-      .populate('lastMessage.author', '_id, nickname')
+      .populate('lastMessage.author', '_id nickname')
       .exec(function(err, data) {
         if (err) return handleError(err);
 
@@ -28,6 +28,7 @@ module.exports = function(io, socket) {
       if (err) return handleError(err);
 
       socket.emit('createRoom', room);
+      socket.broadcast.emit('addRoom', room);
     });
 
   });
@@ -57,7 +58,7 @@ module.exports = function(io, socket) {
 
     Message
       .find({roomId: room.open})
-      .populate('userId', '_id, nickname, avatar')
+      .populate('userId', '_id nickname avatar')
       .exec(function (err, data) {
         if (err) return handleError(err);
 
@@ -73,7 +74,7 @@ module.exports = function(io, socket) {
         .exec(function (err, data) {
           if (err) return handleError(err);
 
-          return io.sockets.in(room.open).emit('updateUser', data);
+          return socket.emit('updateUser', data);
         });
     }
 
@@ -99,7 +100,7 @@ module.exports = function(io, socket) {
     var promiseFindOneMessage = function(message) {
       return Message
         .findOne({_id: message._id})
-        .populate('userId', '_id, nickname, avatar')
+        .populate('userId', '_id nickname avatar')
         .exec(function (err, data) {
           if (err) return handleError(err);
 
@@ -115,7 +116,7 @@ module.exports = function(io, socket) {
         function(err, numberAffected, raw){
           if (err) return handleError(err);
 
-          socket.emit('updatedRoom', message);
+          io.sockets.emit('updatedRoom', message);
         });
     };
 

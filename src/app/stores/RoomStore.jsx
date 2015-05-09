@@ -62,6 +62,10 @@ AppDispatcher.register(function(payload) {
       sortRooms();
       break;
 
+    case ChatConstants.ADD_ROOM:
+      _rooms.push(action.room);
+      break;
+
     case ChatConstants.CREATING_ROOM:
       var newRoom = RoomStore.getCreatedRoomData({ name: action.name });
       _rooms.push(newRoom);
@@ -83,7 +87,7 @@ AppDispatcher.register(function(payload) {
     case ChatConstants.UPDATED_ROOM:
       _rooms = _.map(_rooms, function(room) {
         if (room._id === action.message.roomId) {
-          room.lastMessage = { author: action.message.userId, text: action.message.message };
+          room.lastMessage = { author: {nickname: action.message.userId.nickname}, text: action.message.message };
           room.updatedAt = action.message.updatedAt;
         }
         return room;

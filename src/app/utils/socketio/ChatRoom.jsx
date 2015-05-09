@@ -16,6 +16,13 @@ module.exports = function(socket, AppDispatcher) {
     });
   });
 
+  socket.on('addRoom', function(data) {
+    AppDispatcher.handleAction({
+      actionType: ChatConstants.ADD_ROOM,
+      room: data
+    });
+  });
+
   socket.on('clickRoom', function(data) {
     AppDispatcher.handleAction({
       actionType: ChatConstants.INIT_MESSAGE,
