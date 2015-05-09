@@ -8,7 +8,6 @@ var favicon      = require('serve-favicon');
 var http         = require('http');
 var logger       = require('morgan');
 var mongoose     = require('mongoose');
-var multer       = require('multer');
 var passport     = require('passport');
 var path 	       = require('path');
 var React        = require('react');
@@ -56,7 +55,6 @@ app.use(favicon(__dirname + '/favicon.ico'));
 // Form work
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(multer());
 
 // set up our express application
 app.use(compression());
