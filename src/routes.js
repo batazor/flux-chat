@@ -232,13 +232,13 @@ module.exports = function(app, passport) {
   });
 
   // user logout
-  app.get('/api/auth/logout', isLoggedIn, function(req, res) {
+  app.get('/api/auth/logout', function(req, res) {
     req.logout();
     res.redirect('/');
   });
 
   // user info data
-  app.get('/api/user', isLoggedIn, function(req, res) {
+  app.get('/api/user', function(req, res) {
     if (req.isAuthenticated())
       return res.status(200).json({session: req.user});
 
