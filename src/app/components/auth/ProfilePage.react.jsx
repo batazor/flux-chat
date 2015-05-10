@@ -1,20 +1,23 @@
 var React = require('react');
 var DocumentTitle = require('react-document-title');
+var ProfileItem = require('./ProfileItem.react.jsx');
 var AuthActions = require('../../actions/AuthActions.jsx');
 var AuthStore = require('../../stores/AuthStore.jsx');
 
 var mui = require('material-ui');
+var IconButton = mui.IconButton;
 var FlatButton = mui.FlatButton;
 
 var ProfilePage = React.createClass({
   getInitialState: function() {
+    AuthActions.initSession();
+
     return {
-      user: AuthStore.getSession()
+      session: AuthStore.getSession()
     };
   },
 
   componentDidMount: function() {
-    AuthActions.initSession();
     AuthStore.addChangeListener(this._onChange);
   },
 
@@ -23,49 +26,132 @@ var ProfilePage = React.createClass({
   },
 
   render: function() {
-    return (
-      <div className="row center-xs">
-        <div className="col-xs-12">
-          <h1>Profile</h1>
-        </div>
-        <div className="col s4">
-          <div className="box">
-            <h3 className="row center-xs">Local Account</h3>
+    var containerStyle = {
+      'position': 'relative',
+      'width': '100%',
+      'height': '100%',
+      'minHeight': '100%',
+      'margin': '0',
+      'padding': '0',
+    };
+    var scrolllBarStyle = {
+      'position': 'absolute',
+      'height': '100%',
+      'width': '100%',
+      'margin': '0',
+      'padding': '0',
+    };
+    var scrollBarBoxStyle = {
+      'width': '100%',
+      'height': '100%',
+      'overflowY': 'auto',
+      'overflowX': 'hidden'
+    };
+    var style = {
+      'height': 'calc(100% - 56px)',
+      'width': '100%',
+      'margin': '0',
+      'padding': '0',
+    };
 
-            <div className="row">
-              <div className="col-xs">
-                <div className="box">
-                  <img
-                    src={this.state.user.avatar}
-                    className="avatar" />
+    return (
+      <DocumentTitle title='Profile | Flux • Chat'>
+        <div className="row" style={style}>
+          <div className="col-xs" style={style}>
+            <div className="row" style={containerStyle}>
+              <div className="col-xs" style={scrolllBarStyle}>
+                <div style={scrollBarBoxStyle}>
+                  <div className="row center-xs">
+
+                    <div className="col-xs-12">
+                      <h1>Profile</h1>
+                    </div>
+
+                    <div className="col-xs">
+                      <div className="box">
+
+                        <div className="row">
+                          <div className="col-xs">
+                            <div className="box">
+                              <img
+                                src={this.state.session.avatar}
+                                className="avatar" />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="row">
+                          <div className="col-xs">
+                            <div className="box">
+                              <p>
+                                <strong>id: </strong> {this.state.session._id}
+                              </p>
+                              <p>
+                                <strong>nickname: </strong> {this.state.session.nickname}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="row">
+                          <div className="col-xs">
+                            <div className="box">
+                              <FlatButton label="Update" />
+                              <FlatButton label="Delete" />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="row" style={{"margin": "20px 0px"}}>
+
+                          <ProfileItem
+                            icon="fa fa-user fa-3x"
+                            title="Local User"
+                            profile={this.state.session.local} />
+
+                          <ProfileItem
+                            icon="fa fa-facebook fa-3x"
+                            title="Facebook"
+                            profile={this.state.session.facebook} />
+
+                          <ProfileItem
+                            icon="fa fa-twitter fa-3x"
+                            title="Twitter"
+                            profile={this.state.session.twitter} />
+
+                          <ProfileItem
+                            icon="fa fa-google-plus fa-3x"
+                            title="Google"
+                            profile={this.state.session.google} />
+
+                          <ProfileItem
+                            icon="fa fa-github fa-3x"
+                            title="Github"
+                            profile={this.state.session.github} />
+
+                          <ProfileItem
+                            icon="fa fa-vk fa-3x"
+                            title="Vkontakte"
+                            profile={this.state.session.vkontakte} />
+
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
               </div>
             </div>
-
-            <div className="row">
-              <div className="box">
-                <p>
-                  <strong>id: </strong> {this.state.user._id}
-                </p>
-                <p>
-                  <strong>nickname: </strong> {this.state.user.nickname}
-                </p>
-              </div>
-            </div>
-
-            <div className="row">
-              <FlatButton label="Update" />
-              <FlatButton label="Delete" />
-            </div>
           </div>
         </div>
-      </div>
+      </DocumentTitle>
     );
   },
 
   _onChange: function() {
-      this.setState({ session: AuthStore.getSession() });
     if (this.isMounted()) {
+      this.setState({ session: AuthStore.getSession() });
 
       if (!this.state.session._id)
         return window.location.replace("/#/login");

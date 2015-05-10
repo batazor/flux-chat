@@ -29,7 +29,7 @@ var LoginPage = React.createClass({
     };
 
     if (this.validate(form)) {
-      AuthActions.signupAuth(form);
+      AuthActions.loginAuth(form);
     }
   },
 

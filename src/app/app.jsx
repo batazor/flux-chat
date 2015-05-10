@@ -39,7 +39,7 @@ Router.run(routes, function (Handler) {
     <div>
       <div className='wrapper'>
         <Header />
-        <main className='col-xs-12 chat'>
+        <main className='col-xs-12 chat' style={{'padding': '0'}}>
           <Handler />
         </main>
         <div className="push"></div>
