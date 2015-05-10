@@ -37,14 +37,14 @@ var UserSchema = mongoose.Schema({
     name:        String
   },
 
-  vkontakte: {
+  github: {
     id:          String,
     token:       String,
     email:       String,
     name:        String
   },
 
-  vk: {
+  vkontakte: {
     id:          String,
     token:       String,
     email:       String,
