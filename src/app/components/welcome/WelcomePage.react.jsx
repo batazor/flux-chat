@@ -1,11 +1,33 @@
 var React = require('react');
 var DocumentTitle = require('react-document-title');
+var AuthActions = require('../../actions/AuthActions.jsx');
+var AuthStore = require('../../stores/AuthStore.jsx');
 
 var mui = require('material-ui');
 var FlatButton = mui.FlatButton;
 
 var WelcomePage = React.createClass({
+  getInitialState: function() {
+    AuthActions.initSession();
+
+    return {
+      session: AuthStore.getSession()
+    };
+  },
+
+  componentDidMount: function() {
+    AuthStore.addChangeListener(this._onChange);
+  },
+
+  componentWillUnmount: function() {
+    AuthStore.removeChangeListener(this._onChange);
+  },
+
   render: function() {
+
+    var hiddenIcon = this.state.session._id ? 'none' : 'flex';
+    var style = { 'display' : hiddenIcon };
+
     return (
       <DocumentTitle title='Welcome | Flux • Chat'>
         <div>
@@ -52,6 +74,12 @@ var WelcomePage = React.createClass({
         </div>
       </DocumentTitle>
     );
+  },
+
+  _onChange: function() {
+    if (this.isMounted()) {
+      this.setState({ session: AuthStore.getSession() });
+    }
   }
 });
 
