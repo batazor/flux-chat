@@ -13,37 +13,16 @@ module.exports = function(app, passport) {
   // Auth ======================================================================
   // ===========================================================================
   // process the login form
-  app.post('/api/auth/login', function(req, res, next) {
-    passport.authenticate('local-login', function(err, user, info) {
-      if (err) {
-        return next(res.status(200).json({redirect: false}));
-      }
-      if (!user) {
-        return next(res.status(200).json({redirect: false}));
-      }
-      req.logIn(user, function(err) {
-        if (err) { console.log(err); return next(res.status(200).json({redirect: false})); }
-        return res.status(200).json({redirect: true, session: req.user});
-      });
-    })(req, res, next);
-  });
+  app.post('/auth/login', passport.authenticate('local-login', {
+    successRedirect: '/#/profile',
+    failureRedirect: '/#/login'
+  }));
 
   // process the signup form
-  app.post('/api/auth/signup', function(req, res, next) {
-    passport.authenticate('local-signup', function(err, user, info) {
-      if (err) {
-        console.log(err);
-        return next(res.status(200).json({redirect: false}));
-      }
-      if (!user) {
-        return next(res.status(200).json({redirect: false}));
-      }
-      req.logIn(user, function(err) {
-        if (err) { console.log(err); return next(res.status(200).json({redirect: false})); }
-        return res.status(200).json({redirect: true});
-      });
-    })(req, res, next);
-  });
+  app.post('/auth/signup', passport.authenticate('local-signup', {
+    successRedirect: '/#/profile',
+    failureRedirect: '/#/signup'
+  }));
 
   // ===========================================================================
   // FACEBOOK ROUTES ===========================================================
@@ -53,7 +32,7 @@ module.exports = function(app, passport) {
 
   // handle the callback after facebook has authenticated the user
   app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-    successRedirect : '/#/login',
+    successRedirect : '/#/profile',
     failureRedirect : '/#/'
   }));
 
@@ -65,7 +44,7 @@ module.exports = function(app, passport) {
 
   // handle the callback after twitter has authenticated the user
   app.get('/auth/twitter/callback', passport.authenticate('twitter', {
-    successRedirect : '/#/login',
+    successRedirect : '/#/profile',
     failureRedirect : '/#/'
   }));
 
@@ -79,7 +58,7 @@ module.exports = function(app, passport) {
 
   // the callback after google has authenticated the user
   app.get('/auth/google/callback', passport.authenticate('google', {
-    successRedirect: '/#/login',
+    successRedirect: '/#/profile',
     failureRedirect: '/#/'
   }));
 
@@ -91,7 +70,7 @@ module.exports = function(app, passport) {
 
   // handle the callback after github has authenticated the user
   app.get('/auth/github/callback', passport.authenticate('github', {
-    successRedirect : '/#/login',
+    successRedirect : '/#/profile',
     failureRedirect : '/#/'
   }));
 

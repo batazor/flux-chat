@@ -20,20 +20,12 @@ var LoginPage = React.createClass({
     };
   },
 
-  handleSubmit: function(e) {
-    e.preventDefault();
-
+  validate: function () {
     var form = {
       email: this.refs.email.getValue(),
       password: this.refs.password.getValue()
     };
 
-    if (this.validate(form)) {
-      AuthActions.loginAuth(form);
-    }
-  },
-
-  validate: function (form) {
     // Check email
     if (!form.email) {
       this.setState({emailError: "Email cannot be empty!"});
@@ -99,17 +91,19 @@ var LoginPage = React.createClass({
 
           </div>
 
-          <form onSubmit={this.handleSubmit}>
+          <form action="/auth/login" method="post">
 
             <div className="row center-xs">
               <div className="col-xs-3">
                 <div className="box">
                   <TextField
                     ref="email"
+                    onBlur={this.validate}
                     hintText="Hint Email"
                     floatingLabelText="Email"
                     required={true}
                     errorText={this.state.emailError}
+                    name="email"
                     type="email" />
                 </div>
               </div>
@@ -118,10 +112,12 @@ var LoginPage = React.createClass({
                 <div className="box">
                   <TextField
                     ref="password"
+                    onBlur={this.validate}
                     hintText="Hint Password"
                     floatingLabelText="Password"
                     required={true}
                     errorText={this.state.passwordError}
+                    name="password"
                     type="password" />
                 </div>
               </div>

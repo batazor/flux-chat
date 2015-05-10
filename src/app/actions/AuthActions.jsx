@@ -5,46 +5,6 @@ var request = require('superagent');
 
 var AuthActions = {
 
-  signupAuth: function(form) {
-    request
-      .post('/api/auth/signup')
-      .accept('json')
-      .send(form)
-      .end(function(err, res) {
-        res = JSON.parse(res.text);
-
-        if (res.redirect) return window.location.reload();
-      });
-  },
-
-  loginAuth: function(form) {
-    request
-      .post('/api/auth/login')
-      .accept('json')
-      .send(form)
-      .end(function(err, res) {
-        res = JSON.parse(res.text);
-
-        if (res.redirect) {
-          AppDispatcher.handleAction({
-            actionType: AuthConstants.SESSION_INIT,
-            session: res.session
-          });
-
-          return window.location.reload();
-        }
-      });
-  },
-
-  connectLoginAuth: function(form) {
-    request
-      .post('/connect/local')
-      .send(form)
-      .end(function(err, res) {
-        return window.location.replace("/#/profile");
-      });
-  },
-
   logoutAuth: function() {
     request
       .get('/api/auth/logout')

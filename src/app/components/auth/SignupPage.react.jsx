@@ -19,20 +19,12 @@ var SignupPage = React.createClass({
     };
   },
 
-  handleSubmit: function(e) {
-    e.preventDefault();
-
+  validate: function () {
     var form = {
       email: this.refs.email.getValue(),
       password: this.refs.password.getValue()
     };
 
-    if (this.validate(form)) {
-      AuthActions.signupAuth(form);
-    }
-  },
-
-  validate: function (form) {
     // Check email
     if (!form.email) {
       this.setState({emailError: "Email cannot be empty!"});
@@ -67,34 +59,38 @@ var SignupPage = React.createClass({
 
     return (
       <DocumentTitle title='Signup | Flux • Chat'>
-        <form onSubmit={this.handleSubmit}>
+        <form action="/auth/signup" method="post">
           <h1 className="row center-xs">Signup</h1>
 
-          <div className="row center-xs">
-            <div className="col-xs-3">
-              <div className="box">
-                <TextField
-                  ref="email"
-                  hintText="Hint Email"
-                  floatingLabelText="Email"
-                  required={true}
-                  errorText={this.state.emailError}
-                  type="email" />
+            <div className="row center-xs">
+              <div className="col-xs-3">
+                <div className="box">
+                  <TextField
+                    ref="email"
+                    onBlur={this.validate}
+                    hintText="Hint Email"
+                    floatingLabelText="Email"
+                    required={true}
+                    errorText={this.state.emailError}
+                    name="email"
+                    type="email" />
+                </div>
               </div>
-            </div>
 
-            <div className="col-xs-3">
-              <div className="box">
-                <TextField
-                  ref="password"
-                  hintText="Hint Password"
-                  floatingLabelText="Password"
-                  required={true}
-                  errorText={this.state.passwordError}
-                  type="password" />
+              <div className="col-xs-3">
+                <div className="box">
+                  <TextField
+                    ref="password"
+                    onBlur={this.validate}
+                    hintText="Hint Password"
+                    floatingLabelText="Password"
+                    required={true}
+                    errorText={this.state.passwordError}
+                    name="password"
+                    type="password" />
+                </div>
               </div>
             </div>
-          </div>
 
           <div className="row center-xs">
             <div className="col-xs-4">
