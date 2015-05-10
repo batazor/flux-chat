@@ -36,6 +36,15 @@ var AuthActions = {
       });
   },
 
+  connectLoginAuth: function(form) {
+    request
+      .post('/connect/local')
+      .send(form)
+      .end(function(err, res) {
+        return window.location.replace("/#/profile");
+      });
+  },
+
   logoutAuth: function() {
     request
       .get('/api/auth/logout')

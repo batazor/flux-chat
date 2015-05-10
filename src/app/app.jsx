@@ -28,6 +28,7 @@ var routes = (
     <Route name="/about" handler={require('react-router-proxy!./components/about/AboutPage.react.jsx')} />
     <Route path="/login" handler={require('react-router-proxy!./components/auth/LoginPage.react.jsx')} />
     <Route path="/signup" handler={require('react-router-proxy!./components/auth/SignupPage.react.jsx')} />
+    <Route path="/connect/local" handler={require('react-router-proxy!./components/auth/ConnectLocalPage.react.jsx')} />
     <Route path="/profile" handler={require('react-router-proxy!./components/auth/ProfilePage.react.jsx')} />
     <Route path="/hello" handler={require('react-router-proxy!./components/HelloWorld.react.jsx')} />
     <DefaultRoute handler={require('react-router-proxy!./components/welcome/WelcomePage.react.jsx')} />

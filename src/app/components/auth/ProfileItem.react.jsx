@@ -7,10 +7,17 @@ var RaisedButton = mui.RaisedButton;
 var FontIcon = mui.FontIcon;
 var Paper = mui.Paper;
 
-var Connect = function(icon, title) {
+var Connect = function(icon, title, url) {
+
+
+  var link = url === 'local' ? '/#/connect/local' : '/connect/' + url;
 
   return (
-    <RaisedButton style={{'padding': '5px'}} secondary={true}>
+    <RaisedButton
+      style={{'padding': '5px'}}
+      secondary={true}
+      linkButton={true}
+      href={link}>
 
       <FontIcon
         style={{"padding": "8px", "color": "white"}}
@@ -22,7 +29,9 @@ var Connect = function(icon, title) {
 
 };
 
-var Detail = function(icon, profile) {
+var Detail = function(icon, profile, url) {
+
+  var link = '/unlink/' + url;
 
   var style = {
     'whiteSpace': 'nowrap',
@@ -41,7 +50,11 @@ var Detail = function(icon, profile) {
     <div>
       {data}
 
-      <RaisedButton style={{'padding': '5px'}} secondary={true}>
+      <RaisedButton
+        style={{'padding': '5px'}}
+        secondary={true}
+        linkButton={true}
+        href={link}>
 
         <FontIcon
           style={{"padding": "8px", "color": "white"}}
@@ -58,20 +71,28 @@ var ProgileItem = React.createClass({
   propTypes: {
     icon: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,
+    url: React.PropTypes.string.isRequired,
     profile: React.PropTypes.object
   },
 
   render: function() {
 
-    var profile = _.isUndefined(this.props.profile) ? Connect(this.props.icon, this.props.title) : Detail(this.props.icon, this.props.profile);
+    var profile;
+    if (_.isUndefined(this.props.profile)) {
+      profile = Connect(this.props.icon, this.props.title, this.props.url);
+    } else {
+      if (_.isUndefined(this.props.profile.token || this.props.url === 'local')) {
+        profile = Connect(this.props.icon, this.props.title, this.props.url);
+      } else {
+        profile = Detail(this.props.icon, this.props.profile, this.props.url);
+      }
+    }
 
     return (
       <Paper zDepth={1} className="col-xs-6">
 
         <h4 className="row center-xs middle-xs">
-          <IconButton
-            iconClassName={this.props.icon}
-            tooltip={this.props.title} />
+          <IconButton iconClassName={this.props.icon} />
           {this.props.title}
         </h4>
 

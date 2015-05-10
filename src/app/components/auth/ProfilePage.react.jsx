@@ -107,31 +107,37 @@ var ProfilePage = React.createClass({
                           <ProfileItem
                             icon="fa fa-user fa-3x"
                             title="Local User"
+                            url="local"
                             profile={this.state.session.local} />
 
                           <ProfileItem
                             icon="fa fa-facebook fa-3x"
                             title="Facebook"
+                            url="facebook"
                             profile={this.state.session.facebook} />
 
                           <ProfileItem
                             icon="fa fa-twitter fa-3x"
                             title="Twitter"
+                            url="twitter"
                             profile={this.state.session.twitter} />
 
                           <ProfileItem
                             icon="fa fa-google-plus fa-3x"
                             title="Google"
+                            url="google"
                             profile={this.state.session.google} />
 
                           <ProfileItem
                             icon="fa fa-github fa-3x"
                             title="Github"
+                            url="github"
                             profile={this.state.session.github} />
 
                           <ProfileItem
                             icon="fa fa-vk fa-3x"
                             title="Vkontakte"
+                            url="vkontakte"
                             profile={this.state.session.vkontakte} />
 
                         </div>

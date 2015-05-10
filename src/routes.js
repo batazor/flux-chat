@@ -107,14 +107,138 @@ module.exports = function(app, passport) {
     failureRedirect : '/#/'
   }));
 
+  // ===========================================================================
+  // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) ===========
+  // ===========================================================================
+  // locally -------------------------------------------------------------------
+  app.get('/connect/local', isLoggedIn, function(req, res) {
+    res.redirect('/#/profile');
+  });
+  app.post('/connect/local', isLoggedIn, passport.authenticate('local-signup', {
+    successRedirect: '/#/profile',
+    failureRedirect: '/#/connect/local',
+    failureFlash: true
+  }));
+
+  // facebook ------------------------------------------------------------------
+  // send to facebook to do the authentication
+  app.get('/connect/facebook', isLoggedIn, passport.authorize('facebook', { scope : 'email' }));
+
+  // handle the callback after facebook has authorized the user
+  app.get('/connect/facebook/callback', isLoggedIn, passport.authorize('facebook', {
+    successRedirect: '/#/profile',
+    failureRedirect: '/'
+  }));
+
+  // twitter -------------------------------------------------------------------
+  // send to twitter to do the authentication
+  app.get('/connect/twitter', isLoggedIn, passport.authorize('twitter'));
+
+  // handle the callback after twitter has authorized the user
+  app.get('/connect/twitter/callback', isLoggedIn, passport.authorize('twitter', {
+    successRedirect: '/#/profile',
+    failureRedirect: '/'
+  }));
+
+  // google --------------------------------------------------------------------
+  // send to google to do the authentication
+  app.get('/connect/google', isLoggedIn, passport.authorize('google', { scope : ['profile', 'email'] }));
+
+  // the callback after google has authorized the user
+  app.get('/connect/google/callback', isLoggedIn, passport.authorize('google', {
+    successRedirect: '/#/profile',
+    failureRedirect: '/'
+  }));
+
+  // github --------------------------------------------------------------------
+  // send to google to do the authentication
+  app.get('/connect/github', isLoggedIn, passport.authorize('github', { scope : 'email' }));
+
+  // the callback after google has authorized the user
+  app.get('/connect/github/callback', isLoggedIn, passport.authorize('github', {
+    successRedirect: '/#/profile',
+    failureRedirect: '/'
+  }));
+
+  // vkontakte -----------------------------------------------------------------
+  // send to google to do the authentication
+  app.get('/connect/vkontakte', isLoggedIn, passport.authorize('vkontakte', { scope : 'email' }));
+
+  // the callback after google has authorized the user
+  app.get('/connect/vkontakte/callback', isLoggedIn, passport.authorize('vkontakte', {
+    successRedirect: '/#/profile',
+    failureRedirect: '/'
+  }));
+
+  // ===========================================================================
+  // UNLINK ACCOUNTS ===========================================================
+  // ===========================================================================
+  // used to unlink accounts. for social accounts, just remove the token
+  // for local account, remove email and password
+  // user account will stay active in case they want to reconnect in the future
+  // local ---------------------------------------------------------------------
+  app.get('/unlink/local', isLoggedIn, function(req, res) {
+    var user            = req.user;
+    user.local.email    = undefined;
+    user.local.password = undefined;
+    user.save(function(err) {
+      res.redirect('/#/profile');
+    });
+  });
+
+  // facebook ----------------------------------------------------------------
+  app.get('/unlink/facebook', isLoggedIn, function(req, res) {
+    var user            = req.user;
+    user.facebook.token = undefined;
+    user.save(function(err) {
+      res.redirect('/#/profile');
+    });
+  });
+
+  // twitter -----------------------------------------------------------------
+  app.get('/unlink/twitter', isLoggedIn, function(req, res) {
+    var user           = req.user;
+    user.twitter.token = undefined;
+    user.save(function(err) {
+      res.redirect('/#/profile');
+    });
+  });
+
+  // google ------------------------------------------------------------------
+  app.get('/unlink/google', isLoggedIn, function(req, res) {
+    var user          = req.user;
+    user.google.token = undefined;
+    user.save(function(err) {
+      res.redirect('/#/profile');
+    });
+  });
+
+  // github ------------------------------------------------------------------
+  app.get('/unlink/github', isLoggedIn, function(req, res) {
+    var user          = req.user;
+    user.github.token = undefined;
+    user.save(function(err) {
+      res.redirect('/#/profile');
+    });
+  });
+
+  // vkontakte ---------------------------------------------------------------
+  app.get('/unlink/vkontakte', isLoggedIn, function(req, res) {
+    var user             = req.user;
+    user.vkontakte.token = undefined;
+    user.save(function(err) {
+      res.redirect('/#/profile');
+    });
+  });
+
   // user logout
-  app.get('/api/auth/logout', function(req, res) {
+  app.get('/api/auth/logout', isLoggedIn, function(req, res) {
     req.logout();
     res.redirect('/');
   });
 
   // user info data
-  app.get('/api/user', function(req, res) {
+  app.get('/api/user', isLoggedIn, function(req, res) {
     if (req.isAuthenticated())
       return res.status(200).json({session: req.user});
 
@@ -128,7 +252,6 @@ module.exports = function(app, passport) {
       return next();
 
     // if the aren't redirect them to the home page
-    console.log('Not authorized');
     res.redirect('/#/login');
   }
 
