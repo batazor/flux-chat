@@ -4,7 +4,7 @@
   "description": "A simple example to use Flux with ReactJS within a Chat application using Socket.io and REST",
   "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "testem",
     "start": "nodemon src/server",
     "build": "NODE_ENV=production gulp build",
     "push": "gulp push"

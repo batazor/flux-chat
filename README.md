@@ -19,6 +19,11 @@
 
     npm run push
 
+## Test
+
+    npm i -g testem
+    npm test
+
 ## Configuration
 
 Application configuration __src/config/index.js__
