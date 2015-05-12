@@ -2,13 +2,17 @@ var React = require('react');
 var ReactEmoji = require('react-emoji');
 var Markdown = require('react-remarkable');
 
+var ReactIntl = require('react-intl');
+var IntlMixin = ReactIntl.IntlMixin;
+var FormattedRelative = ReactIntl.FormattedRelative;
+
 var mui = require('material-ui');
 var FlatButton = mui.FlatButton;
 var Paper = mui.Paper;
 
 var MessageItem = React.createClass({
 
-  mixins: [ReactEmoji],
+  mixins: [ReactEmoji, IntlMixin],
 
   propTypes: {
     message: React.PropTypes.object.isRequired,
@@ -32,7 +36,7 @@ var MessageItem = React.createClass({
                   <img
                     src={this.props.message.userId.avatar}
                     className="avatar" />
-                  {this.props.message.userId.nickname} | {date}
+                  {this.props.message.userId.nickname} | <FormattedRelative value={date} />
                 </div>
               </div>
             </header>
