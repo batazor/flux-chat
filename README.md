@@ -8,10 +8,6 @@
 ### Demo
 [demonstration](https://flux-chat.herokuapp.com)
 
-### Docker
-
-`docker-compose up`
-
 ## Run
 
     npm i
