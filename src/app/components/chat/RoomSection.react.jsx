@@ -4,10 +4,12 @@ var RoomStore = require('../../stores/RoomStore.jsx');
 var ChatAction = require('../../actions/ChatAction.jsx');
 
 var mui = require('material-ui');
+var FlatButton = mui.FlatButton;
 var Dialog = mui.Dialog;
 var RaisedButton = mui.RaisedButton;
 var TextField = mui.TextField;
 var Menu = mui.Menu;
+var MenuItem = mui.MenuItem;
 
 var RoomSection = React.createClass({
 
@@ -16,7 +18,8 @@ var RoomSection = React.createClass({
       modal: false,
       nameRoom: "",
       rooms: RoomStore.getAll(),
-      roomsAction: false
+      roomsAction: false,
+      openModal: false,
     };
   },
 
@@ -31,8 +34,17 @@ var RoomSection = React.createClass({
 
   render: function() {
     var addRoomDialogActions = [
-      { text: 'Cancel' },
-      { text: 'Submit', onClick: this.addRoomDialogSubmit }
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleClose}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.addRoomDialogSubmit}
+      />,
     ];
 
     var roomListItems = [];
@@ -66,8 +78,12 @@ var RoomSection = React.createClass({
               <div className="row">
                 <Menu
                   autoWidth={false}
-                  onItemClick={this.clickRoom}
-                  menuItems={roomListItems} />
+                  onClick={this.clickRoom}
+                >
+                  {
+                    roomListItems.map(item => <MenuItem primaryText={item} />)
+                  }
+                </Menu>
               </div>
             </div>
           </div>
@@ -78,14 +94,15 @@ var RoomSection = React.createClass({
           title="Add Room"
           actions={addRoomDialogActions}
           modal={this.state.modal}
-          className="col-xs-5" >
-
+          open={this.state.openModal}
+          className="col-xs-5"
+        >
           <TextField
             ref="nameRoomDialog"
             onChange={this.onChangeNameRoom}
             hintText="Name Room"
-            floatingLabelText="Name Room" />
-
+            floatingLabelText="Name Room"
+          />
         </Dialog>
       </div>
     );
@@ -93,7 +110,7 @@ var RoomSection = React.createClass({
 
   // New Room ==================================================================
   addRoomDialogOpen: function() {
-    this.refs.addRoomDialog.show();
+    this.setState({ addRoomDialog: true });
   },
 
   addRoomDialogSubmit: function() {

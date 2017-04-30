@@ -1,4 +1,5 @@
 var React = require('react');
+var Link = require('react-router-dom').Link;
 var AuthActions = require('../../actions/AuthActions.jsx');
 var AuthStore = require('../../stores/AuthStore.jsx');
 
@@ -43,7 +44,7 @@ var Header = React.createClass({
   render: function() {
     if (this.state.session._id) {
       var userMenuVisibility =
-        <ToolbarGroup float="left">
+        <ToolbarGroup>
           <DropDownMenu selectedIndex={0} onChange={this.userMenuItems} menuItems={userMenuItems} />
         </ToolbarGroup>
     }
@@ -51,16 +52,16 @@ var Header = React.createClass({
     return (
       <header>
         <Toolbar>
-          <ToolbarGroup float="left">
-            <FlatButton linkButton={true} href="/#/chat" label="Chat" />
-            <FlatButton linkButton={true} href="/#/about" label="About" />
-            <FlatButton linkButton={true} href="/#/hello" label="Hello" />
+          <ToolbarGroup>
+            <Link to="/chat"><FlatButton label="Chat" /></Link>
+            <Link to="/about"><FlatButton label="About" /></Link>
+            <Link to="/hello"><FlatButton label="Hello" /></Link>
           </ToolbarGroup>
 
           {userMenuVisibility}
 
-          <ToolbarGroup float="right">
-            <FlatButton linkButton={true} href="/#/" label="Flux • Chat" />
+          <ToolbarGroup>
+            <FlatButton href="/#/" label="Flux • Chat" />
           </ToolbarGroup>
         </Toolbar>
       </header>

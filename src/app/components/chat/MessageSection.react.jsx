@@ -34,12 +34,12 @@ var MessageSection = React.createClass({
     AuthStore.addChangeListener(this._onChange);
   },
 
-  componentDidUpdate: function() {
-    if (this.shouldScrollBottom) {
-      var node = React.findDOMNode(this.refs.scrollbar);
-      node.scrollTop = node.scrollHeight;
-    }
-  },
+  // componentDidUpdate: function() {
+  //   if (this.shouldScrollBottom) {
+  //     var node = this.scrollbar;
+  //     node.scrollTop = node.scrollHeight;
+  //   }
+  // },
 
   componentWillUpdate: function() {
     var node;
@@ -47,14 +47,14 @@ var MessageSection = React.createClass({
     if (!_.isEmpty(this.state.messages)) {
       var last = _.last(this.state.messages);
 
-      if (last.userId._id === this.state.user._id) {
-        node = React.findDOMNode(this.refs.scrollbar);
-        node.scrollTop = node.scrollHeight;
-      }
+      // if (last.userId._id === this.state.user._id) {
+      //   node = this.scrollbar;
+      //   node.scrollTop = node.scrollHeight;
+      // }
     }
 
-    node = React.findDOMNode(this.refs.scrollbar);
-    this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
+    node = this.scrollbar;
+    // this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
   },
 
   componentWillUnmount: function() {
@@ -76,7 +76,7 @@ var MessageSection = React.createClass({
           </div>
           <div className="row container">
             <div className="col-xs scrollbar">
-              <div className="scrollbar-box" ref="scrollbar">
+              <div className="scrollbar-box" ref={c => this.scrollbar = c}>
                 {messagesListItems}
               </div>
 

@@ -2,9 +2,9 @@ var React = require('react');
 var ReactEmoji = require('react-emoji');
 var Markdown = require('react-remarkable');
 
-var ReactIntl = require('react-intl');
-var IntlMixin = ReactIntl.IntlMixin;
-var FormattedRelative = ReactIntl.FormattedRelative;
+// var ReactIntl = require('react-intl');
+// var IntlMixin = ReactIntl.IntlMixin;
+// var FormattedRelative = ReactIntl.FormattedRelative;
 
 var mui = require('material-ui');
 var FlatButton = mui.FlatButton;
@@ -12,7 +12,7 @@ var Paper = mui.Paper;
 
 var MessageItem = React.createClass({
 
-  mixins: [ReactEmoji, IntlMixin],
+  mixins: [ReactEmoji],
 
   propTypes: {
     message: React.PropTypes.object.isRequired,

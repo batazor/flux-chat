@@ -44,18 +44,18 @@ var MessageInput = React.createClass({
             onChange={this.onChangeMessages}
             hintText="Enter Messages"
             floatingLabelText="Message"
-            setValue={this.state.text} />
+            defaultValue={this.state.text} />
 
           <IconButton
             onClick={this.onPreviewClick}
             disabled={disabledButton}
             iconClassName={eye}
-            tooltip="Send Message" />
+          />
 
           <IconButton
             disabled={disabledButton}
             iconClassName="fa fa-send fa-4x"
-            tooltip="Send Message" />
+          />
         </form>
 
       </div>

@@ -6,14 +6,14 @@ var ButtonStore = require('../stores/ButtonStore.jsx');
 var AuthActions = require('../actions/AuthActions.jsx');
 var AuthStore = require('../stores/AuthStore.jsx');
 
-var IntlMixin = require('react-intl');
-var i18nLoader = require('../utils/i18n');
+// var IntlMixin = require('react-intl');
+// var i18nLoader = require('../utils/i18n');
 
 var mui = require('material-ui');
 var RaisedButton = mui.RaisedButton;
 
 var HelloWorld = React.createClass({
-  mixins: [IntlMixin],
+  // mixins: [IntlMixin],
 
   handleLocaleChange: function(e) {
     LocaleActions.updateLocale(e.target.value);
@@ -70,15 +70,8 @@ var HelloWorld = React.createClass({
           </div>
 
           <h1 className="row center-xs">test i18n</h1>
-          
-          <p className="row center-xs">{ this.getIntlMessage('hello') }</p>
 
-          <p className="row center-xs">
-            {this.formatNumber(1000, {
-                style   : 'currency',
-                currency: 'USD'
-            })}
-          </p>
+          <p className="row center-xs">hello</p>
 
           <div className="row center-xs">
             <select onChange={this.handleLocaleChange}>

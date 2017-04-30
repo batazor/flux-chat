@@ -11,7 +11,7 @@ var auth = {
     twitterAuth: {
       consumerKey:    '---you-id---',
       consumerSecret: '---you-secret---',
-      callbackURL:    'http://127.0.0.1:3000/auth/twitter/callback'
+      callbackURL:    'http://localhost:3000/auth/twitter/callback'
     },
 
     googleAuth: {

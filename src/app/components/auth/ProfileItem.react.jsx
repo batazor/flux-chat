@@ -16,7 +16,6 @@ var Connect = function(icon, title, url) {
     <RaisedButton
       style={{'padding': '5px'}}
       secondary={true}
-      linkButton={true}
       href={link}>
 
       <FontIcon
@@ -53,7 +52,6 @@ var Detail = function(icon, profile, url) {
       <RaisedButton
         style={{'padding': '5px'}}
         secondary={true}
-        linkButton={true}
         href={link}>
 
         <FontIcon

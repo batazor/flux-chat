@@ -1,4 +1,7 @@
-var path = {
+var webpack = require('webpack');
+const path = require('path');
+
+var PATH = {
   src:  "./src",
   css:  "./src/app/assets/css",
   js:   "./src/app/assets/js",
@@ -46,46 +49,57 @@ module.exports = {
     ]
   },
   less: {
-    src: path.css + '/main.less',
-    watch: path.css + '/*.less',
-    dest: path.css
+    src: PATH.css + '/main.less',
+    watch: PATH.css + '/*.less',
+    dest: PATH.css
   },
   stylus: {
-    watch: path.css + '/*.styl',
-    dest: path.css
+    watch: PATH.css + '/*.styl',
+    dest: PATH.css
   },
   css: {
-    src: path.css,
-    watch: path.css + '/*.css',
-    dest: path.src + '/build'
+    src: PATH.css,
+    watch: PATH.css + '/*.css',
+    dest: PATH.src + '/build'
   },
   js: {
-    watch: path.js + '/*.js',
-    dest: path.src + '/build'
+    watch: PATH.js + '/*.js',
+    dest: PATH.src + '/build'
   },
   webpack: {
     src: __dirname + '/../src/app/app.jsx',
     dest: __dirname + '/../src/build',
     config: {
-      entry: {app: __dirname + '/../src/app/app.jsx'},
+      entry: watchWebpack ? [
+        // 'react-hot-loader/patch',
+        // 'webpack-dev-server/client?http://localhost:4000',
+        // 'webpack/hot/only-dev-server',
+        __dirname + '/../src/app/app.jsx'
+      ] : {
+        app: __dirname + '/../src/app/app.jsx'
+      },
       watch: watchWebpack,
       output: {
         path: __dirname + '/../src/build',
-        publicPath: './',
+        publicPath: '/',
         filename: 'bundle.js'
       },
+      plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin()
+      ],
       debug : true,
       module: {
         loaders: [{
           test: /\.jsx?$/,
           exclude: /node_modules/,
-          loader: 'babel-loader'
+          loader: 'babel-loader!jsx-loader?harmony'
         }]
       },
       resolve: {
         extensions: ['', '.js', '.jsx']
       },
-      devtool: 'eval-source-map'
+      devtool: 'eval-source-map',
     }
   }
 };

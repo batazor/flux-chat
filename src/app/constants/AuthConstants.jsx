@@ -1,4 +1,4 @@
-var keyMirror = require('react/lib/keyMirror');
+var keyMirror = require('fbjs/lib/keyMirror');
 
 // Define action constants
 module.exports = keyMirror({
