@@ -1,4 +1,5 @@
 var React = require('react');
+var PropTypes = require('prop-types');
 var ReactEmoji = require('react-emoji');
 var Markdown = require('react-remarkable');
 
@@ -15,8 +16,8 @@ var MessageItem = React.createClass({
   mixins: [ReactEmoji],
 
   propTypes: {
-    message: React.PropTypes.object.isRequired,
-    user: React.PropTypes.object.isRequired
+    message: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired
   },
 
   render: function() {

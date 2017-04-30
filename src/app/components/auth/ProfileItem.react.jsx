@@ -1,4 +1,5 @@
 var React = require('react');
+var PropTypes = require('prop-types');
 var _ = require('underscore');
 
 var mui = require('material-ui');
@@ -67,10 +68,10 @@ var Detail = function(icon, profile, url) {
 
 var ProgileItem = React.createClass({
   propTypes: {
-    icon: React.PropTypes.string.isRequired,
-    title: React.PropTypes.string.isRequired,
-    url: React.PropTypes.string.isRequired,
-    profile: React.PropTypes.object
+    icon: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+    profile: PropTypes.object
   },
 
   render: function() {
