@@ -1,31 +1,31 @@
-var Room = require('../models/room');
-var Message = require('../models/message');
-var User = require('../models/user');
-var Q = require('q');
-var _ = require('underscore');
+const Room = require('../models/room');
+const Message = require('../models/message');
+const User = require('../models/user');
+const Q = require('q');
+const _ = require('underscore');
 
-module.exports = function(io, socket) {
+module.exports = function (io, socket) {
 
-  socket.on('initRoom', function() {
+  socket.on('initRoom', () => {
     Room
       .find({})
       .populate('lastMessage.author', '_id nickname')
-      .exec(function(err, data) {
-        if (err) return handleError(err);
+      .exec((err, data) => {
+        if (err) { return handleError(err); }
 
         return socket.emit('initRoom', data);
       });
   });
 
-  socket.on('createRoom', function(nameRoom) {
-    var room = new Room({
-      name:      nameRoom,
+  socket.on('createRoom', nameRoom => {
+    const room = new Room({
+      name: nameRoom,
       createdAt: Date.now(),
-      isCreated: true
+      isCreated: true,
     });
 
-    room.save(function(err, room, numberAffected) {
-      if (err) return handleError(err);
+    room.save((err, room, numberAffected) => {
+      if (err) { return handleError(err); }
 
       socket.emit('createRoom', room);
       socket.broadcast.emit('addRoom', room);
@@ -33,8 +33,8 @@ module.exports = function(io, socket) {
 
   });
 
-  socket.on('clickRoom', function(room) {
-    var socketRoom;
+  socket.on('clickRoom', room => {
+    let socketRoom;
 
     // Add Room
     socket.join(room.open);
@@ -47,9 +47,9 @@ module.exports = function(io, socket) {
         socketRoom = _.keys(socketRoom);
 
         User
-          .find({socketID: { $in: socketRoom}})
-          .exec(function (err, data) {
-            if (err) return handleError(err);
+          .find({ socketID: { $in: socketRoom } })
+          .exec((err, data) => {
+            if (err) { return handleError(err); }
 
             return io.sockets.in(room.close).emit('updateUser', data);
           });
@@ -57,10 +57,10 @@ module.exports = function(io, socket) {
     }
 
     Message
-      .find({roomId: room.open})
+      .find({ roomId: room.open })
       .populate('userId', '_id nickname avatar')
-      .exec(function (err, data) {
-        if (err) return handleError(err);
+      .exec((err, data) => {
+        if (err) { return handleError(err); }
 
         return io.sockets.in(room.open).emit('clickRoom', data);
       });
@@ -70,9 +70,9 @@ module.exports = function(io, socket) {
       socketRoom = _.keys(socketRoom);
 
       User
-        .find({socketID: { $in: socketRoom}})
-        .exec(function (err, data) {
-          if (err) return handleError(err);
+        .find({ socketID: { $in: socketRoom } })
+        .exec((err, data) => {
+          if (err) { return handleError(err); }
 
           return socket.emit('updateUser', data);
         });
@@ -80,41 +80,41 @@ module.exports = function(io, socket) {
 
   });
 
-  socket.on('createMessage', function(newMessage) {
+  socket.on('createMessage', newMessage => {
 
-    var promiseSaveMessage = function() {
-      var message = new Message({
+    const promiseSaveMessage = function () {
+      const message = new Message({
         message: newMessage.message,
         roomId: newMessage.roomId,
         userId: socket.client.request.user._id,
-        isCreated: true
+        isCreated: true,
       });
 
-      return message.save(function(err, room, numberAffected) {
-        if (err) return handleError(err);
+      return message.save((err, room, numberAffected) => {
+        if (err) { return handleError(err); }
 
         return message;
       });
     };
 
-    var promiseFindOneMessage = function(message) {
+    const promiseFindOneMessage = function (message) {
       return Message
-        .findOne({_id: message._id})
+        .findOne({ _id: message._id })
         .populate('userId', '_id nickname avatar')
-        .exec(function (err, data) {
-          if (err) return handleError(err);
+        .exec((err, data) => {
+          if (err) { return handleError(err); }
 
           io.sockets.in(newMessage.roomId).emit('createdMessage', data);
           return data;
         });
     };
 
-    var promiseUpdateRoom = function(message) {
+    const promiseUpdateRoom = function (message) {
       return Room.update(
-        {_id: message.roomId},
-        {$set: {updatedAt: Date.now(), lastMessage: { author: socket.client.request.user._id, text: message.message }}},
-        function(err, numberAffected, raw){
-          if (err) return handleError(err);
+        { _id: message.roomId },
+        { $set: { updatedAt: Date.now(), lastMessage: { author: socket.client.request.user._id, text: message.message } } },
+        (err, numberAffected, raw) => {
+          if (err) { return handleError(err); }
 
           io.sockets.emit('updatedRoom', message);
         });
@@ -123,9 +123,7 @@ module.exports = function(io, socket) {
     Q.fcall(promiseSaveMessage)
       .then(promiseFindOneMessage)
       .then(promiseUpdateRoom)
-      .catch(function(err) {
-        return handleError(err);
-      })
+      .catch(err => handleError(err))
       .done();
 
   });

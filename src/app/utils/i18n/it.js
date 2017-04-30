@@ -1,6 +1,6 @@
 module.exports = {
   locales: ['it'],
   messages: {
-    hello: "Ciao, mondo!"
-  }
+    hello: 'Ciao, mondo!',
+  },
 };

@@ -1,0 +1,42 @@
+extends: airbnb
+rules:
+  arrow-parens: ["error", "as-needed"]
+  object-property-newline: ["error", { "allowMultiplePropertiesPerLine": true }]
+  radix: 0
+  padded-blocks: 0
+  curly: [ 2, "all" ]
+  max-len: ["error", { "code": 120, "ignoreTrailingComments": true, "ignoreUrls": true, "ignoreStrings": true, "ignoreComments": true }]
+  no-console: ["error", { allow: ["warn", "error", "group", "groupEnd"] }]
+  no-multi-assign: "error"
+  no-unused-expressions: ["error", { "allowShortCircuit": true }]
+  no-underscore-dangle: 0
+  no-use-before-define: ["error", { "functions": false, "classes": false }]
+  no-param-reassign: ["error", { "props": false }]
+  no-return-assign: 0
+  no-restricted-syntax: 0
+  no-mixed-operators: ["error", {"groups": [["&", "|", "^", "~", "<<", ">>", ">>>"], ["&&", "||"]]}]
+  no-magic-numbers: ["error", { "ignoreArrayIndexes": true, "ignore": [-1, 0, 1] }]
+  import/prefer-default-export: 0
+  import/no-extraneous-dependencies: 0 # Incorrect work with decorators
+  react/forbid-prop-types: 0
+  react/jsx-filename-extension: 0
+  jsx-a11y/no-static-element-interactions: 0
+env:
+  node: true
+  browser: true
+  # es6: true
+  jest: true
+ecmaFeatures:
+  jsx: true
+  modules: true
+  # destructuring: true
+  # classes: true
+  # forOf: true
+  blockBindings: true
+  arrowFunctions: true
+  # experimentalObjectRestSpread: true
+parser: babel-eslint
+parserOptions:
+  sourceType: 'module'
+plugins:
+  - react

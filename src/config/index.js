@@ -1,18 +1,18 @@
-var configs = {
+const configs = {
   development: {
     port: '8080',
     mongo: {
-      url: 'mongodb://localhost/flux-chat'
+      url: 'mongodb://localhost/flux-chat',
     },
     session: {
       secret: 'devsecretkey!',
       key: 'devsecretkey!',
       cookie: {
-        path: "/",
+        path: '/',
         httpOnly: true,
-        maxAge : 3600000
-      }
-    }
+        maxAge: 3600000,
+      },
+    },
   },
 
   production: {
@@ -22,17 +22,17 @@ var configs = {
     },
     session: {
       secret: 'devsecretkey!',
-      key: 'devsecretkey!'
-    }
-  }
+      key: 'devsecretkey!',
+    },
+  },
 };
 
 module.exports = function (env) {
   if (!env) { env = 'development'; }
 
-  var config = configs[env];
+  let config = configs[env];
 
-  if (!config) { config = configs['development']; }
+  if (!config) { config = configs.development; }
 
   return config;
 };

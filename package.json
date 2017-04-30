@@ -8,7 +8,9 @@
     "start": "nodemon src/server",
     "start:prod": "node src/server",
     "build": "NODE_ENV=production gulp build",
-    "push": "gulp push"
+    "push": "gulp push",
+    "lint": "$(npm bin)/eslint ./src",
+    "lint:fix": "$(npm bin)/eslint --fix ./src"
   },
   "repository": {
     "type": "git",
@@ -62,6 +64,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-plugin-transform-regenerator": "^6.24.1",
@@ -69,6 +72,12 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "browser-sync": "^2.7.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
     "flux": "^2.0.3",
     "git-push": "^0.1.1",
     "gulp": "^3.8.11",
