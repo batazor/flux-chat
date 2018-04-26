@@ -117,7 +117,8 @@ module.exports = function (io, socket) {
           if (err) { return handleError(err); }
 
           io.sockets.emit('updatedRoom', message);
-        });
+        },
+      );
     };
 
     Q.fcall(promiseSaveMessage)
