@@ -1,6 +1,5 @@
 {
   "extends": ["config:base"],
-  "schedule": "before 5am every weekday",
   "rangeStrategy": "bump",
   "baseBranches": ["master"],
   "automerge": true,
