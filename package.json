@@ -103,7 +103,7 @@
     "react-tap-event-plugin": "^3.0.3",
     "require-dir": "^1.2.0",
     "superagent": "^5.0.5",
-    "webpack": "^4.30.0",
+    "webpack": "^4.31.0",
     "webpack-dev-server": "^3.3.1"
   }
 }
