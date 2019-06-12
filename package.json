@@ -37,7 +37,7 @@
     "connect-mongo": "^2.0.3",
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
-    "express-session": "^1.16.1",
+    "express-session": "^1.16.2",
     "history": "^4.9.0",
     "intl": "^1.2.5",
     "jade": "^1.9.2",
