@@ -1,31 +1,32 @@
-var React = require('react');
-var PropTypes = require('prop-types');
-var ReactEmoji = require('react-emoji');
-var Markdown = require('react-remarkable');
+const React = require('react');
+const PropTypes = require('prop-types');
+const ReactEmoji = require('react-emoji');
+const Markdown = require('react-remarkable');
 
 // var ReactIntl = require('react-intl');
 // var IntlMixin = ReactIntl.IntlMixin;
 // var FormattedRelative = ReactIntl.FormattedRelative;
 
-var mui = require('material-ui');
-var FlatButton = mui.FlatButton;
-var Paper = mui.Paper;
+const mui = require('material-ui');
 
-var MessageItem = React.createClass({
+const { FlatButton } = mui;
+const { Paper } = mui;
+
+const MessageItem = React.createClass({
 
   mixins: [ReactEmoji],
 
   propTypes: {
     message: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
   },
 
-  render: function() {
+  render() {
 
-    var date = new Date(this.props.message.createAt).toLocaleString();
-    var disabled = this.props.message.isCreated ? false : true;
-    var style = this.props.user._id === this.props.message.userId._id ? 'col-xs-offset-2 col-xs-10' : 'col-xs-10';
-    var message = this.emojify(this.props.message.message);
+    const date = new Date(this.props.message.createAt).toLocaleString();
+    const disabled = !this.props.message.isCreated;
+    const style = this.props.user._id === this.props.message.userId._id ? 'col-xs-offset-2 col-xs-10' : 'col-xs-10';
+    const message = this.emojify(this.props.message.message);
 
     return (
       <div className="row">
@@ -36,8 +37,12 @@ var MessageItem = React.createClass({
                 <div className="box">
                   <img
                     src={this.props.message.userId.avatar}
-                    className="avatar" />
-                  {this.props.message.userId.nickname} | <FormattedRelative value={date} />
+                    className="avatar"
+                  />
+                  {this.props.message.userId.nickname}
+                  {' '}
+|
+                  <FormattedRelative value={date} />
                 </div>
               </div>
             </header>
@@ -54,7 +59,7 @@ var MessageItem = React.createClass({
         </Paper>
       </div>
     );
-  }
+  },
 
 });
 

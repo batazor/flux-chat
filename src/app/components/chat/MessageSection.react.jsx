@@ -1,34 +1,35 @@
-var React = require('react');
-var AuthActions = require('../../actions/AuthActions.jsx');
-var MessageStore = require('../../stores/MessageStore.jsx');
-var RoomStore = require('../../stores/RoomStore.jsx');
-var AuthStore = require('../../stores/AuthStore.jsx');
-var MessageItem = require('./MessageItem.react.jsx');
-var MessageInput = require('./MessageInput.react.jsx');
-var _ = require('underscore');
+const React = require('react');
+const _ = require('underscore');
+const AuthActions = require('../../actions/AuthActions.jsx');
+const MessageStore = require('../../stores/MessageStore.jsx');
+const RoomStore = require('../../stores/RoomStore.jsx');
+const AuthStore = require('../../stores/AuthStore.jsx');
+const MessageItem = require('./MessageItem.react.jsx');
+const MessageInput = require('./MessageInput.react.jsx');
 
-var getMessageItem = function(message) {
+const getMessageItem = function (message) {
   return (
     <MessageItem
       key={message._id}
       message={message}
-      user={this.state.user} />
+      user={this.state.user}
+    />
   );
 };
 
-var MessageSection = React.createClass({
+const MessageSection = React.createClass({
 
-  getInitialState: function() {
+  getInitialState() {
     AuthActions.initSession();
 
     return {
       room: RoomStore.getCurrentRoom(),
       messages: MessageStore.getMessage(),
-      user: AuthStore.getSession()
+      user: AuthStore.getSession(),
     };
   },
 
-  componentDidMount: function() {
+  componentDidMount() {
     MessageStore.addChangeListener(this._onChange);
     RoomStore.addChangeListener(this._onChange);
     AuthStore.addChangeListener(this._onChange);
@@ -41,11 +42,11 @@ var MessageSection = React.createClass({
   //   }
   // },
 
-  componentWillUpdate: function() {
-    var node;
+  componentWillUpdate() {
+    let node;
 
     if (!_.isEmpty(this.state.messages)) {
-      var last = _.last(this.state.messages);
+      const last = _.last(this.state.messages);
 
       // if (last.userId._id === this.state.user._id) {
       //   node = this.scrollbar;
@@ -57,16 +58,16 @@ var MessageSection = React.createClass({
     // this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     MessageStore.removeChangeListener(this._onChange);
     RoomStore.removeChangeListener(this._onChange);
     AuthStore.removeChangeListener(this._onChange);
   },
 
-  render: function() {
+  render() {
 
-    var roomName = _.isUndefined(this.state.room) ? 'Welcome!' : this.state.room.name;
-    var messagesListItems = _.isEmpty(this.state.messages) ? 'No Messages' : _.map(this.state.messages, getMessageItem, this);
+    const roomName = _.isUndefined(this.state.room) ? 'Welcome!' : this.state.room.name;
+    const messagesListItems = _.isEmpty(this.state.messages) ? 'No Messages' : _.map(this.state.messages, getMessageItem, this);
 
     return (
       <div className="row chat">
@@ -83,7 +84,8 @@ var MessageSection = React.createClass({
               <div className="row center-xs scrollbar-box message-input">
                 <MessageInput
                   room={this.state.room}
-                  user={this.state.user} />
+                  user={this.state.user}
+                />
               </div>
             </div>
           </div>
@@ -92,15 +94,15 @@ var MessageSection = React.createClass({
     );
   },
 
-  _onChange: function() {
+  _onChange() {
     if (this.isMounted()) {
       this.setState({
         user: AuthStore.getSession(),
         room: RoomStore.getCurrentRoom(),
-        messages: MessageStore.getMessage(this.state.room)
+        messages: MessageStore.getMessage(this.state.room),
       });
     }
-  }
+  },
 
 });
 

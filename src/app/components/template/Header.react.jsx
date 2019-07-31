@@ -1,52 +1,54 @@
-var React = require('react');
-var Link = require('react-router-dom').Link;
-var AuthActions = require('../../actions/AuthActions.jsx');
-var AuthStore = require('../../stores/AuthStore.jsx');
+const React = require('react');
+const { Link } = require('react-router-dom');
+const mui = require('material-ui');
+const AuthActions = require('../../actions/AuthActions.jsx');
+const AuthStore = require('../../stores/AuthStore.jsx');
 
-var mui = require('material-ui');
-var Toolbar = mui.Toolbar;
-var FlatButton = mui.FlatButton;
-var Menu = mui.Menu;
-var DropDownMenu = mui.DropDownMenu;
-var ToolbarGroup = mui.ToolbarGroup;
 
-var userMenuItems = [
+const { Toolbar } = mui;
+const { FlatButton } = mui;
+const { Menu } = mui;
+const { DropDownMenu } = mui;
+const { ToolbarGroup } = mui;
+
+const userMenuItems = [
    { payload: '1', text: 'User' },
    { payload: 'profile', text: 'Profile' },
-   { payload: 'logout', text: 'Logout' }
+   { payload: 'logout', text: 'Logout' },
 ];
 
-var Header = React.createClass({
-  getInitialState: function() {
+const Header = React.createClass({
+  getInitialState() {
     AuthActions.initSession();
 
     return {
-      session: AuthStore.getSession()
+      session: AuthStore.getSession(),
     };
   },
 
-  logout: function() {
+  logout() {
     AuthActions.logoutAuth();
   },
 
-  profilePage: function() {
+  profilePage() {
     return window.location.replace("/#/login");
   },
 
-  componentDidMount: function() {
+  componentDidMount() {
     AuthStore.addChangeListener(this._onChange);
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     AuthStore.removeChangeListener(this._onChange);
   },
 
-  render: function() {
+  render() {
     if (this.state.session._id) {
-      var userMenuVisibility =
+      var userMenuVisibility = (
         <ToolbarGroup>
           <DropDownMenu selectedIndex={0} onChange={this.userMenuItems} menuItems={userMenuItems} />
         </ToolbarGroup>
+);
     }
 
     return (
@@ -68,8 +70,8 @@ var Header = React.createClass({
     );
   },
 
-  userMenuItems: function(e, selectedIndex, menuItem) {
-    switch(menuItem.payload) {
+  userMenuItems(e, selectedIndex, menuItem) {
+    switch (menuItem.payload) {
       case 'profile':
         this.profilePage();
         break;
@@ -79,11 +81,11 @@ var Header = React.createClass({
     }
   },
 
-  _onChange: function() {
+  _onChange() {
     if (this.isMounted()) {
       this.setState({ session: AuthStore.getSession() });
     }
-  }
+  },
 });
 
 module.exports = Header;

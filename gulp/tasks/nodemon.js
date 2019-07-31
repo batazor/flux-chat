@@ -1,22 +1,22 @@
-var gulp = require('gulp');
-var nodemon = require('gulp-nodemon');
-var browserSync = require('browser-sync');
-var config = require('../config').nodemon;
+const gulp = require('gulp');
+const nodemon = require('gulp-nodemon');
+const browserSync = require('browser-sync');
+const config = require('../config').nodemon;
 
-gulp.task('nodemon', function(cb) {
-  var called = false;
+gulp.task('nodemon', cb => {
+  let called = false;
   return nodemon({
       script: config.script,
-      ignore: config.ignore
+      ignore: config.ignore,
     })
-    .on('start', function onStart() {
+    .on('start', () => {
       if (!called) { cb(); }
       called = true;
     })
-    .on('restart', function () {
-      setTimeout(function reload() {
+    .on('restart', () => {
+      setTimeout(() => {
         browserSync.reload({
-          stream: false
+          stream: false,
         });
       }, 100);
     });

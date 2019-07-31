@@ -1,12 +1,13 @@
-var React = require('react');
+const React = require('react');
 
-var mui = require('material-ui');
-var Toolbar = mui.Toolbar;
-var FlatButton = mui.FlatButton;
-var ToolbarGroup = mui.ToolbarGroup;
+const mui = require('material-ui');
 
-var Footer = React.createClass({
-  render: function() {
+const { Toolbar } = mui;
+const { FlatButton } = mui;
+const { ToolbarGroup } = mui;
+
+const Footer = React.createClass({
+  render() {
     return (
       <footer className="page-footer">
         <Toolbar>
@@ -22,7 +23,7 @@ var Footer = React.createClass({
         </Toolbar>
       </footer>
     );
-  }
+  },
 });
 
 module.exports = Footer;

@@ -1,14 +1,14 @@
-var React = require('react');
-var DocumentTitle = require('react-document-title');
+const React = require('react');
+const DocumentTitle = require('react-document-title');
 
-var AboutPage = React.createClass({
-  render: function() {
+const AboutPage = React.createClass({
+  render() {
     return (
-      <DocumentTitle title='About | Flux • Chat'>
+      <DocumentTitle title="About | Flux • Chat">
         <h1 className="row center-xs">About</h1>
       </DocumentTitle>
     );
-  }
+  },
 });
 
 module.exports = AboutPage;

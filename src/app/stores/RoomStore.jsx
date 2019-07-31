@@ -1,62 +1,58 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
-var EventEmitter = require('events').EventEmitter;
-var ChatConstants = require('../constants/ChatConstants.jsx');
-var _ = require('underscore');
+const { EventEmitter } = require('events');
+const _ = require('underscore');
+const AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
+const ChatConstants = require('../constants/ChatConstants.jsx');
 
-var _rooms = [];
+let _rooms = [];
 
-var sortRooms = function() {
-  _rooms = _.sortBy(_rooms, function(room) {
-    return room.updatedAt;
-  }).reverse();
+const sortRooms = function () {
+  _rooms = _.sortBy(_rooms, room => room.updatedAt).reverse();
 };
 
-var RoomStore = _.extend({}, EventEmitter.prototype, {
+const RoomStore = _.extend({}, EventEmitter.prototype, {
 
-  getCreatedRoomData: function(room) {
-    var date = Date.now();
+  getCreatedRoomData(room) {
+    const date = Date.now();
     return {
-      _id:         room.id || 'r_' + date,
-      name:        room.name,
-      isCreated:   room.isCreated || false,
-      isCurrent:   false,
+      _id: room.id || `r_${date}`,
+      name: room.name,
+      isCreated: room.isCreated || false,
+      isCurrent: false,
       lastMessage: room.lastMessage,
-      updatedAt:   room.updatedAt
+      updatedAt: room.updatedAt,
     };
   },
 
-  getAll: function() {
+  getAll() {
     return _rooms;
   },
 
-  getCurrentRoom: function() {
-    return _.find(_rooms, function(room) {
-      return room.isCurrent;
-    });
+  getCurrentRoom() {
+    return _.find(_rooms, room => room.isCurrent);
   },
 
-  emitChange: function() {
+  emitChange() {
     this.emit('change');
   },
 
-  addChangeListener: function(callback) {
+  addChangeListener(callback) {
     this.on('change', callback);
   },
 
-  removeChangeListener: function(callback) {
+  removeChangeListener(callback) {
     this.removeListener('change', callback);
-  }
+  },
 
 });
 
 // Register callback with AppDispatcher
-AppDispatcher.register(function(payload) {
-  var action = payload.action;
+AppDispatcher.register(payload => {
+  const { action } = payload;
 
-  switch(action.actionType) {
+  switch (action.actionType) {
     case ChatConstants.INIT_ROOM:
       _rooms = [];
-      _.map(action.rooms, function(room) {
+      _.map(action.rooms, room => {
         _rooms.push(room);
       });
       sortRooms();
@@ -72,22 +68,20 @@ AppDispatcher.register(function(payload) {
       break;
 
     case ChatConstants.CREATED_ROOM:
-      _rooms = _.map(_rooms, function(room) {
-        return (room.name === action.room.name && !room.isCreated) ? action.room : room;
-      });
+      _rooms = _.map(_rooms, room => ((room.name === action.room.name && !room.isCreated) ? action.room : room));
       break;
 
     case ChatConstants.CLICKING_ROOM:
-      _rooms = _.map(_rooms, function(room) {
-        room.isCurrent = room._id === action.id ? true : false;
+      _rooms = _.map(_rooms, room => {
+        room.isCurrent = room._id === action.id;
         return room;
       });
       break;
 
     case ChatConstants.UPDATED_ROOM:
-      _rooms = _.map(_rooms, function(room) {
+      _rooms = _.map(_rooms, room => {
         if (room._id === action.message.roomId) {
-          room.lastMessage = { author: {nickname: action.message.userId.nickname}, text: action.message.message };
+          room.lastMessage = { author: { nickname: action.message.userId.nickname }, text: action.message.message };
           room.updatedAt = action.message.updatedAt;
         }
         return room;

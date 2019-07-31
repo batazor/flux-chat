@@ -1,11 +1,9 @@
-var concat = require('gulp-concat');
-var gulp = require('gulp');
-var plumber = require('gulp-plumber');
-var config = require('../config').js;
+const concat = require('gulp-concat');
+const gulp = require('gulp');
+const plumber = require('gulp-plumber');
+const config = require('../config').js;
 
-gulp.task('js', function() {
-  return gulp.src(config.watch)
+gulp.task('js', () => gulp.src(config.watch)
     .pipe(plumber())
     .pipe(concat('vendor.js'))
-    .pipe(gulp.dest(config.dest));
-});
+    .pipe(gulp.dest(config.dest)));

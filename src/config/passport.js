@@ -1,4 +1,4 @@
-const md5 = require('blueimp-md5').md5;
+const { md5 } = require('blueimp-md5');
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const TwitterStrategy = require('passport-twitter').Strategy;
@@ -89,7 +89,7 @@ module.exports = function (passport) {
         } else {
 
         // user already exists and is logged in, we have to link accounts
-          const user = req.user; // pull the user out of the session
+          const { user } = req; // pull the user out of the session
 
           // update the current users facebook credentials
           user.local.email = email;
@@ -200,7 +200,7 @@ module.exports = function (passport) {
         } else {
 
         // user already exists and is logged in, we have to link accounts
-          const user = req.user; // pull the user out of the session
+          const { user } = req; // pull the user out of the session
 
           // update the current users facebook credentials
           user.facebook.id = profile.id;
@@ -267,7 +267,7 @@ module.exports = function (passport) {
         } else {
 
         // user already exists and is logged in, we have to link accounts
-          const user = req.user; // pull the user out of the session
+          const { user } = req; // pull the user out of the session
 
           // update the current users facebook credentials
           user.twitter.id = profile.id;
@@ -334,7 +334,7 @@ module.exports = function (passport) {
         } else {
 
         // user already exists and is logged in, we have to link accounts
-          const user = req.user; // pull the user out of the session
+          const { user } = req; // pull the user out of the session
 
           // update the current users facebook credentials
           user.google.id = profile.id;
@@ -401,7 +401,7 @@ module.exports = function (passport) {
         } else {
 
         // user already exists and is logged in, we have to link accounts
-          const user = req.user; // pull the user out of the session
+          const { user } = req; // pull the user out of the session
 
           // update the current users facebook credentials
           user.github.id = profile.id;
@@ -467,7 +467,7 @@ module.exports = function (passport) {
         } else {
 
           // user already exists and is logged in, we have to link accounts
-          const user = req.user; // pull the user out of the session
+          const { user } = req; // pull the user out of the session
 
           // update the current users facebook credentials
           user.vkontakte.id = profile.id;

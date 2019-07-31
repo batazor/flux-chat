@@ -1,40 +1,40 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
-var EventEmitter = require('events').EventEmitter;
-var ButtonConstants = require('../constants/ButtonConstants.jsx');
-var _ = require('underscore');
+const { EventEmitter } = require('events');
+const _ = require('underscore');
+const AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
+const ButtonConstants = require('../constants/ButtonConstants.jsx');
 
 // Add value button
-var value = 0;
+let value = 0;
 
-var ButtonStore = _.extend({}, EventEmitter.prototype, {
+const ButtonStore = _.extend({}, EventEmitter.prototype, {
   // Return Value
-  getValue: function() {
+  getValue() {
     return value;
   },
 
   // Emit Change event
-  emitChange: function() {
+  emitChange() {
     this.emit('change');
   },
 
   // Add change listener
-  addChangeListener: function(callback) {
+  addChangeListener(callback) {
     this.on('change', callback);
   },
 
   // Remove change listener
-  removeChangeListener: function(callback) {
+  removeChangeListener(callback) {
     this.removeListener('change', callback);
-  }
+  },
 
 });
 
 // Register callback with AppDispatcher
-AppDispatcher.register(function(payload) {
-  var action = payload.action;
-  var text;
+AppDispatcher.register(payload => {
+  const { action } = payload;
+  let text;
 
-  switch(action.actionType) {
+  switch (action.actionType) {
     // Respond to CART_REMOVE action
     case ButtonConstants.BUTTON_INIT:
       value = action.count;

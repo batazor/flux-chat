@@ -1,16 +1,16 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Router = require('react-router-dom').HashRouter;
-var Route = require('react-router-dom').Route;
-var Switch = require('react-router-dom').Switch;
-var HashRouter = require('react-router-dom').HashRouter;
-var AppContainer = require('react-hot-loader').AppContainer;
-var injectTapEventPlugin = require('react-tap-event-plugin');
-var MuiThemeProvider = require('material-ui').MuiThemeProvider;
+const React = require('react');
+const ReactDOM = require('react-dom');
+const Router = require('react-router-dom').HashRouter;
+const { Route } = require('react-router-dom');
+const { Switch } = require('react-router-dom');
+const { HashRouter } = require('react-router-dom');
+const { AppContainer } = require('react-hot-loader');
+const injectTapEventPlugin = require('react-tap-event-plugin');
+const { MuiThemeProvider } = require('material-ui');
 require('./utils/socketio.jsx'); // Socket listen
 
 // Page
-var WelcomePage = require('./components/welcome/WelcomePage.react.jsx');
+const WelcomePage = require('./components/welcome/WelcomePage.react.jsx');
 
 // i18n - Localize
 // var ReactIntl = require('react-intl');
@@ -28,15 +28,15 @@ window.React = React;
 injectTapEventPlugin();
 
 // Teplate Component ===========================================================
-var Header = require('./components/template/Header.react.jsx');
-var Footer = require('./components/template/Footer.react.jsx');
+const Header = require('./components/template/Header.react.jsx');
+const Footer = require('./components/template/Footer.react.jsx');
 
 const BasicExample = () => (
   <Router>
     <div>
-      <div className='wrapper'>
+      <div className="wrapper">
         <Header />
-        <main className='col-xs-12 chat' style={{'padding': '0'}}>
+        <main className="col-xs-12 chat" style={{ 'padding': '0' }}>
           <Switch>
             <Route path="/about" component={require('./components/about/AboutPage.react.jsx')} />
             <Route path="/chat" component={require('./components/chat/ChatPage.react.jsx')} />
@@ -48,12 +48,12 @@ const BasicExample = () => (
             <Route path="/" component={require('./components/welcome/WelcomePage.react.jsx')} />
           </Switch>
         </main>
-        <div className="push"></div>
+        <div className="push" />
       </div>
       <Footer />
     </div>
   </Router>
-)
+);
 
 ReactDOM.render((
   <HashRouter>

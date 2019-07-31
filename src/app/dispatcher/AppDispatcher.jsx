@@ -1,13 +1,13 @@
-var Dispatcher = require('flux').Dispatcher;
+const { Dispatcher } = require('flux');
 
 // Create dispatcher instance
-var AppDispatcher = new Dispatcher();
+const AppDispatcher = new Dispatcher();
 
 // Convenience method to handle dispatch requests
-AppDispatcher.handleAction = function(action) {
+AppDispatcher.handleAction = function (action) {
   this.dispatch({
     source: 'VIEW_ACTION',
-    action: action
+    action,
   });
 };
 

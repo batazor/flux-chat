@@ -1,24 +1,24 @@
-var ButtonConstants = require('../../constants/ButtonConstants.jsx');
+const ButtonConstants = require('../../constants/ButtonConstants.jsx');
 
-module.exports = function(socket, AppDispatcher) {
+module.exports = function (socket, AppDispatcher) {
 
-  socket.on('initCount', function(data) {
+  socket.on('initCount', data => {
     AppDispatcher.handleAction({
       actionType: ButtonConstants.BUTTON_INIT,
-      count: data
+      count: data,
     });
   });
 
-  socket.on('updCount', function(data) {
+  socket.on('updCount', data => {
     AppDispatcher.handleAction({
       actionType: ButtonConstants.BUTTON_ADD,
-      count: data
+      count: data,
     });
   });
 
   // Session
-  socket.on('socketSession', function(user) {
-    alert('User ID: ' + user);
+  socket.on('socketSession', user => {
+    alert(`User ID: ${user}`);
   });
 
 };

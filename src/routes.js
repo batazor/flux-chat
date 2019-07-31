@@ -157,7 +157,7 @@ module.exports = function (app, passport) {
   // user account will stay active in case they want to reconnect in the future
   // local ---------------------------------------------------------------------
   app.get('/unlink/local', isLoggedIn, (req, res) => {
-    const user = req.user;
+    const { user } = req;
     user.local.email = undefined;
     user.local.password = undefined;
     user.save(err => {
@@ -167,7 +167,7 @@ module.exports = function (app, passport) {
 
   // facebook ----------------------------------------------------------------
   app.get('/unlink/facebook', isLoggedIn, (req, res) => {
-    const user = req.user;
+    const { user } = req;
     user.facebook.token = undefined;
     user.save(err => {
       res.redirect('/#/profile');
@@ -176,7 +176,7 @@ module.exports = function (app, passport) {
 
   // twitter -----------------------------------------------------------------
   app.get('/unlink/twitter', isLoggedIn, (req, res) => {
-    const user = req.user;
+    const { user } = req;
     user.twitter.token = undefined;
     user.save(err => {
       res.redirect('/#/profile');
@@ -185,7 +185,7 @@ module.exports = function (app, passport) {
 
   // google ------------------------------------------------------------------
   app.get('/unlink/google', isLoggedIn, (req, res) => {
-    const user = req.user;
+    const { user } = req;
     user.google.token = undefined;
     user.save(err => {
       res.redirect('/#/profile');
@@ -194,7 +194,7 @@ module.exports = function (app, passport) {
 
   // github ------------------------------------------------------------------
   app.get('/unlink/github', isLoggedIn, (req, res) => {
-    const user = req.user;
+    const { user } = req;
     user.github.token = undefined;
     user.save(err => {
       res.redirect('/#/profile');
@@ -203,7 +203,7 @@ module.exports = function (app, passport) {
 
   // vkontakte ---------------------------------------------------------------
   app.get('/unlink/vkontakte', isLoggedIn, (req, res) => {
-    const user = req.user;
+    const { user } = req;
     user.vkontakte.token = undefined;
     user.save(err => {
       res.redirect('/#/profile');

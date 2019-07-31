@@ -1,4 +1,4 @@
-var keyMirror = require('fbjs/lib/keyMirror');
+const keyMirror = require('fbjs/lib/keyMirror');
 
 // Define action constants
 module.exports = keyMirror({
@@ -14,6 +14,6 @@ module.exports = keyMirror({
     CREATING_MESSAGE: null,
     CREATED_MESSAGE: null,
 
-    UPDATE_USER: null
+    UPDATE_USER: null,
 
 });

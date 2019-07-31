@@ -1,19 +1,20 @@
-var React = require('react');
-var _ = require('underscore');
-var RoomStore = require('../../stores/RoomStore.jsx');
-var ChatAction = require('../../actions/ChatAction.jsx');
+const React = require('react');
+const _ = require('underscore');
+const mui = require('material-ui');
+const RoomStore = require('../../stores/RoomStore.jsx');
+const ChatAction = require('../../actions/ChatAction.jsx');
 
-var mui = require('material-ui');
-var FlatButton = mui.FlatButton;
-var Dialog = mui.Dialog;
-var RaisedButton = mui.RaisedButton;
-var TextField = mui.TextField;
-var Menu = mui.Menu;
-var MenuItem = mui.MenuItem;
 
-var RoomSection = React.createClass({
+const { FlatButton } = mui;
+const { Dialog } = mui;
+const { RaisedButton } = mui;
+const { TextField } = mui;
+const { Menu } = mui;
+const { MenuItem } = mui;
 
-  getInitialState: function() {
+const RoomSection = React.createClass({
+
+  getInitialState() {
     return {
       modal: false,
       nameRoom: "",
@@ -23,43 +24,43 @@ var RoomSection = React.createClass({
     };
   },
 
-  componentDidMount: function() {
+  componentDidMount() {
     ChatAction.initRoom();
     RoomStore.addChangeListener(this._onChange);
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     RoomStore.removeChangeListener(this._onChange);
   },
 
-  render: function() {
-    var addRoomDialogActions = [
+  render() {
+    const addRoomDialogActions = [
       <FlatButton
         label="Cancel"
-        primary={true}
+        primary
         onTouchTap={this.handleClose}
       />,
       <FlatButton
         label="Submit"
-        primary={true}
-        keyboardFocused={true}
+        primary
+        keyboardFocused
         onTouchTap={this.addRoomDialogSubmit}
       />,
     ];
 
-    var roomListItems = [];
+    const roomListItems = [];
     if (this.state.rooms.length) {
-      _.map(this.state.rooms, function(room) {
-        var disabled = room.isCreated ? false : true;
-        var active = room.isCurrent ? mui.MenuItem.Types.SUBHEADER : '';
-        var lastMessage = room.lastMessage ? 'wrote: ' + room.lastMessage.author.nickname : undefined;
+      _.map(this.state.rooms, room => {
+        const disabled = !room.isCreated;
+        const active = room.isCurrent ? mui.MenuItem.Types.SUBHEADER : '';
+        const lastMessage = room.lastMessage ? `wrote: ${room.lastMessage.author.nickname}` : undefined;
 
         roomListItems.push({
           payload: room._id,
           text: room.name,
           data: lastMessage,
-          disabled: disabled,
-          type: active
+          disabled,
+          type: active,
         });
       });
     }
@@ -70,7 +71,8 @@ var RoomSection = React.createClass({
           <h2 className="room-name">Rooms</h2>
           <RaisedButton
             label="ADD ROOM"
-            onTouchTap={this.addRoomDialogOpen} />
+            onTouchTap={this.addRoomDialogOpen}
+          />
         </div>
         <div className="row container">
           <div className="col-xs scrollbar">
@@ -109,11 +111,11 @@ var RoomSection = React.createClass({
   },
 
   // New Room ==================================================================
-  addRoomDialogOpen: function() {
+  addRoomDialogOpen() {
     this.setState({ addRoomDialog: true });
   },
 
-  addRoomDialogSubmit: function() {
+  addRoomDialogSubmit() {
     this.refs.addRoomDialog.dismiss();
 
     ChatAction.creatingRoom(this.state.nameRoom);
@@ -121,31 +123,31 @@ var RoomSection = React.createClass({
     this.refs.nameRoomDialog.clearValue();
   },
 
-  onChangeNameRoom: function(e) {
+  onChangeNameRoom(e) {
     this.setState({ nameRoom: e.target.value });
   },
 
   // Click Room ================================================================
-  clickRoom: function(e, selectedIndex, menuItem) {
+  clickRoom(e, selectedIndex, menuItem) {
     ChatAction.clickRoom({ open: menuItem.payload, close: this.state.roomsAction });
     this._updateLastRoom(menuItem.payload);
   },
 
-  _updateLastRoom: function(roomId) {
+  _updateLastRoom(roomId) {
     this.setState({
-      roomsAction: roomId
+      roomsAction: roomId,
     });
   },
 
-  _onChange: function() {
+  _onChange() {
     if (this.isMounted()) {
       this.setState({
         modal: false,
         nameRoom: "",
-        rooms: RoomStore.getAll()
+        rooms: RoomStore.getAll(),
       });
     }
-  }
+  },
 
 });
 

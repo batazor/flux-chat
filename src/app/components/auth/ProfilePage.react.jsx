@@ -1,32 +1,33 @@
-var React = require('react');
-var DocumentTitle = require('react-document-title');
-var ProfileItem = require('./ProfileItem.react.jsx');
-var AuthActions = require('../../actions/AuthActions.jsx');
-var AuthStore = require('../../stores/AuthStore.jsx');
+const React = require('react');
+const DocumentTitle = require('react-document-title');
+const mui = require('material-ui');
+const ProfileItem = require('./ProfileItem.react.jsx');
+const AuthActions = require('../../actions/AuthActions.jsx');
+const AuthStore = require('../../stores/AuthStore.jsx');
 
-var mui = require('material-ui');
-var IconButton = mui.IconButton;
-var FlatButton = mui.FlatButton;
 
-var ProfilePage = React.createClass({
-  getInitialState: function() {
+const { IconButton } = mui;
+const { FlatButton } = mui;
+
+const ProfilePage = React.createClass({
+  getInitialState() {
     AuthActions.initSession();
 
     return {
-      session: AuthStore.getSession()
+      session: AuthStore.getSession(),
     };
   },
 
-  componentDidMount: function() {
+  componentDidMount() {
     AuthStore.addChangeListener(this._onChange);
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     AuthStore.removeChangeListener(this._onChange);
   },
 
-  render: function() {
-    var containerStyle = {
+  render() {
+    const containerStyle = {
       'position': 'relative',
       'width': '100%',
       'height': '100%',
@@ -34,20 +35,20 @@ var ProfilePage = React.createClass({
       'margin': '0',
       'padding': '0',
     };
-    var scrolllBarStyle = {
+    const scrolllBarStyle = {
       'position': 'absolute',
       'height': '100%',
       'width': '100%',
       'margin': '0',
       'padding': '0',
     };
-    var scrollBarBoxStyle = {
+    const scrollBarBoxStyle = {
       'width': '100%',
       'height': '100%',
       'overflowY': 'auto',
-      'overflowX': 'hidden'
+      'overflowX': 'hidden',
     };
-    var style = {
+    const style = {
       'height': 'calc(100% - 56px)',
       'width': '100%',
       'margin': '0',
@@ -55,7 +56,7 @@ var ProfilePage = React.createClass({
     };
 
     return (
-      <DocumentTitle title='Profile | Flux • Chat'>
+      <DocumentTitle title="Profile | Flux • Chat">
         <div className="row" style={style}>
           <div className="col-xs" style={style}>
             <div className="row" style={containerStyle}>
@@ -75,7 +76,8 @@ var ProfilePage = React.createClass({
                             <div className="box">
                               <img
                                 src={this.state.session.avatar}
-                                className="avatar" />
+                                className="avatar"
+                              />
                             </div>
                           </div>
                         </div>
@@ -84,10 +86,14 @@ var ProfilePage = React.createClass({
                           <div className="col-xs">
                             <div className="box">
                               <p>
-                                <strong>id: </strong> {this.state.session._id}
+                                <strong>id: </strong>
+                                {' '}
+                                {this.state.session._id}
                               </p>
                               <p>
-                                <strong>nickname: </strong> {this.state.session.nickname}
+                                <strong>nickname: </strong>
+                                {' '}
+                                {this.state.session.nickname}
                               </p>
                             </div>
                           </div>
@@ -102,43 +108,49 @@ var ProfilePage = React.createClass({
                           </div>
                         </div>
 
-                        <div className="row" style={{"margin": "20px 0px"}}>
+                        <div className="row" style={{ "margin": "20px 0px" }}>
 
                           <ProfileItem
                             icon="fa fa-user fa-3x"
                             title="Local User"
                             url="local"
-                            profile={this.state.session.local} />
+                            profile={this.state.session.local}
+                          />
 
                           <ProfileItem
                             icon="fa fa-facebook fa-3x"
                             title="Facebook"
                             url="facebook"
-                            profile={this.state.session.facebook} />
+                            profile={this.state.session.facebook}
+                          />
 
                           <ProfileItem
                             icon="fa fa-twitter fa-3x"
                             title="Twitter"
                             url="twitter"
-                            profile={this.state.session.twitter} />
+                            profile={this.state.session.twitter}
+                          />
 
                           <ProfileItem
                             icon="fa fa-google-plus fa-3x"
                             title="Google"
                             url="google"
-                            profile={this.state.session.google} />
+                            profile={this.state.session.google}
+                          />
 
                           <ProfileItem
                             icon="fa fa-github fa-3x"
                             title="Github"
                             url="github"
-                            profile={this.state.session.github} />
+                            profile={this.state.session.github}
+                          />
 
                           <ProfileItem
                             icon="fa fa-vk fa-3x"
                             title="Vkontakte"
                             url="vkontakte"
-                            profile={this.state.session.vkontakte} />
+                            profile={this.state.session.vkontakte}
+                          />
 
                         </div>
 
@@ -155,14 +167,13 @@ var ProfilePage = React.createClass({
     );
   },
 
-  _onChange: function() {
+  _onChange() {
     if (this.isMounted()) {
       this.setState({ session: AuthStore.getSession() });
 
-      if (!this.state.session._id)
-        return window.location.replace("/#/login");
+      if (!this.state.session._id) { return window.location.replace("/#/login"); }
     }
-  }
+  },
 });
 
 module.exports = ProfilePage;

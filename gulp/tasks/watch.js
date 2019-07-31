@@ -1,7 +1,7 @@
-var gulp = require('gulp');
-var config = require('../config');
+const gulp = require('gulp');
+const config = require('../config');
 
-gulp.task('watch', ['browserSync'], function() {
+gulp.task('watch', ['browserSync'], () => {
   gulp.start('webpack');
   gulp.watch(config.css.watch, ['css']);
   gulp.watch(config.less.watch, ['less']);

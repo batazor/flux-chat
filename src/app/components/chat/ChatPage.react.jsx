@@ -1,29 +1,29 @@
-var React = require('react');
-var DocumentTitle = require('react-document-title');
-var AuthActions = require('../../actions/AuthActions.jsx');
-var AuthStore = require('../../stores/AuthStore.jsx');
-var RoomSection = require('./RoomSection.react.jsx');
-var MessageSection = require('./MessageSection.react.jsx');
-var UserSection = require('./UserSection.react.jsx');
+const React = require('react');
+const DocumentTitle = require('react-document-title');
+const AuthActions = require('../../actions/AuthActions.jsx');
+const AuthStore = require('../../stores/AuthStore.jsx');
+const RoomSection = require('./RoomSection.react.jsx');
+const MessageSection = require('./MessageSection.react.jsx');
+const UserSection = require('./UserSection.react.jsx');
 
-var ChatPage = React.createClass({
-  getInitialState: function() {
+const ChatPage = React.createClass({
+  getInitialState() {
     return {
-      session: AuthStore.getSession()
+      session: AuthStore.getSession(),
     };
   },
 
-  componentDidMount: function() {
+  componentDidMount() {
     AuthStore.addChangeListener(this._onChange);
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     AuthStore.removeChangeListener(this._onChange);
   },
 
-  render: function() {
+  render() {
     return (
-      <DocumentTitle title='Chat | Flux • Chat'>
+      <DocumentTitle title="Chat | Flux • Chat">
         <div className="row chat">
 
           <div className="col-xs-3 chat">
@@ -42,14 +42,13 @@ var ChatPage = React.createClass({
     );
   },
 
-  _onChange: function() {
+  _onChange() {
     if (this.isMounted()) {
       this.setState({ session: AuthStore.getSession() });
 
-      if (!this.state.session._id)
-        return window.location.replace("/#/login");
+      if (!this.state.session._id) { return window.location.replace("/#/login"); }
     }
-  }
+  },
 });
 
 module.exports = ChatPage;
