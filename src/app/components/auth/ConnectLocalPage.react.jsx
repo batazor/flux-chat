@@ -1,9 +1,8 @@
-const React = require('react');
-const DocumentTitle = require('react-document-title');
-const mui = require('material-ui');
-const AuthActions = require('../../actions/AuthActions.jsx');
-const AuthStore = require('../../stores/AuthStore.jsx');
-
+const React = require("react");
+const DocumentTitle = require("react-document-title");
+const mui = require("material-ui");
+const AuthActions = require("../../actions/AuthActions.jsx");
+const AuthStore = require("../../stores/AuthStore.jsx");
 
 const { RaisedButton } = mui;
 const { TextField } = mui;
@@ -16,14 +15,14 @@ const SignupPage = React.createClass({
       emailError: null,
       passwordError: null,
 
-      session: AuthStore.getSession(),
+      session: AuthStore.getSession()
     };
   },
 
   validate() {
     const form = {
       email: this.refs.email.getValue(),
-      password: this.refs.password.getValue(),
+      password: this.refs.password.getValue()
     };
 
     // Check email
@@ -39,7 +38,9 @@ const SignupPage = React.createClass({
       this.setState({ passwordError: "Password cannot be empty!" });
       form.password = false;
     } else if (form.password.length < 8) {
-      this.setState({ passwordError: "The password must contain at least 8 characters" });
+      this.setState({
+        passwordError: "The password must contain at least 8 characters"
+      });
       form.password = false;
     } else {
       this.setState({ passwordError: null });
@@ -57,7 +58,6 @@ const SignupPage = React.createClass({
   },
 
   render() {
-
     return (
       <DocumentTitle title="Signup | Flux • Chat">
         <form action="/connect/local" method="post">
@@ -106,13 +106,11 @@ const SignupPage = React.createClass({
           <div className="row center-xs">
             <div className="box">
               <p>
-Or go?
-                <a href="/#/">home</a>
-.
+                Or go?
+                <a href="/#/">home</a>.
               </p>
             </div>
           </div>
-
         </form>
       </DocumentTitle>
     );
@@ -126,7 +124,7 @@ Or go?
 
       this.setState({ session: AuthStore.getSession() });
     }
-  },
+  }
 });
 
 module.exports = SignupPage;

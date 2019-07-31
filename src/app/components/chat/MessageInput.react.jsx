@@ -1,38 +1,38 @@
-const React = require('react');
-const PropTypes = require('prop-types');
-const ReactEmoji = require('react-emoji');
-const Markdown = require('react-remarkable');
-const _ = require('underscore');
+const React = require("react");
+const PropTypes = require("prop-types");
+const ReactEmoji = require("react-emoji");
+const Markdown = require("react-remarkable");
+const _ = require("underscore");
 
-const mui = require('material-ui');
-const ChatAction = require('../../actions/ChatAction.jsx');
+const mui = require("material-ui");
+const ChatAction = require("../../actions/ChatAction.jsx");
 
 const { IconButton } = mui;
 const { TextField } = mui;
 
 const MessageInput = React.createClass({
-
   mixins: [ReactEmoji],
 
   propTypres: {
     room: PropTypes.object,
-    user: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired
   },
 
   getInitialState() {
     return {
-      message: '',
+      message: "",
       previewFlag: false,
-      markdown: false,
+      markdown: false
     };
   },
 
   render() {
-
     const disabledInput = !!_.isUndefined(this.props.room);
-    const disabledButton = this.state.message === '';
+    const disabledButton = this.state.message === "";
 
-    const eye = this.state.previewFlag ? 'fa fa-eye-slash fa-4x' : 'fa fa-eye fa-4x';
+    const eye = this.state.previewFlag
+      ? "fa fa-eye-slash fa-4x"
+      : "fa fa-eye fa-4x";
 
     return (
       <div className="center-xs bottom-xs">
@@ -60,7 +60,6 @@ const MessageInput = React.createClass({
             iconClassName="fa fa-send fa-4x"
           />
         </form>
-
       </div>
     );
   },
@@ -71,37 +70,45 @@ const MessageInput = React.createClass({
     const message = {
       userId: { _id: this.props.user._id },
       roomId: this.props.room._id,
-      message: this.state.message,
+      message: this.state.message
     };
     ChatAction.creatingMessage(message);
 
     this.refs.inputMessage.clearValue();
 
     this.setState({
-      message: '',
+      message: "",
       markdown: false,
-      previewFlag: false,
+      previewFlag: false
     });
   },
 
   onChangeMessages(e) {
-    const markdown = this.state.previewFlag ? <Markdown>{this.emojify(e.target.value)}</Markdown> : false;
+    const markdown = this.state.previewFlag ? (
+      <Markdown>{this.emojify(e.target.value)}</Markdown>
+    ) : (
+      false
+    );
 
     this.setState({
       message: e.target.value,
-      markdown,
+      markdown
     });
   },
 
   onPreviewClick() {
     const previewFlag = !this.state.previewFlag;
-    const markdown = previewFlag ? <Markdown>{this.emojify(this.state.message)}</Markdown> : false;
+    const markdown = previewFlag ? (
+      <Markdown>{this.emojify(this.state.message)}</Markdown>
+    ) : (
+      false
+    );
 
     this.setState({
       previewFlag,
-      markdown,
+      markdown
     });
-  },
+  }
 });
 
 module.exports = MessageInput;

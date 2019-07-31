@@ -1,15 +1,15 @@
-const React = require('react');
-const DocumentTitle = require('react-document-title');
-const AuthActions = require('../../actions/AuthActions.jsx');
-const AuthStore = require('../../stores/AuthStore.jsx');
-const RoomSection = require('./RoomSection.react.jsx');
-const MessageSection = require('./MessageSection.react.jsx');
-const UserSection = require('./UserSection.react.jsx');
+const React = require("react");
+const DocumentTitle = require("react-document-title");
+const AuthActions = require("../../actions/AuthActions.jsx");
+const AuthStore = require("../../stores/AuthStore.jsx");
+const RoomSection = require("./RoomSection.react.jsx");
+const MessageSection = require("./MessageSection.react.jsx");
+const UserSection = require("./UserSection.react.jsx");
 
 const ChatPage = React.createClass({
   getInitialState() {
     return {
-      session: AuthStore.getSession(),
+      session: AuthStore.getSession()
     };
   },
 
@@ -25,7 +25,6 @@ const ChatPage = React.createClass({
     return (
       <DocumentTitle title="Chat | Flux • Chat">
         <div className="row chat">
-
           <div className="col-xs-3 chat">
             <RoomSection />
           </div>
@@ -46,9 +45,11 @@ const ChatPage = React.createClass({
     if (this.isMounted()) {
       this.setState({ session: AuthStore.getSession() });
 
-      if (!this.state.session._id) { return window.location.replace("/#/login"); }
+      if (!this.state.session._id) {
+        return window.location.replace("/#/login");
+      }
     }
-  },
+  }
 });
 
 module.exports = ChatPage;

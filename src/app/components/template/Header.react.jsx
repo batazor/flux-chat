@@ -1,9 +1,8 @@
-const React = require('react');
-const { Link } = require('react-router-dom');
-const mui = require('material-ui');
-const AuthActions = require('../../actions/AuthActions.jsx');
-const AuthStore = require('../../stores/AuthStore.jsx');
-
+const React = require("react");
+const { Link } = require("react-router-dom");
+const mui = require("material-ui");
+const AuthActions = require("../../actions/AuthActions.jsx");
+const AuthStore = require("../../stores/AuthStore.jsx");
 
 const { Toolbar } = mui;
 const { FlatButton } = mui;
@@ -12,9 +11,9 @@ const { DropDownMenu } = mui;
 const { ToolbarGroup } = mui;
 
 const userMenuItems = [
-   { payload: '1', text: 'User' },
-   { payload: 'profile', text: 'Profile' },
-   { payload: 'logout', text: 'Logout' },
+  { payload: "1", text: "User" },
+  { payload: "profile", text: "Profile" },
+  { payload: "logout", text: "Logout" }
 ];
 
 const Header = React.createClass({
@@ -22,7 +21,7 @@ const Header = React.createClass({
     AuthActions.initSession();
 
     return {
-      session: AuthStore.getSession(),
+      session: AuthStore.getSession()
     };
   },
 
@@ -46,18 +45,28 @@ const Header = React.createClass({
     if (this.state.session._id) {
       var userMenuVisibility = (
         <ToolbarGroup>
-          <DropDownMenu selectedIndex={0} onChange={this.userMenuItems} menuItems={userMenuItems} />
+          <DropDownMenu
+            selectedIndex={0}
+            onChange={this.userMenuItems}
+            menuItems={userMenuItems}
+          />
         </ToolbarGroup>
-);
+      );
     }
 
     return (
       <header>
         <Toolbar>
           <ToolbarGroup>
-            <Link to="/chat"><FlatButton label="Chat" /></Link>
-            <Link to="/about"><FlatButton label="About" /></Link>
-            <Link to="/hello"><FlatButton label="Hello" /></Link>
+            <Link to="/chat">
+              <FlatButton label="Chat" />
+            </Link>
+            <Link to="/about">
+              <FlatButton label="About" />
+            </Link>
+            <Link to="/hello">
+              <FlatButton label="Hello" />
+            </Link>
           </ToolbarGroup>
 
           {userMenuVisibility}
@@ -72,10 +81,10 @@ const Header = React.createClass({
 
   userMenuItems(e, selectedIndex, menuItem) {
     switch (menuItem.payload) {
-      case 'profile':
+      case "profile":
         this.profilePage();
         break;
-      case 'logout':
+      case "logout":
         this.logout();
         break;
     }
@@ -85,7 +94,7 @@ const Header = React.createClass({
     if (this.isMounted()) {
       this.setState({ session: AuthStore.getSession() });
     }
-  },
+  }
 });
 
 module.exports = Header;

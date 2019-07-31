@@ -1,16 +1,15 @@
-const { EventEmitter } = require('events');
-const _ = require('underscore');
-const AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
-const AuthConstants = require('../constants/AuthConstants.jsx');
+const { EventEmitter } = require("events");
+const _ = require("underscore");
+const AppDispatcher = require("../dispatcher/AppDispatcher.jsx");
+const AuthConstants = require("../constants/AuthConstants.jsx");
 
 const sessionInit = {
-  _id: false,
+  _id: false
 };
 
 let session = sessionInit;
 
 const AuthStore = _.extend({}, EventEmitter.prototype, {
-
   // Return Value
   getSession() {
     return session;
@@ -21,17 +20,16 @@ const AuthStore = _.extend({}, EventEmitter.prototype, {
   },
 
   emitChange() {
-    this.emit('change');
+    this.emit("change");
   },
 
   addChangeListener(callback) {
-    this.on('change', callback);
+    this.on("change", callback);
   },
 
   removeChangeListener(callback) {
-    this.removeListener('change', callback);
-  },
-
+    this.removeListener("change", callback);
+  }
 });
 
 // Register callback with AppDispatcher
@@ -40,7 +38,9 @@ AppDispatcher.register(payload => {
 
   switch (action.actionType) {
     case AuthConstants.SESSION_INIT:
-      if (action.session) { session = action.session; }
+      if (action.session) {
+        session = action.session;
+      }
       break;
 
     case AuthConstants.AUTH_LOGOUT:

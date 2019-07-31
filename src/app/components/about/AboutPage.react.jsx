@@ -1,5 +1,5 @@
-const React = require('react');
-const DocumentTitle = require('react-document-title');
+const React = require("react");
+const DocumentTitle = require("react-document-title");
 
 const AboutPage = React.createClass({
   render() {
@@ -8,7 +8,7 @@ const AboutPage = React.createClass({
         <h1 className="row center-xs">About</h1>
       </DocumentTitle>
     );
-  },
+  }
 });
 
 module.exports = AboutPage;

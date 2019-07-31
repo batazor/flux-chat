@@ -1,7 +1,7 @@
-const { EventEmitter } = require('events');
-const _ = require('underscore');
-const AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
-const ButtonConstants = require('../constants/ButtonConstants.jsx');
+const { EventEmitter } = require("events");
+const _ = require("underscore");
+const AppDispatcher = require("../dispatcher/AppDispatcher.jsx");
+const ButtonConstants = require("../constants/ButtonConstants.jsx");
 
 // Add value button
 let value = 0;
@@ -14,19 +14,18 @@ const ButtonStore = _.extend({}, EventEmitter.prototype, {
 
   // Emit Change event
   emitChange() {
-    this.emit('change');
+    this.emit("change");
   },
 
   // Add change listener
   addChangeListener(callback) {
-    this.on('change', callback);
+    this.on("change", callback);
   },
 
   // Remove change listener
   removeChangeListener(callback) {
-    this.removeListener('change', callback);
-  },
-
+    this.removeListener("change", callback);
+  }
 });
 
 // Register callback with AppDispatcher

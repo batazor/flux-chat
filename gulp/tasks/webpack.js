@@ -1,7 +1,10 @@
-const gulp = require('gulp');
+const gulp = require("gulp");
 const webpack = require("gulp-webpack");
-const config = require('../config').webpack;
+const config = require("../config").webpack;
 
-gulp.task("webpack", () => gulp.src(config.src)
+gulp.task("webpack", () =>
+  gulp
+    .src(config.src)
     .pipe(webpack(config.config))
-    .pipe(gulp.dest(config.dest)));
+    .pipe(gulp.dest(config.dest))
+);

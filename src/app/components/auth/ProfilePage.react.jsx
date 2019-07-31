@@ -1,10 +1,9 @@
-const React = require('react');
-const DocumentTitle = require('react-document-title');
-const mui = require('material-ui');
-const ProfileItem = require('./ProfileItem.react.jsx');
-const AuthActions = require('../../actions/AuthActions.jsx');
-const AuthStore = require('../../stores/AuthStore.jsx');
-
+const React = require("react");
+const DocumentTitle = require("react-document-title");
+const mui = require("material-ui");
+const ProfileItem = require("./ProfileItem.react.jsx");
+const AuthActions = require("../../actions/AuthActions.jsx");
+const AuthStore = require("../../stores/AuthStore.jsx");
 
 const { IconButton } = mui;
 const { FlatButton } = mui;
@@ -14,7 +13,7 @@ const ProfilePage = React.createClass({
     AuthActions.initSession();
 
     return {
-      session: AuthStore.getSession(),
+      session: AuthStore.getSession()
     };
   },
 
@@ -28,31 +27,31 @@ const ProfilePage = React.createClass({
 
   render() {
     const containerStyle = {
-      'position': 'relative',
-      'width': '100%',
-      'height': '100%',
-      'minHeight': '100%',
-      'margin': '0',
-      'padding': '0',
+      position: "relative",
+      width: "100%",
+      height: "100%",
+      minHeight: "100%",
+      margin: "0",
+      padding: "0"
     };
     const scrolllBarStyle = {
-      'position': 'absolute',
-      'height': '100%',
-      'width': '100%',
-      'margin': '0',
-      'padding': '0',
+      position: "absolute",
+      height: "100%",
+      width: "100%",
+      margin: "0",
+      padding: "0"
     };
     const scrollBarBoxStyle = {
-      'width': '100%',
-      'height': '100%',
-      'overflowY': 'auto',
-      'overflowX': 'hidden',
+      width: "100%",
+      height: "100%",
+      overflowY: "auto",
+      overflowX: "hidden"
     };
     const style = {
-      'height': 'calc(100% - 56px)',
-      'width': '100%',
-      'margin': '0',
-      'padding': '0',
+      height: "calc(100% - 56px)",
+      width: "100%",
+      margin: "0",
+      padding: "0"
     };
 
     return (
@@ -63,14 +62,12 @@ const ProfilePage = React.createClass({
               <div className="col-xs" style={scrolllBarStyle}>
                 <div style={scrollBarBoxStyle}>
                   <div className="row center-xs">
-
                     <div className="col-xs-12">
                       <h1>Profile</h1>
                     </div>
 
                     <div className="col-xs">
                       <div className="box">
-
                         <div className="row">
                           <div className="col-xs">
                             <div className="box">
@@ -86,13 +83,10 @@ const ProfilePage = React.createClass({
                           <div className="col-xs">
                             <div className="box">
                               <p>
-                                <strong>id: </strong>
-                                {' '}
-                                {this.state.session._id}
+                                <strong>id: </strong> {this.state.session._id}
                               </p>
                               <p>
-                                <strong>nickname: </strong>
-                                {' '}
+                                <strong>nickname: </strong>{" "}
                                 {this.state.session.nickname}
                               </p>
                             </div>
@@ -108,8 +102,7 @@ const ProfilePage = React.createClass({
                           </div>
                         </div>
 
-                        <div className="row" style={{ "margin": "20px 0px" }}>
-
+                        <div className="row" style={{ margin: "20px 0px" }}>
                           <ProfileItem
                             icon="fa fa-user fa-3x"
                             title="Local User"
@@ -151,12 +144,9 @@ const ProfilePage = React.createClass({
                             url="vkontakte"
                             profile={this.state.session.vkontakte}
                           />
-
                         </div>
-
                       </div>
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -171,9 +161,11 @@ const ProfilePage = React.createClass({
     if (this.isMounted()) {
       this.setState({ session: AuthStore.getSession() });
 
-      if (!this.state.session._id) { return window.location.replace("/#/login"); }
+      if (!this.state.session._id) {
+        return window.location.replace("/#/login");
+      }
     }
-  },
+  }
 });
 
 module.exports = ProfilePage;

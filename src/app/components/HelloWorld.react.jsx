@@ -1,15 +1,14 @@
-const React = require('react');
-const DocumentTitle = require('react-document-title');
-const mui = require('material-ui');
-const LocaleActions = require('../actions/LocaleActions.jsx');
-const TestButtonActions = require('../actions/TestButtonActions.jsx');
-const ButtonStore = require('../stores/ButtonStore.jsx');
-const AuthActions = require('../actions/AuthActions.jsx');
-const AuthStore = require('../stores/AuthStore.jsx');
+const React = require("react");
+const DocumentTitle = require("react-document-title");
+const mui = require("material-ui");
+const LocaleActions = require("../actions/LocaleActions.jsx");
+const TestButtonActions = require("../actions/TestButtonActions.jsx");
+const ButtonStore = require("../stores/ButtonStore.jsx");
+const AuthActions = require("../actions/AuthActions.jsx");
+const AuthStore = require("../stores/AuthStore.jsx");
 
 // var IntlMixin = require('react-intl');
 // var i18nLoader = require('../utils/i18n');
-
 
 const { RaisedButton } = mui;
 
@@ -27,7 +26,7 @@ const HelloWorld = React.createClass({
 
     return {
       value: 0,
-      session: AuthStore.getSession(),
+      session: AuthStore.getSession()
     };
   },
 
@@ -64,13 +63,17 @@ const HelloWorld = React.createClass({
             <RaisedButton onClick={this.addCount} label="ADD COUNT" />
           </div>
           <p className="row center-xs">
-Value:
-            { this.state.value }
+            Value:
+            {this.state.value}
           </p>
 
           <h1 className="row center-xs">test session</h1>
           <div className="row center-xs">
-            <RaisedButton onClick={this.consoleData} label="Session Socket" disabled={sessionStatus} />
+            <RaisedButton
+              onClick={this.consoleData}
+              label="Session Socket"
+              disabled={sessionStatus}
+            />
           </div>
 
           <h1 className="row center-xs">test i18n</h1>
@@ -85,7 +88,6 @@ Value:
               <option value="de">Deutsch</option>
             </select>
           </div>
-
         </div>
       </DocumentTitle>
     );
@@ -97,7 +99,7 @@ Value:
       this.setState({ value: ButtonStore.getValue() });
       this.setState({ session: AuthStore.getSession() });
     }
-  },
+  }
 });
 
 module.exports = HelloWorld;
