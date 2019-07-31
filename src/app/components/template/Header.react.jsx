@@ -13,7 +13,7 @@ const { ToolbarGroup } = mui;
 const userMenuItems = [
   { payload: "1", text: "User" },
   { payload: "profile", text: "Profile" },
-  { payload: "logout", text: "Logout" },
+  { payload: "logout", text: "Logout" }
 ];
 
 const Header = React.createClass({
@@ -21,7 +21,7 @@ const Header = React.createClass({
     AuthActions.initSession();
 
     return {
-      session: AuthStore.getSession(),
+      session: AuthStore.getSession()
     };
   },
 
@@ -94,7 +94,7 @@ const Header = React.createClass({
     if (this.isMounted()) {
       this.setState({ session: AuthStore.getSession() });
     }
-  },
+  }
 });
 
 module.exports = Header;

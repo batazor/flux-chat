@@ -11,7 +11,7 @@ module.exports = {
   creatingRoom(nameRoom) {
     AppDispatcher.handleAction({
       actionType: ChatConstants.CREATING_ROOM,
-      name: nameRoom,
+      name: nameRoom
     });
     socket.emit("createRoom", nameRoom);
   },
@@ -19,7 +19,7 @@ module.exports = {
   clickRoom(room) {
     AppDispatcher.handleAction({
       actionType: ChatConstants.CLICKING_ROOM,
-      id: room.open,
+      id: room.open
     });
 
     socket.emit("clickRoom", room);
@@ -28,9 +28,9 @@ module.exports = {
   creatingMessage(message) {
     AppDispatcher.handleAction({
       actionType: ChatConstants.CREATING_MESSAGE,
-      message,
+      message
     });
 
     socket.emit("createMessage", message);
-  },
+  }
 };

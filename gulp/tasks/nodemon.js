@@ -7,7 +7,7 @@ gulp.task("nodemon", cb => {
   let called = false;
   return nodemon({
     script: config.script,
-    ignore: config.ignore,
+    ignore: config.ignore
   })
     .on("start", () => {
       if (!called) {
@@ -18,7 +18,7 @@ gulp.task("nodemon", cb => {
     .on("restart", () => {
       setTimeout(() => {
         browserSync.reload({
-          stream: false,
+          stream: false
         });
       }, 100);
     });

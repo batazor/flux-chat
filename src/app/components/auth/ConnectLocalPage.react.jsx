@@ -15,14 +15,14 @@ const SignupPage = React.createClass({
       emailError: null,
       passwordError: null,
 
-      session: AuthStore.getSession(),
+      session: AuthStore.getSession()
     };
   },
 
   validate() {
     const form = {
       email: this.refs.email.getValue(),
-      password: this.refs.password.getValue(),
+      password: this.refs.password.getValue()
     };
 
     // Check email
@@ -39,7 +39,7 @@ const SignupPage = React.createClass({
       form.password = false;
     } else if (form.password.length < 8) {
       this.setState({
-        passwordError: "The password must contain at least 8 characters",
+        passwordError: "The password must contain at least 8 characters"
       });
       form.password = false;
     } else {
@@ -107,8 +107,7 @@ const SignupPage = React.createClass({
             <div className="box">
               <p>
                 Or go?
-                <a href="/#/">home</a>
-.
+                <a href="/#/">home</a>.
               </p>
             </div>
           </div>
@@ -125,7 +124,7 @@ const SignupPage = React.createClass({
 
       this.setState({ session: AuthStore.getSession() });
     }
-  },
+  }
 });
 
 module.exports = SignupPage;

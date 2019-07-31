@@ -23,7 +23,7 @@ const LocaleStore = _.extend({}, EventEmitter.prototype, {
   // Remove change listener
   removeChangeListener(callback) {
     this.removeListener("change", callback);
-  },
+  }
 });
 
 // Register callback with AppDispatcher

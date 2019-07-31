@@ -8,7 +8,7 @@ const AuthActions = {
   logoutAuth() {
     request.get("/api/auth/logout").end((err, res) => {
       AppDispatcher.handleAction({
-        actionType: AuthConstants.AUTH_LOGOUT,
+        actionType: AuthConstants.AUTH_LOGOUT
       });
 
       return window.location.reload();
@@ -22,13 +22,13 @@ const AuthActions = {
       if (res) {
         AppDispatcher.handleAction({
           actionType: AuthConstants.SESSION_INIT,
-          session: res.session,
+          session: res.session
         });
       } else {
         return window.location.replace("/#/login");
       }
     });
-  },
+  }
 };
 
 module.exports = AuthActions;

@@ -17,13 +17,14 @@ const MessageItem = React.createClass({
 
   propTypes: {
     message: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired
   },
 
   render() {
     const date = new Date(this.props.message.createAt).toLocaleString();
     const disabled = !this.props.message.isCreated;
-    const style = this.props.user._id === this.props.message.userId._id
+    const style =
+      this.props.user._id === this.props.message.userId._id
         ? "col-xs-offset-2 col-xs-10"
         : "col-xs-10";
     const message = this.emojify(this.props.message.message);
@@ -39,9 +40,7 @@ const MessageItem = React.createClass({
                     src={this.props.message.userId.avatar}
                     className="avatar"
                   />
-                  {this.props.message.userId.nickname}
-                  {' '}
-|
+                  {this.props.message.userId.nickname} |
                   <FormattedRelative value={date} />
                 </div>
               </div>
@@ -57,7 +56,7 @@ const MessageItem = React.createClass({
         </Paper>
       </div>
     );
-  },
+  }
 });
 
 module.exports = MessageItem;

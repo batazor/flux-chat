@@ -1,4 +1,4 @@
-module.exports = function (app, passport) {
+module.exports = function(app, passport) {
   // ===========================================================================
   // HOME PAGE =================================================================
   // ===========================================================================
@@ -16,8 +16,8 @@ module.exports = function (app, passport) {
     "/auth/login",
     passport.authenticate("local-login", {
       successRedirect: "/#/profile",
-      failureRedirect: "/#/login",
-    }),
+      failureRedirect: "/#/login"
+    })
   );
 
   // process the signup form
@@ -25,8 +25,8 @@ module.exports = function (app, passport) {
     "/auth/signup",
     passport.authenticate("local-signup", {
       successRedirect: "/#/profile",
-      failureRedirect: "/#/signup",
-    }),
+      failureRedirect: "/#/signup"
+    })
   );
 
   // ===========================================================================
@@ -35,7 +35,7 @@ module.exports = function (app, passport) {
   // route for facebook authentication and login
   app.get(
     "/auth/facebook",
-    passport.authenticate("facebook", { scope: "email" }),
+    passport.authenticate("facebook", { scope: "email" })
   );
 
   // handle the callback after facebook has authenticated the user
@@ -43,8 +43,8 @@ module.exports = function (app, passport) {
     "/auth/facebook/callback",
     passport.authenticate("facebook", {
       successRedirect: "/#/profile",
-      failureRedirect: "/#/",
-    }),
+      failureRedirect: "/#/"
+    })
   );
 
   // ===========================================================================
@@ -58,8 +58,8 @@ module.exports = function (app, passport) {
     "/auth/twitter/callback",
     passport.authenticate("twitter", {
       successRedirect: "/#/profile",
-      failureRedirect: "/#/",
-    }),
+      failureRedirect: "/#/"
+    })
   );
 
   // ===========================================================================
@@ -70,7 +70,7 @@ module.exports = function (app, passport) {
   // email gets their emails
   app.get(
     "/auth/google",
-    passport.authenticate("google", { scope: ["profile", "email"] }),
+    passport.authenticate("google", { scope: ["profile", "email"] })
   );
 
   // the callback after google has authenticated the user
@@ -78,8 +78,8 @@ module.exports = function (app, passport) {
     "/auth/google/callback",
     passport.authenticate("google", {
       successRedirect: "/#/profile",
-      failureRedirect: "/#/",
-    }),
+      failureRedirect: "/#/"
+    })
   );
 
   // ===========================================================================
@@ -93,8 +93,8 @@ module.exports = function (app, passport) {
     "/auth/github/callback",
     passport.authenticate("github", {
       successRedirect: "/#/profile",
-      failureRedirect: "/#/",
-    }),
+      failureRedirect: "/#/"
+    })
   );
 
   // ===========================================================================
@@ -108,8 +108,8 @@ module.exports = function (app, passport) {
     "/auth/vkontakte/callback",
     passport.authenticate("vkontakte", {
       successRedirect: "/#/login",
-      failureRedirect: "/#/",
-    }),
+      failureRedirect: "/#/"
+    })
   );
 
   // ===========================================================================
@@ -125,8 +125,8 @@ module.exports = function (app, passport) {
     passport.authenticate("local-signup", {
       successRedirect: "/#/profile",
       failureRedirect: "/#/connect/local",
-      failureFlash: true,
-    }),
+      failureFlash: true
+    })
   );
 
   // facebook ------------------------------------------------------------------
@@ -134,7 +134,7 @@ module.exports = function (app, passport) {
   app.get(
     "/connect/facebook",
     isLoggedIn,
-    passport.authorize("facebook", { scope: "email" }),
+    passport.authorize("facebook", { scope: "email" })
   );
 
   // handle the callback after facebook has authorized the user
@@ -143,8 +143,8 @@ module.exports = function (app, passport) {
     isLoggedIn,
     passport.authorize("facebook", {
       successRedirect: "/#/profile",
-      failureRedirect: "/",
-    }),
+      failureRedirect: "/"
+    })
   );
 
   // twitter -------------------------------------------------------------------
@@ -157,8 +157,8 @@ module.exports = function (app, passport) {
     isLoggedIn,
     passport.authorize("twitter", {
       successRedirect: "/#/profile",
-      failureRedirect: "/",
-    }),
+      failureRedirect: "/"
+    })
   );
 
   // google --------------------------------------------------------------------
@@ -166,7 +166,7 @@ module.exports = function (app, passport) {
   app.get(
     "/connect/google",
     isLoggedIn,
-    passport.authorize("google", { scope: ["profile", "email"] }),
+    passport.authorize("google", { scope: ["profile", "email"] })
   );
 
   // the callback after google has authorized the user
@@ -175,8 +175,8 @@ module.exports = function (app, passport) {
     isLoggedIn,
     passport.authorize("google", {
       successRedirect: "/#/profile",
-      failureRedirect: "/",
-    }),
+      failureRedirect: "/"
+    })
   );
 
   // github --------------------------------------------------------------------
@@ -184,7 +184,7 @@ module.exports = function (app, passport) {
   app.get(
     "/connect/github",
     isLoggedIn,
-    passport.authorize("github", { scope: "email" }),
+    passport.authorize("github", { scope: "email" })
   );
 
   // the callback after google has authorized the user
@@ -193,8 +193,8 @@ module.exports = function (app, passport) {
     isLoggedIn,
     passport.authorize("github", {
       successRedirect: "/#/profile",
-      failureRedirect: "/",
-    }),
+      failureRedirect: "/"
+    })
   );
 
   // vkontakte -----------------------------------------------------------------
@@ -202,7 +202,7 @@ module.exports = function (app, passport) {
   app.get(
     "/connect/vkontakte",
     isLoggedIn,
-    passport.authorize("vkontakte", { scope: "email" }),
+    passport.authorize("vkontakte", { scope: "email" })
   );
 
   // the callback after google has authorized the user
@@ -211,8 +211,8 @@ module.exports = function (app, passport) {
     isLoggedIn,
     passport.authorize("vkontakte", {
       successRedirect: "/#/profile",
-      failureRedirect: "/",
-    }),
+      failureRedirect: "/"
+    })
   );
 
   // ===========================================================================

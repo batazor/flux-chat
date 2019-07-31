@@ -10,7 +10,7 @@ function it(cb, scope) {
         const i18n = require("./it");
         cb.call(scope, i18n);
       },
-      "it-intl",
+      "it-intl"
     );
   } else {
     require.ensure(
@@ -20,7 +20,7 @@ function it(cb, scope) {
         const i18n = require("./it");
         cb.call(scope, i18n);
       },
-      "it-without-intl",
+      "it-without-intl"
     );
   }
 }
@@ -35,7 +35,7 @@ function es(cb, scope) {
         const i18n = require("./es");
         cb.call(scope, i18n);
       },
-      "es-intl",
+      "es-intl"
     );
   } else {
     require.ensure(
@@ -45,7 +45,7 @@ function es(cb, scope) {
         const i18n = require("./es");
         cb.call(scope, i18n);
       },
-      "es-without-intl",
+      "es-without-intl"
     );
   }
 }
@@ -60,7 +60,7 @@ function de(cb, scope) {
         const i18n = require("./de");
         cb.call(scope, i18n);
       },
-      "de-intl",
+      "de-intl"
     );
   } else {
     require.ensure(
@@ -70,7 +70,7 @@ function de(cb, scope) {
         const i18n = require("./de");
         cb.call(scope, i18n);
       },
-      "de-without-intl",
+      "de-without-intl"
     );
   }
 }
@@ -85,7 +85,7 @@ function en(cb, scope) {
         const i18n = require("./en");
         cb.call(scope, i18n);
       },
-      "en-intl",
+      "en-intl"
     );
   } else {
     require.ensure(
@@ -95,7 +95,7 @@ function en(cb, scope) {
         const i18n = require("./en");
         cb.call(scope, i18n);
       },
-      "en-without-intl",
+      "en-without-intl"
     );
   }
 }
@@ -104,10 +104,10 @@ const loaders = {
   en,
   de,
   it,
-  es,
+  es
 };
 
-module.exports = function (locale, cb, scope) {
+module.exports = function(locale, cb, scope) {
   if (!hasIntl) {
     require.ensure(
       ["intl/Intl"],
@@ -115,7 +115,7 @@ module.exports = function (locale, cb, scope) {
         require("intl/Intl");
         loaders[locale](cb, scope);
       },
-      "intl-shim",
+      "intl-shim"
     );
   } else {
     loaders[locale](cb, scope);

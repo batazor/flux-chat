@@ -13,5 +13,5 @@ module.exports = keyMirror({
   CREATING_MESSAGE: null,
   CREATED_MESSAGE: null,
 
-  UPDATE_USER: null,
+  UPDATE_USER: null
 });

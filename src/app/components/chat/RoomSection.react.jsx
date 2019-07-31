@@ -18,7 +18,7 @@ const RoomSection = React.createClass({
       nameRoom: "",
       rooms: RoomStore.getAll(),
       roomsAction: false,
-      openModal: false,
+      openModal: false
     };
   },
 
@@ -39,7 +39,7 @@ const RoomSection = React.createClass({
         primary
         keyboardFocused
         onTouchTap={this.addRoomDialogSubmit}
-      />,
+      />
     ];
 
     const roomListItems = [];
@@ -56,7 +56,7 @@ const RoomSection = React.createClass({
           text: room.name,
           data: lastMessage,
           disabled,
-          type: active,
+          type: active
         });
       });
     }
@@ -121,14 +121,14 @@ const RoomSection = React.createClass({
   clickRoom(e, selectedIndex, menuItem) {
     ChatAction.clickRoom({
       open: menuItem.payload,
-      close: this.state.roomsAction,
+      close: this.state.roomsAction
     });
     this._updateLastRoom(menuItem.payload);
   },
 
   _updateLastRoom(roomId) {
     this.setState({
-      roomsAction: roomId,
+      roomsAction: roomId
     });
   },
 
@@ -137,10 +137,10 @@ const RoomSection = React.createClass({
       this.setState({
         modal: false,
         nameRoom: "",
-        rooms: RoomStore.getAll(),
+        rooms: RoomStore.getAll()
       });
     }
-  },
+  }
 });
 
 module.exports = RoomSection;

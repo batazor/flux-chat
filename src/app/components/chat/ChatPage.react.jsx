@@ -9,7 +9,7 @@ const UserSection = require("./UserSection.react.jsx");
 const ChatPage = React.createClass({
   getInitialState() {
     return {
-      session: AuthStore.getSession(),
+      session: AuthStore.getSession()
     };
   },
 
@@ -49,7 +49,7 @@ const ChatPage = React.createClass({
         return window.location.replace("/#/login");
       }
     }
-  },
+  }
 });
 
 module.exports = ChatPage;

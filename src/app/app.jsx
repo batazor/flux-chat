@@ -85,5 +85,5 @@ ReactDOM.render(
       <BasicExample />
     </MuiThemeProvider>
   </HashRouter>,
-  document.getElementById("app"),
+  document.getElementById("app")
 );

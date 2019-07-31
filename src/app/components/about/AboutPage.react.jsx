@@ -8,7 +8,7 @@ const AboutPage = React.createClass({
         <h1 className="row center-xs">About</h1>
       </DocumentTitle>
     );
-  },
+  }
 });
 
 module.exports = AboutPage;
