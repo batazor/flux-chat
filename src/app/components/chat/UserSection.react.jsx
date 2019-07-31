@@ -1,12 +1,12 @@
-const React = require('react');
-const _ = require('underscore');
+const React = require("react");
+const _ = require("underscore");
 
-const mui = require('material-ui');
-const UserOnlineStore = require('../../stores/UserOnlineStore.jsx');
+const mui = require("material-ui");
+const UserOnlineStore = require("../../stores/UserOnlineStore.jsx");
 
 const { FlatButton } = mui;
 
-const getUserOnlineIcon = function (user) {
+const getUserOnlineIcon = function(user) {
   return (
     <FlatButton className="center-xs" mini key={user._id}>
       <img src={user.avatar} />
@@ -15,10 +15,9 @@ const getUserOnlineIcon = function (user) {
 };
 
 const UserSection = React.createClass({
-
   getInitialState() {
     return {
-      user: UserOnlineStore.getUserOnline(),
+      user: UserOnlineStore.getUserOnline()
     };
   },
 
@@ -31,7 +30,6 @@ const UserSection = React.createClass({
   },
 
   render() {
-
     const UserOnlineItems = _.map(this.state.user, getUserOnlineIcon);
 
     return (
@@ -42,9 +40,7 @@ const UserSection = React.createClass({
           </div>
         </div>
         <div className="row">
-          <div className="col-xs">
-            {UserOnlineItems}
-          </div>
+          <div className="col-xs">{UserOnlineItems}</div>
         </div>
       </div>
     );
@@ -53,11 +49,10 @@ const UserSection = React.createClass({
   _onChange() {
     if (this.isMounted()) {
       this.setState({
-        user: UserOnlineStore.getUserOnline(),
+        user: UserOnlineStore.getUserOnline()
       });
     }
-  },
-
+  }
 });
 
 module.exports = UserSection;

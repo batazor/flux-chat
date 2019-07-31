@@ -1,16 +1,15 @@
-const { EventEmitter } = require('events');
-const _ = require('underscore');
-const AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
-const ChatConstants = require('../constants/ChatConstants.jsx');
+const { EventEmitter } = require("events");
+const _ = require("underscore");
+const AppDispatcher = require("../dispatcher/AppDispatcher.jsx");
+const ChatConstants = require("../constants/ChatConstants.jsx");
 
 let _rooms = [];
 
-const sortRooms = function () {
+const sortRooms = function() {
   _rooms = _.sortBy(_rooms, room => room.updatedAt).reverse();
 };
 
 const RoomStore = _.extend({}, EventEmitter.prototype, {
-
   getCreatedRoomData(room) {
     const date = Date.now();
     return {
@@ -19,7 +18,7 @@ const RoomStore = _.extend({}, EventEmitter.prototype, {
       isCreated: room.isCreated || false,
       isCurrent: false,
       lastMessage: room.lastMessage,
-      updatedAt: room.updatedAt,
+      updatedAt: room.updatedAt
     };
   },
 
@@ -32,17 +31,16 @@ const RoomStore = _.extend({}, EventEmitter.prototype, {
   },
 
   emitChange() {
-    this.emit('change');
+    this.emit("change");
   },
 
   addChangeListener(callback) {
-    this.on('change', callback);
+    this.on("change", callback);
   },
 
   removeChangeListener(callback) {
-    this.removeListener('change', callback);
-  },
-
+    this.removeListener("change", callback);
+  }
 });
 
 // Register callback with AppDispatcher
@@ -68,7 +66,11 @@ AppDispatcher.register(payload => {
       break;
 
     case ChatConstants.CREATED_ROOM:
-      _rooms = _.map(_rooms, room => ((room.name === action.room.name && !room.isCreated) ? action.room : room));
+      _rooms = _.map(
+        _rooms,
+        room =>
+          room.name === action.room.name && !room.isCreated ? action.room : room
+      );
       break;
 
     case ChatConstants.CLICKING_ROOM:
@@ -81,7 +83,10 @@ AppDispatcher.register(payload => {
     case ChatConstants.UPDATED_ROOM:
       _rooms = _.map(_rooms, room => {
         if (room._id === action.message.roomId) {
-          room.lastMessage = { author: { nickname: action.message.userId.nickname }, text: action.message.message };
+          room.lastMessage = {
+            author: { nickname: action.message.userId.nickname },
+            text: action.message.message
+          };
           room.updatedAt = action.message.updatedAt;
         }
         return room;

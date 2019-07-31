@@ -1,9 +1,8 @@
-const React = require('react');
-const DocumentTitle = require('react-document-title');
-const mui = require('material-ui');
-const AuthActions = require('../../actions/AuthActions.jsx');
-const AuthStore = require('../../stores/AuthStore.jsx');
-
+const React = require("react");
+const DocumentTitle = require("react-document-title");
+const mui = require("material-ui");
+const AuthActions = require("../../actions/AuthActions.jsx");
+const AuthStore = require("../../stores/AuthStore.jsx");
 
 const { FlatButton } = mui;
 
@@ -12,7 +11,7 @@ const WelcomePage = React.createClass({
     AuthActions.initSession();
 
     return {
-      session: AuthStore.getSession(),
+      session: AuthStore.getSession()
     };
   },
 
@@ -25,16 +24,14 @@ const WelcomePage = React.createClass({
   },
 
   render() {
-
-    const hiddenIcon = this.state.session._id ? 'none' : 'flex';
-    const style = { 'display': hiddenIcon };
+    const hiddenIcon = this.state.session._id ? "none" : "flex";
+    const style = { display: hiddenIcon };
 
     return (
       <DocumentTitle title="Welcome | Flux • Chat">
         <div>
           <h1 className="row center-xs">Chat on Node.js</h1>
           <div className="row center-xs">
-
             <FlatButton
               className="btn btn-local"
               href="/#/login"
@@ -70,7 +67,6 @@ const WelcomePage = React.createClass({
               href="/auth/vkontakte"
               label="VK"
             />
-
           </div>
         </div>
       </DocumentTitle>
@@ -81,7 +77,7 @@ const WelcomePage = React.createClass({
     if (this.isMounted()) {
       this.setState({ session: AuthStore.getSession() });
     }
-  },
+  }
 });
 
 module.exports = WelcomePage;

@@ -1,9 +1,8 @@
-const React = require('react');
-const _ = require('underscore');
-const mui = require('material-ui');
-const RoomStore = require('../../stores/RoomStore.jsx');
-const ChatAction = require('../../actions/ChatAction.jsx');
-
+const React = require("react");
+const _ = require("underscore");
+const mui = require("material-ui");
+const RoomStore = require("../../stores/RoomStore.jsx");
+const ChatAction = require("../../actions/ChatAction.jsx");
 
 const { FlatButton } = mui;
 const { Dialog } = mui;
@@ -13,14 +12,13 @@ const { Menu } = mui;
 const { MenuItem } = mui;
 
 const RoomSection = React.createClass({
-
   getInitialState() {
     return {
       modal: false,
       nameRoom: "",
       rooms: RoomStore.getAll(),
       roomsAction: false,
-      openModal: false,
+      openModal: false
     };
   },
 
@@ -35,32 +33,30 @@ const RoomSection = React.createClass({
 
   render() {
     const addRoomDialogActions = [
-      <FlatButton
-        label="Cancel"
-        primary
-        onTouchTap={this.handleClose}
-      />,
+      <FlatButton label="Cancel" primary onTouchTap={this.handleClose} />,
       <FlatButton
         label="Submit"
         primary
         keyboardFocused
         onTouchTap={this.addRoomDialogSubmit}
-      />,
+      />
     ];
 
     const roomListItems = [];
     if (this.state.rooms.length) {
       _.map(this.state.rooms, room => {
         const disabled = !room.isCreated;
-        const active = room.isCurrent ? mui.MenuItem.Types.SUBHEADER : '';
-        const lastMessage = room.lastMessage ? `wrote: ${room.lastMessage.author.nickname}` : undefined;
+        const active = room.isCurrent ? mui.MenuItem.Types.SUBHEADER : "";
+        const lastMessage = room.lastMessage
+          ? `wrote: ${room.lastMessage.author.nickname}`
+          : undefined;
 
         roomListItems.push({
           payload: room._id,
           text: room.name,
           data: lastMessage,
           disabled,
-          type: active,
+          type: active
         });
       });
     }
@@ -69,22 +65,16 @@ const RoomSection = React.createClass({
       <div className="col-xs chat-app room-section">
         <div className="row center-xs chat-header">
           <h2 className="room-name">Rooms</h2>
-          <RaisedButton
-            label="ADD ROOM"
-            onTouchTap={this.addRoomDialogOpen}
-          />
+          <RaisedButton label="ADD ROOM" onTouchTap={this.addRoomDialogOpen} />
         </div>
         <div className="row container">
           <div className="col-xs scrollbar">
             <div className="scrollbar-box rtl">
               <div className="row">
-                <Menu
-                  autoWidth={false}
-                  onClick={this.clickRoom}
-                >
-                  {
-                    roomListItems.map(item => <MenuItem primaryText={item} />)
-                  }
+                <Menu autoWidth={false} onClick={this.clickRoom}>
+                  {roomListItems.map(item => (
+                    <MenuItem primaryText={item} />
+                  ))}
                 </Menu>
               </div>
             </div>
@@ -129,13 +119,16 @@ const RoomSection = React.createClass({
 
   // Click Room ================================================================
   clickRoom(e, selectedIndex, menuItem) {
-    ChatAction.clickRoom({ open: menuItem.payload, close: this.state.roomsAction });
+    ChatAction.clickRoom({
+      open: menuItem.payload,
+      close: this.state.roomsAction
+    });
     this._updateLastRoom(menuItem.payload);
   },
 
   _updateLastRoom(roomId) {
     this.setState({
-      roomsAction: roomId,
+      roomsAction: roomId
     });
   },
 
@@ -144,11 +137,10 @@ const RoomSection = React.createClass({
       this.setState({
         modal: false,
         nameRoom: "",
-        rooms: RoomStore.getAll(),
+        rooms: RoomStore.getAll()
       });
     }
-  },
-
+  }
 });
 
 module.exports = RoomSection;

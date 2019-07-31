@@ -1,6 +1,6 @@
-const React = require('react');
+const React = require("react");
 
-const mui = require('material-ui');
+const mui = require("material-ui");
 
 const { Toolbar } = mui;
 const { FlatButton } = mui;
@@ -23,7 +23,7 @@ const Footer = React.createClass({
         </Toolbar>
       </footer>
     );
-  },
+  }
 });
 
 module.exports = Footer;

@@ -1,9 +1,8 @@
-const React = require('react');
-const DocumentTitle = require('react-document-title');
-const mui = require('material-ui');
-const AuthActions = require('../../actions/AuthActions.jsx');
-const AuthStore = require('../../stores/AuthStore.jsx');
-
+const React = require("react");
+const DocumentTitle = require("react-document-title");
+const mui = require("material-ui");
+const AuthActions = require("../../actions/AuthActions.jsx");
+const AuthStore = require("../../stores/AuthStore.jsx");
 
 const { RaisedButton } = mui;
 const { FlatButton } = mui;
@@ -17,14 +16,14 @@ const LoginPage = React.createClass({
       emailError: null,
       passwordError: null,
 
-      session: AuthStore.getSession(),
+      session: AuthStore.getSession()
     };
   },
 
   validate() {
     const form = {
       email: this.refs.email.getValue(),
-      password: this.refs.password.getValue(),
+      password: this.refs.password.getValue()
     };
 
     // Check email
@@ -40,7 +39,9 @@ const LoginPage = React.createClass({
       this.setState({ passwordError: "Password cannot be empty!" });
       form.password = false;
     } else if (form.password.length < 8) {
-      this.setState({ passwordError: "The password must contain at least 8 characters" });
+      this.setState({
+        passwordError: "The password must contain at least 8 characters"
+      });
       form.password = false;
     } else {
       this.setState({ passwordError: null });
@@ -63,7 +64,6 @@ const LoginPage = React.createClass({
         <div>
           <h1 className="row center-xs">Login</h1>
           <div className="row center-xs">
-
             <FlatButton
               className="btn btn-facebook"
               href="/auth/facebook"
@@ -89,11 +89,9 @@ const LoginPage = React.createClass({
               href="/auth/vkontakte"
               label="VK"
             />
-
           </div>
 
           <form action="/auth/login" method="post">
-
             <div className="row center-xs">
               <div className="col-xs-3">
                 <div className="box">
@@ -137,17 +135,15 @@ const LoginPage = React.createClass({
             <div className="row center-xs">
               <div className="box">
                 <p>
-Need an account?
+                  Need an account?
                   <a href="/#/signup">Signup</a>
                 </p>
                 <p>
-Or go?
-                  <a href="/#/">home</a>
-.
+                  Or go?
+                  <a href="/#/">home</a>.
                 </p>
               </div>
             </div>
-
           </form>
         </div>
       </DocumentTitle>
@@ -162,7 +158,7 @@ Or go?
 
       this.setState({ session: AuthStore.getSession() });
     }
-  },
+  }
 });
 
 module.exports = LoginPage;

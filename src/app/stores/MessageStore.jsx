@@ -1,13 +1,12 @@
-const { EventEmitter } = require('events');
-const _ = require('underscore');
-const AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
-const ChatConstants = require('../constants/ChatConstants.jsx');
-const AuthStore = require('./AuthStore.jsx');
+const { EventEmitter } = require("events");
+const _ = require("underscore");
+const AppDispatcher = require("../dispatcher/AppDispatcher.jsx");
+const ChatConstants = require("../constants/ChatConstants.jsx");
+const AuthStore = require("./AuthStore.jsx");
 
 let _messages = [];
 
 const MessageStore = _.extend({}, EventEmitter.prototype, {
-
   getMessage(room) {
     if (!_.isUndefined(room)) {
       return _.filter(_messages, message => message.roomId === room._id);
@@ -16,17 +15,16 @@ const MessageStore = _.extend({}, EventEmitter.prototype, {
   },
 
   emitChange() {
-    this.emit('change');
+    this.emit("change");
   },
 
   addChangeListener(callback) {
-    this.on('change', callback);
+    this.on("change", callback);
   },
 
   removeChangeListener(callback) {
-    this.removeListener('change', callback);
-  },
-
+    this.removeListener("change", callback);
+  }
 });
 
 // Register callback with AppDispatcher
@@ -34,7 +32,6 @@ AppDispatcher.register(payload => {
   const { action } = payload;
 
   switch (action.actionType) {
-
     case ChatConstants.INIT_MESSAGE:
       _messages = action.message;
       break;
@@ -47,7 +44,7 @@ AppDispatcher.register(payload => {
         userId: action.message.userId,
         isCreated: false,
         createAt: date,
-        message: action.message.message,
+        message: action.message.message
       });
       break;
 
