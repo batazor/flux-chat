@@ -5,8 +5,7 @@ const plumber = require("gulp-plumber");
 const minifycss = require("gulp-minify-css");
 const config = require("../config").css;
 
-gulp.task("css", () =>
-  gulp
+gulp.task("css", () => gulp
     .src([config.watch])
     .pipe(plumber())
     .pipe(concat("bundle.css"))
@@ -18,9 +17,8 @@ gulp.task("css", () =>
         "ie 9",
         "opera 12.1",
         "ios 6",
-        "android 4"
-      )
+        "android 4",
+      ),
     )
     .pipe(minifycss())
-    .pipe(gulp.dest(config.dest))
-);
+    .pipe(gulp.dest(config.dest)));

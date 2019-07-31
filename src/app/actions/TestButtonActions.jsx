@@ -15,7 +15,7 @@ const TestButtonActions = {
 
   socketSession() {
     socket.emit("socketSession");
-  }
+  },
 };
 
 module.exports = TestButtonActions;

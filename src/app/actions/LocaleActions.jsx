@@ -8,9 +8,9 @@ const LocaleActions = {
   updateLocale(locale) {
     AppDispatcher.handleAction({
       actionType: LocaleConstants.UPDATE_LOCALE,
-      locale
+      locale,
     });
-  }
+  },
 };
 
 module.exports = LocaleActions;

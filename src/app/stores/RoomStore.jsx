@@ -5,7 +5,7 @@ const ChatConstants = require("../constants/ChatConstants.jsx");
 
 let _rooms = [];
 
-const sortRooms = function() {
+const sortRooms = function () {
   _rooms = _.sortBy(_rooms, room => room.updatedAt).reverse();
 };
 
@@ -18,7 +18,7 @@ const RoomStore = _.extend({}, EventEmitter.prototype, {
       isCreated: room.isCreated || false,
       isCurrent: false,
       lastMessage: room.lastMessage,
-      updatedAt: room.updatedAt
+      updatedAt: room.updatedAt,
     };
   },
 
@@ -40,7 +40,7 @@ const RoomStore = _.extend({}, EventEmitter.prototype, {
 
   removeChangeListener(callback) {
     this.removeListener("change", callback);
-  }
+  },
 });
 
 // Register callback with AppDispatcher
@@ -68,8 +68,7 @@ AppDispatcher.register(payload => {
     case ChatConstants.CREATED_ROOM:
       _rooms = _.map(
         _rooms,
-        room =>
-          room.name === action.room.name && !room.isCreated ? action.room : room
+        room => (room.name === action.room.name && !room.isCreated ? action.room : room),
       );
       break;
 
@@ -85,7 +84,7 @@ AppDispatcher.register(payload => {
         if (room._id === action.message.roomId) {
           room.lastMessage = {
             author: { nickname: action.message.userId.nickname },
-            text: action.message.message
+            text: action.message.message,
           };
           room.updatedAt = action.message.updatedAt;
         }

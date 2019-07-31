@@ -13,7 +13,7 @@ const User = require("../models/user");
 const configAuth = require("./auth")(process.env.NODE_ENV);
 
 // expose this function to our app using module.exports
-module.exports = function(passport) {
+module.exports = function (passport) {
   // ===========================================================================
   // passport session setup ====================================================
   // ===========================================================================
@@ -46,7 +46,7 @@ module.exports = function(passport) {
         // we will override with email
         usernameField: "email",
         passwordField: "password",
-        passReqToCallback: true // allows us to pass back the entire request to the callback
+        passReqToCallback: true, // allows us to pass back the entire request to the callback
       },
       (req, email, password, done) => {
         // asynchronous
@@ -67,7 +67,7 @@ module.exports = function(passport) {
                 return done(
                   null,
                   false,
-                  req.flash("signupMessage", "That email is already taken.")
+                  req.flash("signupMessage", "That email is already taken."),
                 );
               }
 
@@ -77,7 +77,7 @@ module.exports = function(passport) {
 
               // set the user's local credentials
               newUser.avatar = `//www.gravatar.com/avatar/${md5(
-                email
+                email,
               )}?s=40&d=wavatar`;
               newUser.nickname = email.split("@")[0];
               newUser.email = email;
@@ -110,8 +110,8 @@ module.exports = function(passport) {
             });
           }
         });
-      }
-    )
+      },
+    ),
   );
 
   // ===========================================================================
@@ -127,7 +127,7 @@ module.exports = function(passport) {
         // by default, local strategy uses username and password, we will override with email
         usernameField: "email",
         passwordField: "password",
-        passReqToCallback: true // allows us to pass back the entire request to the callback
+        passReqToCallback: true, // allows us to pass back the entire request to the callback
       },
       (req, email, password, done) => {
         // callback with email and password from our form
@@ -146,7 +146,7 @@ module.exports = function(passport) {
             return done(
               null,
               false,
-              req.flash("loginMessage", "No user found.")
+              req.flash("loginMessage", "No user found."),
             );
           }
 
@@ -156,15 +156,15 @@ module.exports = function(passport) {
             return done(
               null,
               false,
-              req.flash("loginMessage", "Opps! Wrong password.")
+              req.flash("loginMessage", "Opps! Wrong password."),
             );
           }
 
           // all is well, return successful user
           return done(null, user);
         });
-      }
-    )
+      },
+    ),
   );
 
   // ===========================================================================
@@ -177,7 +177,7 @@ module.exports = function(passport) {
         clientID: configAuth.facebookAuth.clientID,
         clientSecret: configAuth.facebookAuth.clientSecret,
         callbackURL: configAuth.facebookAuth.callbackURL,
-        passReqToCallback: true
+        passReqToCallback: true,
       },
       (req, token, refreshToken, profile, done) => {
         process.nextTick(() => {
@@ -198,7 +198,7 @@ module.exports = function(passport) {
 
               // set all of the facebook information in our user model
               newUser.avatar = `//www.gravatar.com/avatar/${md5(
-                profile.emails[0].value
+                profile.emails[0].value,
               )}?s=40&d=wavatar`;
               newUser.nickname = profile.displayName;
               newUser.email = profile.emails[0].value;
@@ -239,8 +239,8 @@ module.exports = function(passport) {
             });
           }
         });
-      }
-    )
+      },
+    ),
   );
 
   // ===========================================================================
@@ -252,7 +252,7 @@ module.exports = function(passport) {
         consumerKey: configAuth.twitterAuth.consumerKey,
         consumerSecret: configAuth.twitterAuth.consumerSecret,
         callbackURL: configAuth.twitterAuth.callbackURL,
-        passReqToCallback: true
+        passReqToCallback: true,
       },
       (req, token, refreshToken, profile, done) => {
         process.nextTick(() => {
@@ -305,8 +305,8 @@ module.exports = function(passport) {
             });
           }
         });
-      }
-    )
+      },
+    ),
   );
 
   // ===========================================================================
@@ -318,7 +318,7 @@ module.exports = function(passport) {
         clientID: configAuth.googleAuth.clientID,
         clientSecret: configAuth.googleAuth.clientSecret,
         callbackURL: configAuth.googleAuth.callbackURL,
-        passReqToCallback: true
+        passReqToCallback: true,
       },
       (req, token, refreshToken, profile, done) => {
         process.nextTick(() => {
@@ -371,8 +371,8 @@ module.exports = function(passport) {
             });
           }
         });
-      }
-    )
+      },
+    ),
   );
 
   // ===========================================================================
@@ -384,7 +384,7 @@ module.exports = function(passport) {
         clientID: configAuth.githubAuth.clientID,
         clientSecret: configAuth.githubAuth.clientSecret,
         callbackURL: configAuth.githubAuth.callbackURL,
-        passReqToCallback: true
+        passReqToCallback: true,
       },
       (req, token, refreshToken, profile, done) => {
         process.nextTick(() => {
@@ -437,8 +437,8 @@ module.exports = function(passport) {
             });
           }
         });
-      }
-    )
+      },
+    ),
   );
 
   // ===========================================================================
@@ -450,7 +450,7 @@ module.exports = function(passport) {
         clientID: configAuth.vkontakteAuth.clientID,
         clientSecret: configAuth.vkontakteAuth.clientSecret,
         callbackURL: configAuth.vkontakteAuth.callbackURL,
-        passReqToCallback: true
+        passReqToCallback: true,
       },
       (req, token, refreshToken, profile, done) => {
         process.nextTick(() => {
@@ -501,8 +501,8 @@ module.exports = function(passport) {
             });
           }
         });
-      }
-    )
+      },
+    ),
   );
 
   return passport;

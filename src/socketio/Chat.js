@@ -4,7 +4,7 @@ const Room = require("../models/room");
 const Message = require("../models/message");
 const User = require("../models/user");
 
-module.exports = function(io, socket) {
+module.exports = function (io, socket) {
   socket.on("initRoom", () => {
     Room.find({})
       .populate("lastMessage.author", "_id nickname")
@@ -21,7 +21,7 @@ module.exports = function(io, socket) {
     const room = new Room({
       name: nameRoom,
       createdAt: Date.now(),
-      isCreated: true
+      isCreated: true,
     });
 
     room.save((err, room, numberAffected) => {
@@ -82,12 +82,12 @@ module.exports = function(io, socket) {
   });
 
   socket.on("createMessage", newMessage => {
-    const promiseSaveMessage = function() {
+    const promiseSaveMessage = function () {
       const message = new Message({
         message: newMessage.message,
         roomId: newMessage.roomId,
         userId: socket.client.request.user._id,
-        isCreated: true
+        isCreated: true,
       });
 
       return message.save((err, room, numberAffected) => {
@@ -99,7 +99,7 @@ module.exports = function(io, socket) {
       });
     };
 
-    const promiseFindOneMessage = function(message) {
+    const promiseFindOneMessage = function (message) {
       return Message.findOne({ _id: message._id })
         .populate("userId", "_id nickname avatar")
         .exec((err, data) => {
@@ -112,7 +112,7 @@ module.exports = function(io, socket) {
         });
     };
 
-    const promiseUpdateRoom = function(message) {
+    const promiseUpdateRoom = function (message) {
       return Room.update(
         { _id: message.roomId },
         {
@@ -120,9 +120,9 @@ module.exports = function(io, socket) {
             updatedAt: Date.now(),
             lastMessage: {
               author: socket.client.request.user._id,
-              text: message.message
-            }
-          }
+              text: message.message,
+            },
+          },
         },
         (err, numberAffected, raw) => {
           if (err) {
@@ -130,7 +130,7 @@ module.exports = function(io, socket) {
           }
 
           io.sockets.emit("updatedRoom", message);
-        }
+        },
       );
     };
 

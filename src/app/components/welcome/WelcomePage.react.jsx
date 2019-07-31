@@ -11,7 +11,7 @@ const WelcomePage = React.createClass({
     AuthActions.initSession();
 
     return {
-      session: AuthStore.getSession()
+      session: AuthStore.getSession(),
     };
   },
 
@@ -77,7 +77,7 @@ const WelcomePage = React.createClass({
     if (this.isMounted()) {
       this.setState({ session: AuthStore.getSession() });
     }
-  }
+  },
 });
 
 module.exports = WelcomePage;

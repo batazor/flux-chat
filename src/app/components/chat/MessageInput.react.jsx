@@ -15,14 +15,14 @@ const MessageInput = React.createClass({
 
   propTypres: {
     room: PropTypes.object,
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
   },
 
   getInitialState() {
     return {
       message: "",
       previewFlag: false,
-      markdown: false
+      markdown: false,
     };
   },
 
@@ -70,7 +70,7 @@ const MessageInput = React.createClass({
     const message = {
       userId: { _id: this.props.user._id },
       roomId: this.props.room._id,
-      message: this.state.message
+      message: this.state.message,
     };
     ChatAction.creatingMessage(message);
 
@@ -79,7 +79,7 @@ const MessageInput = React.createClass({
     this.setState({
       message: "",
       markdown: false,
-      previewFlag: false
+      previewFlag: false,
     });
   },
 
@@ -92,7 +92,7 @@ const MessageInput = React.createClass({
 
     this.setState({
       message: e.target.value,
-      markdown
+      markdown,
     });
   },
 
@@ -106,9 +106,9 @@ const MessageInput = React.createClass({
 
     this.setState({
       previewFlag,
-      markdown
+      markdown,
     });
-  }
+  },
 });
 
 module.exports = MessageInput;
