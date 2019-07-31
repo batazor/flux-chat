@@ -26,7 +26,7 @@ const HelloWorld = React.createClass({
 
     return {
       value: 0,
-      session: AuthStore.getSession()
+      session: AuthStore.getSession(),
     };
   },
 
@@ -99,7 +99,7 @@ const HelloWorld = React.createClass({
       this.setState({ value: ButtonStore.getValue() });
       this.setState({ session: AuthStore.getSession() });
     }
-  }
+  },
 });
 
 module.exports = HelloWorld;

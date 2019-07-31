@@ -7,7 +7,7 @@ const AuthStore = require("../../stores/AuthStore.jsx");
 const MessageItem = require("./MessageItem.react.jsx");
 const MessageInput = require("./MessageInput.react.jsx");
 
-const getMessageItem = function(message) {
+const getMessageItem = function (message) {
   return (
     <MessageItem key={message._id} message={message} user={this.state.user} />
   );
@@ -20,7 +20,7 @@ const MessageSection = React.createClass({
     return {
       room: RoomStore.getCurrentRoom(),
       messages: MessageStore.getMessage(),
-      user: AuthStore.getSession()
+      user: AuthStore.getSession(),
     };
   },
 
@@ -94,10 +94,10 @@ const MessageSection = React.createClass({
       this.setState({
         user: AuthStore.getSession(),
         room: RoomStore.getCurrentRoom(),
-        messages: MessageStore.getMessage(this.state.room)
+        messages: MessageStore.getMessage(this.state.room),
       });
     }
-  }
+  },
 });
 
 module.exports = MessageSection;

@@ -9,7 +9,7 @@ const { RaisedButton } = mui;
 const { FontIcon } = mui;
 const { Paper } = mui;
 
-const Connect = function(icon, title, url) {
+const Connect = function (icon, title, url) {
   const link = url === "local" ? "/#/connect/local" : `/connect/${url}`;
 
   return (
@@ -22,21 +22,27 @@ const Connect = function(icon, title, url) {
   );
 };
 
-const Detail = function(icon, profile, url) {
+const Detail = function (icon, profile, url) {
   const link = `/unlink/${url}`;
 
   const style = {
     whiteSpace: "nowrap",
     overflow: "hidden",
-    textOverflow: "ellipsis"
+    textOverflow: "ellipsis",
   };
 
   const data = [];
   _.each(profile, (el, key) => {
     data.push(
       <p style={style} key={data.length}>
-        <strong>{key}: </strong> {el}
-      </p>
+        <strong>
+          {key}
+:
+          {' '}
+        </strong>
+        {' '}
+        {el}
+      </p>,
     );
   });
 
@@ -59,7 +65,7 @@ const ProgileItem = React.createClass({
     icon: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
-    profile: PropTypes.object
+    profile: PropTypes.object,
   },
 
   render() {
@@ -88,7 +94,7 @@ const ProgileItem = React.createClass({
         </div>
       </Paper>
     );
-  }
+  },
 });
 
 module.exports = ProgileItem;

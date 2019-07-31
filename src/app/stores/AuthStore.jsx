@@ -4,7 +4,7 @@ const AppDispatcher = require("../dispatcher/AppDispatcher.jsx");
 const AuthConstants = require("../constants/AuthConstants.jsx");
 
 const sessionInit = {
-  _id: false
+  _id: false,
 };
 
 let session = sessionInit;
@@ -29,7 +29,7 @@ const AuthStore = _.extend({}, EventEmitter.prototype, {
 
   removeChangeListener(callback) {
     this.removeListener("change", callback);
-  }
+  },
 });
 
 // Register callback with AppDispatcher

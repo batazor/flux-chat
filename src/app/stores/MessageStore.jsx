@@ -24,7 +24,7 @@ const MessageStore = _.extend({}, EventEmitter.prototype, {
 
   removeChangeListener(callback) {
     this.removeListener("change", callback);
-  }
+  },
 });
 
 // Register callback with AppDispatcher
@@ -44,7 +44,7 @@ AppDispatcher.register(payload => {
         userId: action.message.userId,
         isCreated: false,
         createAt: date,
-        message: action.message.message
+        message: action.message.message,
       });
       break;
 

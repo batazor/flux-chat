@@ -23,7 +23,7 @@ const Footer = React.createClass({
         </Toolbar>
       </footer>
     );
-  }
+  },
 });
 
 module.exports = Footer;

@@ -13,7 +13,7 @@ const ProfilePage = React.createClass({
     AuthActions.initSession();
 
     return {
-      session: AuthStore.getSession()
+      session: AuthStore.getSession(),
     };
   },
 
@@ -32,26 +32,26 @@ const ProfilePage = React.createClass({
       height: "100%",
       minHeight: "100%",
       margin: "0",
-      padding: "0"
+      padding: "0",
     };
     const scrolllBarStyle = {
       position: "absolute",
       height: "100%",
       width: "100%",
       margin: "0",
-      padding: "0"
+      padding: "0",
     };
     const scrollBarBoxStyle = {
       width: "100%",
       height: "100%",
       overflowY: "auto",
-      overflowX: "hidden"
+      overflowX: "hidden",
     };
     const style = {
       height: "calc(100% - 56px)",
       width: "100%",
       margin: "0",
-      padding: "0"
+      padding: "0",
     };
 
     return (
@@ -83,10 +83,13 @@ const ProfilePage = React.createClass({
                           <div className="col-xs">
                             <div className="box">
                               <p>
-                                <strong>id: </strong> {this.state.session._id}
+                                <strong>id: </strong>
+                                {' '}
+                                {this.state.session._id}
                               </p>
                               <p>
-                                <strong>nickname: </strong>{" "}
+                                <strong>nickname: </strong>
+                                {" "}
                                 {this.state.session.nickname}
                               </p>
                             </div>
@@ -165,7 +168,7 @@ const ProfilePage = React.createClass({
         return window.location.replace("/#/login");
       }
     }
-  }
+  },
 });
 
 module.exports = ProfilePage;

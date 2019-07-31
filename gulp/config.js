@@ -6,7 +6,7 @@ const PATH = {
   css: "./src/app/assets/css",
   js: "./src/app/assets/js",
   img: "./src/app/assets/images",
-  font: "./src/app/assets/font"
+  font: "./src/app/assets/font",
 };
 
 const watchWebpack = process.env.NODE_ENV !== "production";
@@ -29,13 +29,13 @@ module.exports = {
       `${__dirname}/../src/*.js`,
       `${__dirname}/../src/favicon.ico`,
       `${__dirname}/../package.json`,
-      `${__dirname}/../Procfile`
-    ]
+      `${__dirname}/../Procfile`,
+    ],
   },
   browserSync: {
     proxy: "http://localhost:8080/",
     port: 3000,
-    files: [`${__dirname}/../src/build/**`]
+    files: [`${__dirname}/../src/build/**`],
   },
   nodemon: {
     script: "./src/server.js",
@@ -45,26 +45,26 @@ module.exports = {
       `${__dirname}/../src/build`,
       `${__dirname}/../src/app`,
       `${__dirname}/../test`,
-      `${__dirname}/../gulp`
-    ]
+      `${__dirname}/../gulp`,
+    ],
   },
   less: {
     src: `${PATH.css}/main.less`,
     watch: `${PATH.css}/*.less`,
-    dest: PATH.css
+    dest: PATH.css,
   },
   stylus: {
     watch: `${PATH.css}/*.styl`,
-    dest: PATH.css
+    dest: PATH.css,
   },
   css: {
     src: PATH.css,
     watch: `${PATH.css}/*.css`,
-    dest: `${PATH.src}/build`
+    dest: `${PATH.src}/build`,
   },
   js: {
     watch: `${PATH.js}/*.js`,
-    dest: `${PATH.src}/build`
+    dest: `${PATH.src}/build`,
   },
   webpack: {
     src: `${__dirname}/../src/app/app.jsx`,
@@ -75,20 +75,20 @@ module.exports = {
             // 'react-hot-loader/patch',
             // 'webpack-dev-server/client?http://localhost:4000',
             // 'webpack/hot/only-dev-server',
-            `${__dirname}/../src/app/app.jsx`
+            `${__dirname}/../src/app/app.jsx`,
           ]
         : {
-            app: `${__dirname}/../src/app/app.jsx`
+            app: `${__dirname}/../src/app/app.jsx`,
           },
       watch: watchWebpack,
       output: {
         path: `${__dirname}/../src/build`,
         publicPath: "/",
-        filename: "bundle.js"
+        filename: "bundle.js",
       },
       plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        new webpack.NoErrorsPlugin(),
       ],
       debug: true,
       module: {
@@ -96,14 +96,14 @@ module.exports = {
           {
             test: /\.jsx?$/,
             exclude: /node_modules/,
-            loader: "babel-loader!jsx-loader?harmony"
-          }
-        ]
+            loader: "babel-loader!jsx-loader?harmony",
+          },
+        ],
       },
       resolve: {
-        extensions: ["", ".js", ".jsx"]
+        extensions: ["", ".js", ".jsx"],
       },
-      devtool: "eval-source-map"
-    }
-  }
+      devtool: "eval-source-map",
+    },
+  },
 };
