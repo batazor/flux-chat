@@ -1,17 +1,16 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
-var LocaleConstants = require('../constants/LocaleConstants.jsx');
-var socket = io.connect();
+const AppDispatcher = require("../dispatcher/AppDispatcher.jsx");
+const LocaleConstants = require("../constants/LocaleConstants.jsx");
+
+const socket = io.connect();
 
 // Define action methods
-var LocaleActions = {
-
-  updateLocale: function(locale) {
+const LocaleActions = {
+  updateLocale(locale) {
     AppDispatcher.handleAction({
       actionType: LocaleConstants.UPDATE_LOCALE,
-      locale: locale
+      locale
     });
   }
-
 };
 
 module.exports = LocaleActions;

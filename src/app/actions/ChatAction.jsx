@@ -1,37 +1,36 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
-var ChatConstants = require('../constants/ChatConstants.jsx');
-var socket = io.connect();
+const AppDispatcher = require("../dispatcher/AppDispatcher.jsx");
+const ChatConstants = require("../constants/ChatConstants.jsx");
+
+const socket = io.connect();
 
 module.exports = {
-
-  initRoom: function() {
-    socket.emit('initRoom');
+  initRoom() {
+    socket.emit("initRoom");
   },
 
-  creatingRoom: function(nameRoom) {
+  creatingRoom(nameRoom) {
     AppDispatcher.handleAction({
       actionType: ChatConstants.CREATING_ROOM,
       name: nameRoom
     });
-    socket.emit('createRoom', nameRoom);
+    socket.emit("createRoom", nameRoom);
   },
 
-  clickRoom: function(room) {
+  clickRoom(room) {
     AppDispatcher.handleAction({
       actionType: ChatConstants.CLICKING_ROOM,
       id: room.open
     });
 
-    socket.emit('clickRoom', room);
+    socket.emit("clickRoom", room);
   },
 
-  creatingMessage: function(message) {
+  creatingMessage(message) {
     AppDispatcher.handleAction({
       actionType: ChatConstants.CREATING_MESSAGE,
-      message: message
+      message
     });
 
-    socket.emit('createMessage', message);
+    socket.emit("createMessage", message);
   }
-
 };

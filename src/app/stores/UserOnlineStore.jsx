@@ -1,37 +1,36 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
-var EventEmitter = require('events').EventEmitter;
-var ChatConstants = require('../constants/ChatConstants.jsx');
-var _ = require('underscore');
+const { EventEmitter } = require("events");
+const _ = require("underscore");
+const AppDispatcher = require("../dispatcher/AppDispatcher.jsx");
+const ChatConstants = require("../constants/ChatConstants.jsx");
 
-var userOnline = [];
+let userOnline = [];
 
-var UserOnlineStore = _.extend({}, EventEmitter.prototype, {
+const UserOnlineStore = _.extend({}, EventEmitter.prototype, {
   // Return Value
-  getUserOnline: function() {
+  getUserOnline() {
     return userOnline;
   },
 
-  emitChange: function() {
-    this.emit('change');
+  emitChange() {
+    this.emit("change");
   },
 
   // Add change listener
-  addChangeListener: function(callback) {
-    this.on('change', callback);
+  addChangeListener(callback) {
+    this.on("change", callback);
   },
 
   // Remove change listener
-  removeChangeListener: function(callback) {
-    this.removeListener('change', callback);
+  removeChangeListener(callback) {
+    this.removeListener("change", callback);
   }
-
 });
 
 // Register callback with AppDispatcher
-AppDispatcher.register(function(payload) {
-  var action = payload.action;
+AppDispatcher.register(payload => {
+  const { action } = payload;
 
-  switch(action.actionType) {
+  switch (action.actionType) {
     case ChatConstants.UPDATE_USER:
       userOnline = action.userOnline;
       break;

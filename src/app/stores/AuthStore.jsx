@@ -1,46 +1,46 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
-var EventEmitter = require('events').EventEmitter;
-var AuthConstants = require('../constants/AuthConstants.jsx');
-var _ = require('underscore');
+const { EventEmitter } = require("events");
+const _ = require("underscore");
+const AppDispatcher = require("../dispatcher/AppDispatcher.jsx");
+const AuthConstants = require("../constants/AuthConstants.jsx");
 
-var sessionInit = {
+const sessionInit = {
   _id: false
 };
 
-var session = sessionInit;
+let session = sessionInit;
 
-var AuthStore = _.extend({}, EventEmitter.prototype, {
-
+const AuthStore = _.extend({}, EventEmitter.prototype, {
   // Return Value
-  getSession: function() {
+  getSession() {
     return session;
   },
 
-  clearSession: function() {
+  clearSession() {
     return sessionInit;
   },
 
-  emitChange: function() {
-    this.emit('change');
+  emitChange() {
+    this.emit("change");
   },
 
-  addChangeListener: function(callback) {
-    this.on('change', callback);
+  addChangeListener(callback) {
+    this.on("change", callback);
   },
 
-  removeChangeListener: function(callback) {
-    this.removeListener('change', callback);
+  removeChangeListener(callback) {
+    this.removeListener("change", callback);
   }
-
 });
 
 // Register callback with AppDispatcher
-AppDispatcher.register(function(payload) {
-  var action = payload.action;
+AppDispatcher.register(payload => {
+  const { action } = payload;
 
-  switch(action.actionType) {
+  switch (action.actionType) {
     case AuthConstants.SESSION_INIT:
-      if (action.session) session = action.session;
+      if (action.session) {
+        session = action.session;
+      }
       break;
 
     case AuthConstants.AUTH_LOGOUT:

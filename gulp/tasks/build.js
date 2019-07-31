@@ -1,6 +1,6 @@
-var gulp = require('gulp');
+const gulp = require("gulp");
 
-gulp.task('build', ['webpack', 'less', 'js'], function() {
-  gulp.start('css');
-  gulp.start('minimize');
+gulp.task("build", ["webpack", "less", "js"], () => {
+  gulp.start("css");
+  gulp.start("minimize");
 });

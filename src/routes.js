@@ -1,52 +1,66 @@
-module.exports = function (app, passport) {
-
+module.exports = function(app, passport) {
   // ===========================================================================
   // HOME PAGE =================================================================
   // ===========================================================================
-  app.get('/', (req, res) => {
+  app.get("/", (req, res) => {
     const port = process.env.PORT || 8080;
 
-    res.render('index');
+    res.render("index");
   });
 
   // ===========================================================================
   // Auth ======================================================================
   // ===========================================================================
   // process the login form
-  app.post('/auth/login', passport.authenticate('local-login', {
-    successRedirect: '/#/profile',
-    failureRedirect: '/#/login',
-  }));
+  app.post(
+    "/auth/login",
+    passport.authenticate("local-login", {
+      successRedirect: "/#/profile",
+      failureRedirect: "/#/login"
+    })
+  );
 
   // process the signup form
-  app.post('/auth/signup', passport.authenticate('local-signup', {
-    successRedirect: '/#/profile',
-    failureRedirect: '/#/signup',
-  }));
+  app.post(
+    "/auth/signup",
+    passport.authenticate("local-signup", {
+      successRedirect: "/#/profile",
+      failureRedirect: "/#/signup"
+    })
+  );
 
   // ===========================================================================
   // FACEBOOK ROUTES ===========================================================
   // ===========================================================================
   // route for facebook authentication and login
-  app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
+  app.get(
+    "/auth/facebook",
+    passport.authenticate("facebook", { scope: "email" })
+  );
 
   // handle the callback after facebook has authenticated the user
-  app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-    successRedirect: '/#/profile',
-    failureRedirect: '/#/',
-  }));
+  app.get(
+    "/auth/facebook/callback",
+    passport.authenticate("facebook", {
+      successRedirect: "/#/profile",
+      failureRedirect: "/#/"
+    })
+  );
 
   // ===========================================================================
   // TWITTER ROUTES ============================================================
   // ===========================================================================
   // route for twitter authentication and login
-  app.get('/auth/twitter', passport.authenticate('twitter'));
+  app.get("/auth/twitter", passport.authenticate("twitter"));
 
   // handle the callback after twitter has authenticated the user
-  app.get('/auth/twitter/callback', passport.authenticate('twitter', {
-    successRedirect: '/#/profile',
-    failureRedirect: '/#/',
-  }));
+  app.get(
+    "/auth/twitter/callback",
+    passport.authenticate("twitter", {
+      successRedirect: "/#/profile",
+      failureRedirect: "/#/"
+    })
+  );
 
   // ===========================================================================
   // GOOGLE ROUTES =============================================================
@@ -54,100 +68,152 @@ module.exports = function (app, passport) {
   // send to google to do the authentication
   // profile gets us their basic information including their name
   // email gets their emails
-  app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+  app.get(
+    "/auth/google",
+    passport.authenticate("google", { scope: ["profile", "email"] })
+  );
 
   // the callback after google has authenticated the user
-  app.get('/auth/google/callback', passport.authenticate('google', {
-    successRedirect: '/#/profile',
-    failureRedirect: '/#/',
-  }));
+  app.get(
+    "/auth/google/callback",
+    passport.authenticate("google", {
+      successRedirect: "/#/profile",
+      failureRedirect: "/#/"
+    })
+  );
 
   // ===========================================================================
   // GITHUB ROUTES =============================================================
   // ===========================================================================
   // route for github authentication and login
-  app.get('/auth/github', passport.authenticate('github'));
+  app.get("/auth/github", passport.authenticate("github"));
 
   // handle the callback after github has authenticated the user
-  app.get('/auth/github/callback', passport.authenticate('github', {
-    successRedirect: '/#/profile',
-    failureRedirect: '/#/',
-  }));
+  app.get(
+    "/auth/github/callback",
+    passport.authenticate("github", {
+      successRedirect: "/#/profile",
+      failureRedirect: "/#/"
+    })
+  );
 
   // ===========================================================================
   // VK ROUTES =================================================================
   // ===========================================================================
   // route for vk authentication and login
-  app.get('/auth/vkontakte', passport.authenticate('vkontakte'));
+  app.get("/auth/vkontakte", passport.authenticate("vkontakte"));
 
   // handle the callback after vk has authenticated the user
-  app.get('/auth/vkontakte/callback', passport.authenticate('vkontakte', {
-    successRedirect: '/#/login',
-    failureRedirect: '/#/',
-  }));
+  app.get(
+    "/auth/vkontakte/callback",
+    passport.authenticate("vkontakte", {
+      successRedirect: "/#/login",
+      failureRedirect: "/#/"
+    })
+  );
 
   // ===========================================================================
   // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) ===========
   // ===========================================================================
   // locally -------------------------------------------------------------------
-  app.get('/connect/local', isLoggedIn, (req, res) => {
-    res.redirect('/#/profile');
+  app.get("/connect/local", isLoggedIn, (req, res) => {
+    res.redirect("/#/profile");
   });
-  app.post('/connect/local', isLoggedIn, passport.authenticate('local-signup', {
-    successRedirect: '/#/profile',
-    failureRedirect: '/#/connect/local',
-    failureFlash: true,
-  }));
+  app.post(
+    "/connect/local",
+    isLoggedIn,
+    passport.authenticate("local-signup", {
+      successRedirect: "/#/profile",
+      failureRedirect: "/#/connect/local",
+      failureFlash: true
+    })
+  );
 
   // facebook ------------------------------------------------------------------
   // send to facebook to do the authentication
-  app.get('/connect/facebook', isLoggedIn, passport.authorize('facebook', { scope: 'email' }));
+  app.get(
+    "/connect/facebook",
+    isLoggedIn,
+    passport.authorize("facebook", { scope: "email" })
+  );
 
   // handle the callback after facebook has authorized the user
-  app.get('/connect/facebook/callback', isLoggedIn, passport.authorize('facebook', {
-    successRedirect: '/#/profile',
-    failureRedirect: '/',
-  }));
+  app.get(
+    "/connect/facebook/callback",
+    isLoggedIn,
+    passport.authorize("facebook", {
+      successRedirect: "/#/profile",
+      failureRedirect: "/"
+    })
+  );
 
   // twitter -------------------------------------------------------------------
   // send to twitter to do the authentication
-  app.get('/connect/twitter', isLoggedIn, passport.authorize('twitter'));
+  app.get("/connect/twitter", isLoggedIn, passport.authorize("twitter"));
 
   // handle the callback after twitter has authorized the user
-  app.get('/connect/twitter/callback', isLoggedIn, passport.authorize('twitter', {
-    successRedirect: '/#/profile',
-    failureRedirect: '/',
-  }));
+  app.get(
+    "/connect/twitter/callback",
+    isLoggedIn,
+    passport.authorize("twitter", {
+      successRedirect: "/#/profile",
+      failureRedirect: "/"
+    })
+  );
 
   // google --------------------------------------------------------------------
   // send to google to do the authentication
-  app.get('/connect/google', isLoggedIn, passport.authorize('google', { scope: ['profile', 'email'] }));
+  app.get(
+    "/connect/google",
+    isLoggedIn,
+    passport.authorize("google", { scope: ["profile", "email"] })
+  );
 
   // the callback after google has authorized the user
-  app.get('/connect/google/callback', isLoggedIn, passport.authorize('google', {
-    successRedirect: '/#/profile',
-    failureRedirect: '/',
-  }));
+  app.get(
+    "/connect/google/callback",
+    isLoggedIn,
+    passport.authorize("google", {
+      successRedirect: "/#/profile",
+      failureRedirect: "/"
+    })
+  );
 
   // github --------------------------------------------------------------------
   // send to google to do the authentication
-  app.get('/connect/github', isLoggedIn, passport.authorize('github', { scope: 'email' }));
+  app.get(
+    "/connect/github",
+    isLoggedIn,
+    passport.authorize("github", { scope: "email" })
+  );
 
   // the callback after google has authorized the user
-  app.get('/connect/github/callback', isLoggedIn, passport.authorize('github', {
-    successRedirect: '/#/profile',
-    failureRedirect: '/',
-  }));
+  app.get(
+    "/connect/github/callback",
+    isLoggedIn,
+    passport.authorize("github", {
+      successRedirect: "/#/profile",
+      failureRedirect: "/"
+    })
+  );
 
   // vkontakte -----------------------------------------------------------------
   // send to google to do the authentication
-  app.get('/connect/vkontakte', isLoggedIn, passport.authorize('vkontakte', { scope: 'email' }));
+  app.get(
+    "/connect/vkontakte",
+    isLoggedIn,
+    passport.authorize("vkontakte", { scope: "email" })
+  );
 
   // the callback after google has authorized the user
-  app.get('/connect/vkontakte/callback', isLoggedIn, passport.authorize('vkontakte', {
-    successRedirect: '/#/profile',
-    failureRedirect: '/',
-  }));
+  app.get(
+    "/connect/vkontakte/callback",
+    isLoggedIn,
+    passport.authorize("vkontakte", {
+      successRedirect: "/#/profile",
+      failureRedirect: "/"
+    })
+  );
 
   // ===========================================================================
   // UNLINK ACCOUNTS ===========================================================
@@ -156,69 +222,71 @@ module.exports = function (app, passport) {
   // for local account, remove email and password
   // user account will stay active in case they want to reconnect in the future
   // local ---------------------------------------------------------------------
-  app.get('/unlink/local', isLoggedIn, (req, res) => {
-    const user = req.user;
+  app.get("/unlink/local", isLoggedIn, (req, res) => {
+    const { user } = req;
     user.local.email = undefined;
     user.local.password = undefined;
     user.save(err => {
-      res.redirect('/#/profile');
+      res.redirect("/#/profile");
     });
   });
 
   // facebook ----------------------------------------------------------------
-  app.get('/unlink/facebook', isLoggedIn, (req, res) => {
-    const user = req.user;
+  app.get("/unlink/facebook", isLoggedIn, (req, res) => {
+    const { user } = req;
     user.facebook.token = undefined;
     user.save(err => {
-      res.redirect('/#/profile');
+      res.redirect("/#/profile");
     });
   });
 
   // twitter -----------------------------------------------------------------
-  app.get('/unlink/twitter', isLoggedIn, (req, res) => {
-    const user = req.user;
+  app.get("/unlink/twitter", isLoggedIn, (req, res) => {
+    const { user } = req;
     user.twitter.token = undefined;
     user.save(err => {
-      res.redirect('/#/profile');
+      res.redirect("/#/profile");
     });
   });
 
   // google ------------------------------------------------------------------
-  app.get('/unlink/google', isLoggedIn, (req, res) => {
-    const user = req.user;
+  app.get("/unlink/google", isLoggedIn, (req, res) => {
+    const { user } = req;
     user.google.token = undefined;
     user.save(err => {
-      res.redirect('/#/profile');
+      res.redirect("/#/profile");
     });
   });
 
   // github ------------------------------------------------------------------
-  app.get('/unlink/github', isLoggedIn, (req, res) => {
-    const user = req.user;
+  app.get("/unlink/github", isLoggedIn, (req, res) => {
+    const { user } = req;
     user.github.token = undefined;
     user.save(err => {
-      res.redirect('/#/profile');
+      res.redirect("/#/profile");
     });
   });
 
   // vkontakte ---------------------------------------------------------------
-  app.get('/unlink/vkontakte', isLoggedIn, (req, res) => {
-    const user = req.user;
+  app.get("/unlink/vkontakte", isLoggedIn, (req, res) => {
+    const { user } = req;
     user.vkontakte.token = undefined;
     user.save(err => {
-      res.redirect('/#/profile');
+      res.redirect("/#/profile");
     });
   });
 
   // user logout
-  app.get('/api/auth/logout', (req, res) => {
+  app.get("/api/auth/logout", (req, res) => {
     req.logout();
-    res.redirect('/');
+    res.redirect("/");
   });
 
   // user info data
-  app.get('/api/user', (req, res) => {
-    if (req.isAuthenticated()) { return res.status(200).json({ session: req.user }); }
+  app.get("/api/user", (req, res) => {
+    if (req.isAuthenticated()) {
+      return res.status(200).json({ session: req.user });
+    }
 
     return res.status(200).json({ session: false });
   });
@@ -226,10 +294,11 @@ module.exports = function (app, passport) {
   // route middleware to make sure a user is logged in
   function isLoggedIn(req, res, next) {
     // if user is authentificated in the session, carry on
-    if (req.isAuthenticated()) { return next(); }
+    if (req.isAuthenticated()) {
+      return next();
+    }
 
     // if the aren't redirect them to the home page
-    res.redirect('/#/login');
+    res.redirect("/#/login");
   }
-
 };

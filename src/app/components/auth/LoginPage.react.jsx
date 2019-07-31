@@ -1,15 +1,15 @@
-var React = require('react');
-var DocumentTitle = require('react-document-title');
-var AuthActions = require('../../actions/AuthActions.jsx');
-var AuthStore = require('../../stores/AuthStore.jsx');
+const React = require("react");
+const DocumentTitle = require("react-document-title");
+const mui = require("material-ui");
+const AuthActions = require("../../actions/AuthActions.jsx");
+const AuthStore = require("../../stores/AuthStore.jsx");
 
-var mui = require('material-ui');
-var RaisedButton = mui.RaisedButton;
-var FlatButton = mui.FlatButton;
-var TextField = mui.TextField;
+const { RaisedButton } = mui;
+const { FlatButton } = mui;
+const { TextField } = mui;
 
-var LoginPage = React.createClass({
-  getInitialState: function() {
+const LoginPage = React.createClass({
+  getInitialState() {
     AuthActions.initSession();
 
     return {
@@ -20,74 +20,78 @@ var LoginPage = React.createClass({
     };
   },
 
-  validate: function () {
-    var form = {
+  validate() {
+    const form = {
       email: this.refs.email.getValue(),
       password: this.refs.password.getValue()
     };
 
     // Check email
     if (!form.email) {
-      this.setState({emailError: "Email cannot be empty!"});
+      this.setState({ emailError: "Email cannot be empty!" });
       form.email = false;
     } else {
-      this.setState({emailError: null});
+      this.setState({ emailError: null });
     }
 
     // Check password
     if (!form.password) {
-      this.setState({passwordError: "Password cannot be empty!"});
+      this.setState({ passwordError: "Password cannot be empty!" });
       form.password = false;
     } else if (form.password.length < 8) {
-      this.setState({passwordError: "The password must contain at least 8 characters"});
+      this.setState({
+        passwordError: "The password must contain at least 8 characters"
+      });
       form.password = false;
     } else {
-      this.setState({passwordError: null});
+      this.setState({ passwordError: null });
     }
 
     return form.email && form.password;
   },
 
-  componentDidMount: function() {
+  componentDidMount() {
     AuthStore.addChangeListener(this._onChange);
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     AuthStore.removeChangeListener(this._onChange);
   },
 
-  render: function() {
+  render() {
     return (
-      <DocumentTitle title='Login | Flux • Chat'>
+      <DocumentTitle title="Login | Flux • Chat">
         <div>
           <h1 className="row center-xs">Login</h1>
-          <div className="row center-xs" >
-
+          <div className="row center-xs">
             <FlatButton
               className="btn btn-facebook"
               href="/auth/facebook"
-              label="Facebook" />
+              label="Facebook"
+            />
             <FlatButton
               className="btn btn-twitter"
               href="/auth/twitter"
-              label="Twitter" />
+              label="Twitter"
+            />
             <FlatButton
               className="btn btn-google"
               href="/auth/google"
-              label="Google" />
+              label="Google"
+            />
             <FlatButton
               className="btn btn-github"
               href="/auth/github"
-              label="Github" />
+              label="Github"
+            />
             <FlatButton
               className="btn btn-vk"
               href="/auth/vkontakte"
-              label="VK" />
-
+              label="VK"
+            />
           </div>
 
           <form action="/auth/login" method="post">
-
             <div className="row center-xs">
               <div className="col-xs-3">
                 <div className="box">
@@ -96,10 +100,11 @@ var LoginPage = React.createClass({
                     onBlur={this.validate}
                     hintText="Hint Email"
                     floatingLabelText="Email"
-                    required={true}
+                    required
                     errorText={this.state.emailError}
                     name="email"
-                    type="email" />
+                    type="email"
+                  />
                 </div>
               </div>
 
@@ -110,10 +115,11 @@ var LoginPage = React.createClass({
                     onBlur={this.validate}
                     hintText="Hint Password"
                     floatingLabelText="Password"
-                    required={true}
+                    required
                     errorText={this.state.passwordError}
                     name="password"
-                    type="password" />
+                    type="password"
+                  />
                 </div>
               </div>
             </div>
@@ -128,18 +134,23 @@ var LoginPage = React.createClass({
 
             <div className="row center-xs">
               <div className="box">
-                <p>Need an account? <a href="/#/signup">Signup</a></p>
-                <p>Or go? <a href="/#/">home</a>.</p>
+                <p>
+                  Need an account?
+                  <a href="/#/signup">Signup</a>
+                </p>
+                <p>
+                  Or go?
+                  <a href="/#/">home</a>.
+                </p>
               </div>
             </div>
-
           </form>
         </div>
       </DocumentTitle>
     );
   },
 
-  _onChange: function() {
+  _onChange() {
     if (this.isMounted()) {
       if (this.state.session._id) {
         return window.location.replace("/#/profile");

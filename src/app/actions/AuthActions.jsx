@@ -1,39 +1,34 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
-var AuthConstants = require('../constants/AuthConstants.jsx');
-var socket = io.connect();
-var request = require('superagent');
+const AppDispatcher = require("../dispatcher/AppDispatcher.jsx");
+const AuthConstants = require("../constants/AuthConstants.jsx");
 
-var AuthActions = {
+const socket = io.connect();
+const request = require("superagent");
 
-  logoutAuth: function() {
-    request
-      .get('/api/auth/logout')
-      .end(function(err, res) {
-        AppDispatcher.handleAction({
-          actionType: AuthConstants.AUTH_LOGOUT
-        });
-
-        return window.location.reload();
+const AuthActions = {
+  logoutAuth() {
+    request.get("/api/auth/logout").end((err, res) => {
+      AppDispatcher.handleAction({
+        actionType: AuthConstants.AUTH_LOGOUT
       });
+
+      return window.location.reload();
+    });
   },
 
-  initSession: function() {
-    request
-      .get('/api/user')
-      .end(function(err, res) {
-        res = JSON.parse(res.text);
+  initSession() {
+    request.get("/api/user").end((err, res) => {
+      res = JSON.parse(res.text);
 
-        if (res) {
-          AppDispatcher.handleAction({
-            actionType: AuthConstants.SESSION_INIT,
-            session: res.session
-          });
-        } else {
-          return window.location.replace("/#/login");
-        }
-      });
+      if (res) {
+        AppDispatcher.handleAction({
+          actionType: AuthConstants.SESSION_INIT,
+          session: res.session
+        });
+      } else {
+        return window.location.replace("/#/login");
+      }
+    });
   }
-
 };
 
 module.exports = AuthActions;

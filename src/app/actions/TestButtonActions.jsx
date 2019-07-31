@@ -1,22 +1,21 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher.jsx');
-var ButtonConstants = require('../constants/ButtonConstants.jsx');
-var socket = io.connect();
+const AppDispatcher = require("../dispatcher/AppDispatcher.jsx");
+const ButtonConstants = require("../constants/ButtonConstants.jsx");
+
+const socket = io.connect();
 
 // Define action methods
-var TestButtonActions = {
-
-  addValue: function(count) {
-    socket.emit('addCount', count);
+const TestButtonActions = {
+  addValue(count) {
+    socket.emit("addCount", count);
   },
 
-  initValue: function() {
-    socket.emit('startCount');
+  initValue() {
+    socket.emit("startCount");
   },
 
-  socketSession: function() {
-    socket.emit('socketSession');
+  socketSession() {
+    socket.emit("socketSession");
   }
-
 };
 
 module.exports = TestButtonActions;

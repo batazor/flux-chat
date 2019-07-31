@@ -1,26 +1,26 @@
-var React = require('react');
-var DocumentTitle = require('react-document-title');
-var LocaleActions = require('../actions/LocaleActions.jsx');
-var TestButtonActions = require('../actions/TestButtonActions.jsx');
-var ButtonStore = require('../stores/ButtonStore.jsx');
-var AuthActions = require('../actions/AuthActions.jsx');
-var AuthStore = require('../stores/AuthStore.jsx');
+const React = require("react");
+const DocumentTitle = require("react-document-title");
+const mui = require("material-ui");
+const LocaleActions = require("../actions/LocaleActions.jsx");
+const TestButtonActions = require("../actions/TestButtonActions.jsx");
+const ButtonStore = require("../stores/ButtonStore.jsx");
+const AuthActions = require("../actions/AuthActions.jsx");
+const AuthStore = require("../stores/AuthStore.jsx");
 
 // var IntlMixin = require('react-intl');
 // var i18nLoader = require('../utils/i18n');
 
-var mui = require('material-ui');
-var RaisedButton = mui.RaisedButton;
+const { RaisedButton } = mui;
 
-var HelloWorld = React.createClass({
+const HelloWorld = React.createClass({
   // mixins: [IntlMixin],
 
-  handleLocaleChange: function(e) {
+  handleLocaleChange(e) {
     LocaleActions.updateLocale(e.target.value);
   },
 
   // Get initial state from stores
-  getInitialState: function() {
+  getInitialState() {
     TestButtonActions.initValue();
     AuthActions.initSession();
 
@@ -31,42 +31,49 @@ var HelloWorld = React.createClass({
   },
 
   // ADD COUNT VALUE
-  addCount: function() {
+  addCount() {
     TestButtonActions.addValue(this.state.value);
   },
 
   // consoleData
-  consoleData: function() {
+  consoleData() {
     TestButtonActions.socketSession();
   },
 
   // Add change listeners to stores
-  componentDidMount: function() {
+  componentDidMount() {
     ButtonStore.addChangeListener(this._onChange);
     AuthStore.addChangeListener(this._onChange);
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     ButtonStore.removeChangeListener(this._onChange);
     AuthStore.removeChangeListener(this._onChange);
   },
 
-  render: function() {
-    var sessionStatus = this.state.session._id ? false : true;
+  render() {
+    const sessionStatus = !this.state.session._id;
 
     return (
-      <DocumentTitle title='Hello World | Flux • Chat'>
+      <DocumentTitle title="Hello World | Flux • Chat">
         <div>
           <h1 className="row center-xs">test socket.io</h1>
 
           <div className="row center-xs">
             <RaisedButton onClick={this.addCount} label="ADD COUNT" />
           </div>
-          <p className="row center-xs">Value: { this.state.value }</p>
+          <p className="row center-xs">
+            Value:
+            {this.state.value}
+          </p>
 
           <h1 className="row center-xs">test session</h1>
           <div className="row center-xs">
-            <RaisedButton onClick={this.consoleData} label="Session Socket" disabled={sessionStatus} />
+            <RaisedButton
+              onClick={this.consoleData}
+              label="Session Socket"
+              disabled={sessionStatus}
+            />
           </div>
 
           <h1 className="row center-xs">test i18n</h1>
@@ -81,14 +88,13 @@ var HelloWorld = React.createClass({
               <option value="de">Deutsch</option>
             </select>
           </div>
-
         </div>
       </DocumentTitle>
     );
   },
 
   // Method to setState based upon Store changes
-  _onChange: function() {
+  _onChange() {
     if (this.isMounted()) {
       this.setState({ value: ButtonStore.getValue() });
       this.setState({ session: AuthStore.getSession() });

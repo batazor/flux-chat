@@ -1,37 +1,36 @@
-var React = require('react');
-var UserOnlineStore = require('../../stores/UserOnlineStore.jsx');
-var _ = require('underscore');
+const React = require("react");
+const _ = require("underscore");
 
-var mui = require('material-ui');
-var FlatButton = mui.FlatButton;
+const mui = require("material-ui");
+const UserOnlineStore = require("../../stores/UserOnlineStore.jsx");
 
-var getUserOnlineIcon = function(user) {
+const { FlatButton } = mui;
+
+const getUserOnlineIcon = function(user) {
   return (
-    <FlatButton className="center-xs" mini={true} key={user._id}>
+    <FlatButton className="center-xs" mini key={user._id}>
       <img src={user.avatar} />
     </FlatButton>
   );
 };
 
-var UserSection = React.createClass({
-
-  getInitialState: function() {
+const UserSection = React.createClass({
+  getInitialState() {
     return {
       user: UserOnlineStore.getUserOnline()
     };
   },
 
-  componentDidMount: function() {
+  componentDidMount() {
     UserOnlineStore.addChangeListener(this._onChange);
   },
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     UserOnlineStore.removeChangeListener(this._onChange);
   },
 
-  render: function() {
-
-    var UserOnlineItems = _.map(this.state.user, getUserOnlineIcon);
+  render() {
+    const UserOnlineItems = _.map(this.state.user, getUserOnlineIcon);
 
     return (
       <div className="col-xs chat-app user-section">
@@ -41,22 +40,19 @@ var UserSection = React.createClass({
           </div>
         </div>
         <div className="row">
-          <div className="col-xs">
-            {UserOnlineItems}
-          </div>
+          <div className="col-xs">{UserOnlineItems}</div>
         </div>
       </div>
     );
   },
 
-  _onChange: function() {
+  _onChange() {
     if (this.isMounted()) {
       this.setState({
         user: UserOnlineStore.getUserOnline()
       });
     }
   }
-
 });
 
 module.exports = UserSection;

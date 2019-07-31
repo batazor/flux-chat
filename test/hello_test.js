@@ -1,9 +1,7 @@
-var expect = chai.expect;
+const { expect } = chai;
 
-describe('Hello test', function(){
-
-  it('Welcome. Good', function(){
+describe("Hello test", () => {
+  it("Welcome. Good", () => {
     expect(true).to.be.true;
   });
-
 });
