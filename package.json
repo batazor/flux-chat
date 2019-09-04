@@ -99,7 +99,7 @@
     "react-remarkable": "1.1.3",
     "react-router": "^5.0.1",
     "react-router-proxy-loader": "0.5.1",
-    "react-side-effect": "1.2.0",
+    "react-side-effect": "2.1.0",
     "react-tap-event-plugin": "^3.0.3",
     "require-dir": "^1.2.0",
     "superagent": "^5.1.0",
