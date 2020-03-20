@@ -42,7 +42,7 @@
     "intl": "^1.2.5",
     "jade": "^1.9.2",
     "mongoose": "^5.9.5",
-    "morgan": "^1.5.2",
+    "morgan": "^1.10.0",
     "nodemon": "^1.19.4",
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",
