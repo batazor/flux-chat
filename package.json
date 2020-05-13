@@ -41,7 +41,7 @@
     "history": "^4.10.1",
     "intl": "^1.2.5",
     "jade": "^1.9.2",
-    "mongoose": "^5.9.13",
+    "mongoose": "^5.9.14",
     "morgan": "^1.10.0",
     "nodemon": "^1.19.4",
     "passport": "^0.4.1",
