@@ -38,7 +38,7 @@
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "history": "^4.10.1",
+    "history": "^5.0.0",
     "intl": "^1.2.5",
     "jade": "^1.9.2",
     "mongoose": "^5.9.18",
