@@ -43,7 +43,7 @@
     "jade": "^1.9.2",
     "mongoose": "^5.13.9",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.12",
+    "nodemon": "^2.0.13",
     "passport": "^0.4.1",
     "passport-facebook": "^3.0.0",
     "passport-github": "^1.1.0",
