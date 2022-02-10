@@ -104,6 +104,6 @@
     "require-dir": "^1.2.0",
     "superagent": "^6.1.0",
     "webpack": "^5.65.0",
-    "webpack-dev-server": "^4.0.0"
+    "webpack-dev-server": "^4.7.4"
   }
 }
