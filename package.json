@@ -58,7 +58,7 @@
     "react-hot-loader": "^4.13.1",
     "react-router-dom": "^5.3.3",
     "serve-favicon": "^2.2.0",
-    "socket.io": "^4.0.0",
+    "socket.io": "^4.5.3",
     "underscore": "^1.13.4"
   },
   "devDependencies": {
