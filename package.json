@@ -43,7 +43,7 @@
     "pug": "^2.0.0",
     "mongoose": "^6.7.3",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.20",
+    "nodemon": "^2.0.22",
     "passport": "^0.6.0",
     "passport-facebook": "^3.0.0",
     "passport-github": "^1.1.0",
