@@ -40,7 +40,7 @@
     "express-session": "^1.18.0",
     "history": "^4.10.1",
     "intl": "^1.2.5",
-    "pug": "^2.0.0",
+    "pug": "^3.0.0",
     "mongoose": "^6.12.8",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.22",
