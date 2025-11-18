@@ -34,7 +34,7 @@
     "body-parser": "^1.20.2",
     "compression": "^1.7.4",
     "connect-flash": "^0.1.1",
-    "connect-mongo": "^3.2.0",
+    "connect-mongo": "^5.1.0",
     "cookie-parser": "^1.4.6",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
