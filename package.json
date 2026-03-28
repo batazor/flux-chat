@@ -32,7 +32,7 @@
     "bcrypt-nodejs": "0.0.3",
     "blueimp-md5": "^2.19.0",
     "body-parser": "^1.20.4",
-    "compression": "^1.7.4",
+    "compression": "^1.8.1",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^3.2.0",
     "cookie-parser": "^1.4.7",
