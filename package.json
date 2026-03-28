@@ -59,7 +59,7 @@
     "react-router-dom": "^5.3.4",
     "serve-favicon": "^2.5.1",
     "socket.io": "^4.7.5",
-    "underscore": "^1.13.6"
+    "underscore": "^1.13.8"
   },
   "devDependencies": {
     "babel-core": "6.26.3",
