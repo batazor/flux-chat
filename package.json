@@ -87,7 +87,7 @@
     "gulp-nodemon": "^2.5.0",
     "gulp-notify": "4.0.0",
     "gulp-plumber": "^1.2.1",
-    "gulp-sourcemaps": "^2.6.5",
+    "gulp-sourcemaps": "^3.0.0",
     "gulp-uglify": "^3.0.2",
     "gulp-util": "3.0.8",
     "gulp-webpack": "1.5.0",
